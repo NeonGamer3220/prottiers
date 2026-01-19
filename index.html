@@ -1,2 +1,183 @@
-<link rel="stylesheet" href="style.css" />
-<script src="script.js" defer></script>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ProtTiers</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-red">Prot</span><span class="brand-green">Tiers</span>
+    </div>
+
+    <nav class="nav">
+      <a href="#" class="navlink active">Főoldal</a>
+      <a href="#" class="navlink">Discord</a>
+      <a href="#" class="navlink">Mod</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <section class="panel">
+      <div class="panel-head">
+        <h1 class="title">Tierlist</h1>
+        <p class="subtitle">ProtTiers – leaderboard mock (static, free)</p>
+      </div>
+
+      <!-- Tabs -->
+      <div class="tabs" role="tablist" aria-label="Modes">
+        <button class="tab active" data-tab="vanilla" role="tab">Vanilla</button>
+        <button class="tab" data-tab="uhc" role="tab">UHC</button>
+        <button class="tab" data-tab="pot" role="tab">Pot</button>
+        <button class="tab" data-tab="smp" role="tab">SMP</button>
+        <button class="tab" data-tab="netherpot" role="tab">NetherPot</button>
+      </div>
+
+      <!-- Tab content -->
+      <div class="tabpanes">
+        <!-- VANILLA -->
+        <section class="tabpane show" id="tab-vanilla" role="tabpanel">
+          <div class="board">
+            <div class="row top1">
+              <div class="rank">1</div>
+              <img class="avatar" src="https://mc-heads.net/avatar/Notch/48" alt="skin" />
+              <div class="mid">
+                <div class="name">Notch</div>
+                <div class="points">234 Pont</div>
+              </div>
+              <div class="badges">
+                <span class="badge b-purple" title="Tier badge">★</span>
+                <span class="badge b-gold" title="Gold">✦</span>
+                <span class="badge b-green" title="Win">✓</span>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="rank">2</div>
+              <img class="avatar" src="https://mc-heads.net/avatar/Dream/48" alt="skin" />
+              <div class="mid">
+                <div class="name">Dream</div>
+                <div class="points">190 Pont</div>
+              </div>
+              <div class="badges">
+                <span class="badge b-purple">★</span>
+                <span class="badge b-red">!</span>
+                <span class="badge b-green">✓</span>
+              </div>
+            </div>
+
+            <div class="row top3">
+              <div class="rank">3</div>
+              <img class="avatar" src="https://mc-heads.net/avatar/Technoblade/48" alt="skin" />
+              <div class="mid">
+                <div class="name">Technoblade</div>
+                <div class="points">165 Pont</div>
+              </div>
+              <div class="badges">
+                <span class="badge b-gold">✦</span>
+                <span class="badge b-purple">★</span>
+                <span class="badge b-green">✓</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- UHC -->
+        <section class="tabpane" id="tab-uhc" role="tabpanel">
+          <div class="board">
+            <div class="row top1">
+              <div class="rank">1</div>
+              <img class="avatar" src="https://mc-heads.net/avatar/Steve/48" alt="skin" />
+              <div class="mid">
+                <div class="name">Steve</div>
+                <div class="points">221 Pont</div>
+              </div>
+              <div class="badges">
+                <span class="badge b-purple">★</span>
+                <span class="badge b-gold">✦</span>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="rank">2</div>
+              <img class="avatar" src="https://mc-heads.net/avatar/Alex/48" alt="skin" />
+              <div class="mid">
+                <div class="name">Alex</div>
+                <div class="points">178 Pont</div>
+              </div>
+              <div class="badges">
+                <span class="badge b-purple">★</span>
+                <span class="badge b-red">!</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- POT -->
+        <section class="tabpane" id="tab-pot" role="tabpanel">
+          <div class="board">
+            <div class="row">
+              <div class="rank">1</div>
+              <img class="avatar" src="https://mc-heads.net/avatar/Hypixel/48" alt="skin" />
+              <div class="mid">
+                <div class="name">Hypixel</div>
+                <div class="points">250 Pont</div>
+              </div>
+              <div class="badges">
+                <span class="badge b-purple">★</span>
+                <span class="badge b-green">✓</span>
+                <span class="badge b-gold">✦</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SMP -->
+        <section class="tabpane" id="tab-smp" role="tabpanel">
+          <div class="board">
+            <div class="row">
+              <div class="rank">1</div>
+              <img class="avatar" src="https://mc-heads.net/avatar/Jeb_/48" alt="skin" />
+              <div class="mid">
+                <div class="name">Jeb_</div>
+                <div class="points">199 Pont</div>
+              </div>
+              <div class="badges">
+                <span class="badge b-purple">★</span>
+                <span class="badge b-green">✓</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- NETHERPOT -->
+        <section class="tabpane" id="tab-netherpot" role="tabpanel">
+          <div class="board">
+            <div class="row">
+              <div class="rank">1</div>
+              <img class="avatar" src="https://mc-heads.net/avatar/Herobrine/48" alt="skin" />
+              <div class="mid">
+                <div class="name">Herobrine</div>
+                <div class="points">666 Pont</div>
+              </div>
+              <div class="badges">
+                <span class="badge b-red">!</span>
+                <span class="badge b-purple">★</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>ProtTiers • Free HTML version</span>
+  </footer>
+</body>
+</html>
