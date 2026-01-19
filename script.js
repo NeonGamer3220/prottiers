@@ -1,13 +1,9 @@
-const tabs = document.querySelectorAll(".tab");
-const panes = document.querySelectorAll(".pane");
+const modes = document.querySelectorAll(".gamemode");
 
-function showTab(key){
-  tabs.forEach(t => {
-    const on = t.dataset.tab === key;
-    t.classList.toggle("active", on);
+modes.forEach(m => {
+  m.addEventListener("click", (e) => {
+    e.preventDefault();
+    modes.forEach(x => x.classList.remove("active"));
+    m.classList.add("active");
   });
-
-  panes.forEach(p => p.classList.toggle("show", p.id === `tab-${key}`));
-}
-
-tabs.forEach(t => t.addEventListener("click", () => showTab(t.dataset.tab)));
+});
