@@ -1,18 +1,14 @@
-const tabs = document.querySelectorAll(".tab");
-const panes = document.querySelectorAll(".tabpane");
+const tabs = document.querySelectorAll(".mode");
+const panes = document.querySelectorAll(".pane");
 
-function showTab(key) {
+function showTab(key){
   tabs.forEach(t => {
-    const isActive = t.dataset.tab === key;
-    t.classList.toggle("active", isActive);
-    t.setAttribute("aria-selected", isActive ? "true" : "false");
+    const on = t.dataset.tab === key;
+    t.classList.toggle("active", on);
+    t.setAttribute("aria-selected", on ? "true" : "false");
   });
 
-  panes.forEach(p => {
-    p.classList.toggle("show", p.id === `tab-${key}`);
-  });
+  panes.forEach(p => p.classList.toggle("show", p.id === `tab-${key}`));
 }
 
-tabs.forEach(tab => {
-  tab.addEventListener("click", () => showTab(tab.dataset.tab));
-});
+tabs.forEach(t => t.addEventListener("click", () => showTab(t.dataset.tab)));
