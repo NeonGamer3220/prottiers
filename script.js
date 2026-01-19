@@ -2,8 +2,15 @@ const tabs = document.querySelectorAll(".tab");
 const panes = document.querySelectorAll(".tabpane");
 
 function showTab(key) {
-  tabs.forEach(t => t.classList.toggle("active", t.dataset.tab === key));
-  panes.forEach(p => p.classList.toggle("show", p.id === `tab-${key}`));
+  tabs.forEach(t => {
+    const isActive = t.dataset.tab === key;
+    t.classList.toggle("active", isActive);
+    t.setAttribute("aria-selected", isActive ? "true" : "false");
+  });
+
+  panes.forEach(p => {
+    p.classList.toggle("show", p.id === `tab-${key}`);
+  });
 }
 
 tabs.forEach(tab => {
