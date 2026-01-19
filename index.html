@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>ProtTiers</title>
+
   <link rel="stylesheet" href="./style.css" />
   <script src="./script.js" defer></script>
 </head>
@@ -11,137 +12,126 @@
 <body>
   <!-- TOP BAR -->
   <header class="topbar">
-    <div class="topbar-inner">
-      <div class="logo">Prot<span class="logoGlow">Tiers</span></div>
+    <div class="topbar__inner">
+      <div class="logo">Prot<span class="logo__glow">Tiers</span></div>
 
       <nav class="nav">
-        <a class="navlink active" href="#">Főoldal</a>
-        <a class="navlink" href="#">Discord</a>
-        <a class="navlink" href="#">Mod</a>
+        <a class="nav__link nav__link--active" href="#">Főoldal</a>
+        <a class="nav__link" href="#">Discord</a>
+        <a class="nav__link" href="#">Mod</a>
       </nav>
 
       <div class="search">
-        <input class="searchInput" placeholder="Keresés..." />
-        <button class="searchBtn" aria-label="Search">⌕</button>
+        <input class="search__input" placeholder="Keresés..." />
+        <button class="search__btn" aria-label="Search">⌕</button>
       </div>
     </div>
   </header>
 
-  <!-- CENTERED APP CARD -->
+  <!-- CENTERED APP -->
   <main class="app">
-    <section class="card">
+    <section class="panel">
 
-      <!-- ICON TABS (LIKE OFFICIAL) -->
+      <!-- GAMEMODE TABS -->
       <div class="tabs" role="tablist" aria-label="Gamemodes">
-        <button class="tab active" data-tab="vanilla" role="tab">
+        <button class="tab tab--active" data-tab="vanilla">
           <img src="https://mc-heads.net/item/end_crystal" alt="" />
           <span>Vanilla</span>
         </button>
-
-        <button class="tab" data-tab="uhc" role="tab">
+        <button class="tab" data-tab="uhc">
           <img src="https://mc-heads.net/item/golden_apple" alt="" />
           <span>UHC</span>
         </button>
-
-        <button class="tab" data-tab="pot" role="tab">
+        <button class="tab" data-tab="pot">
           <img src="https://mc-heads.net/item/potion" alt="" />
           <span>Pot</span>
         </button>
-
-        <button class="tab" data-tab="nethpot" role="tab">
+        <button class="tab" data-tab="nethpot">
           <img src="https://mc-heads.net/item/netherite_helmet" alt="" />
           <span>NethPot</span>
         </button>
-
-        <button class="tab" data-tab="smp" role="tab">
+        <button class="tab" data-tab="smp">
           <img src="https://mc-heads.net/item/ender_pearl" alt="" />
           <span>SMP</span>
         </button>
-
-        <button class="tab" data-tab="sword" role="tab">
+        <button class="tab" data-tab="sword">
           <img src="https://mc-heads.net/item/diamond_sword" alt="" />
           <span>Sword</span>
         </button>
-
-        <button class="tab" data-tab="axe" role="tab">
+        <button class="tab" data-tab="axe">
           <img src="https://mc-heads.net/item/diamond_axe" alt="" />
           <span>Axe</span>
         </button>
-
-        <!-- Mace icon fallback that exists -->
-        <button class="tab" data-tab="mace" role="tab">
+        <!-- Mace icon: use ANVIL (always exists) -->
+        <button class="tab" data-tab="mace">
           <img src="https://mc-heads.net/item/anvil" alt="" />
           <span>Mace</span>
         </button>
-
-        <button class="tab" data-tab="cart" role="tab">
+        <button class="tab" data-tab="cart">
           <img src="https://mc-heads.net/item/tnt_minecart" alt="" />
           <span>Cart</span>
         </button>
-
-        <button class="tab" data-tab="creeper" role="tab">
+        <button class="tab" data-tab="creeper">
           <img src="https://mc-heads.net/item/creeper_spawn_egg" alt="" />
           <span>Creeper</span>
         </button>
-
-        <button class="tab" data-tab="diasmp" role="tab">
+        <button class="tab" data-tab="diasmp">
           <img src="https://mc-heads.net/item/diamond" alt="" />
           <span>DiaSMP</span>
         </button>
-
-        <button class="tab" data-tab="ogvanilla" role="tab">
+        <button class="tab" data-tab="ogvanilla">
           <img src="https://mc-heads.net/item/gold_ingot" alt="" />
           <span>OG Vanilla</span>
         </button>
-
-        <button class="tab" data-tab="shieldless" role="tab">
+        <button class="tab" data-tab="shieldless">
           <img src="https://mc-heads.net/item/shield" alt="" />
           <span>Shieldless UHC</span>
         </button>
       </div>
 
-      <!-- HEADER ROW (INSIDE CARD) -->
-      <div class="headrow">
-        <div class="hcell">#</div>
-        <div class="hcell">Név</div>
-        <div class="hcell">Tierek</div>
+      <!-- HEADER ROW -->
+      <div class="headerRow">
+        <div class="headerRow__cell">#</div>
+        <div class="headerRow__cell">Név</div>
+        <div class="headerRow__cell">Tierek</div>
       </div>
 
-      <!-- CONTENT PANES -->
+      <!-- PANES -->
       <div class="panes">
 
         <!-- VANILLA -->
-        <section class="pane show" id="tab-vanilla" role="tabpanel">
+        <section class="pane pane--show" id="tab-vanilla">
           <div class="list">
 
-            <div class="entry">
-              <div class="rank">1.</div>
+            <!-- ROW -->
+            <div class="row">
+              <div class="row__rank">1.</div>
 
-              <div class="who">
-                <img class="skin" src="https://mc-heads.net/avatar/antidoe/64" alt="antidoe" />
-                <div class="meta">
-                  <div class="name">antidoe</div>
-                  <div class="pts">364 Pont</div>
+              <div class="row__player">
+                <img class="row__avatar" src="https://mc-heads.net/avatar/antidoe/64" alt="antidoe" />
+                <div class="row__meta">
+                  <div class="row__name">antidoe</div>
+                  <div class="row__points">364 Pont</div>
                 </div>
               </div>
 
-              <div class="tiers">
-                <div class="icons">
-                  <span class="circle"><img src="https://mc-heads.net/item/end_crystal" alt=""></span>
-                  <span class="circle"><img src="https://mc-heads.net/item/golden_apple" alt=""></span>
-                  <span class="circle"><img src="https://mc-heads.net/item/potion" alt=""></span>
-                  <span class="circle"><img src="https://mc-heads.net/item/ender_pearl" alt=""></span>
-                  <span class="circle"><img src="https://mc-heads.net/item/diamond_sword" alt=""></span>
-                  <span class="circle"><img src="https://mc-heads.net/item/diamond_axe" alt=""></span>
-                  <span class="circle"><img src="https://mc-heads.net/item/anvil" alt=""></span>
-                  <span class="circle"><img src="https://mc-heads.net/item/tnt_minecart" alt=""></span>
-                  <span class="circle"><img src="https://mc-heads.net/item/creeper_spawn_egg" alt=""></span>
-                  <span class="circle"><img src="https://mc-heads.net/item/diamond" alt=""></span>
-                  <span class="circle"><img src="https://mc-heads.net/item/gold_ingot" alt=""></span>
-                  <span class="circle"><img src="https://mc-heads.net/item/shield" alt=""></span>
+              <div class="row__tiers">
+                <div class="tierIcons">
+                  <span class="tierIcon"><img src="https://mc-heads.net/item/end_crystal" alt=""></span>
+                  <span class="tierIcon"><img src="https://mc-heads.net/item/golden_apple" alt=""></span>
+                  <span class="tierIcon"><img src="https://mc-heads.net/item/potion" alt=""></span>
+                  <span class="tierIcon"><img src="https://mc-heads.net/item/ender_pearl" alt=""></span>
+                  <span class="tierIcon"><img src="https://mc-heads.net/item/diamond_sword" alt=""></span>
+                  <span class="tierIcon"><img src="https://mc-heads.net/item/diamond_axe" alt=""></span>
+                  <span class="tierIcon"><img src="https://mc-heads.net/item/anvil" alt=""></span>
+                  <span class="tierIcon"><img src="https://mc-heads.net/item/tnt_minecart" alt=""></span>
+                  <span class="tierIcon"><img src="https://mc-heads.net/item/creeper_spawn_egg" alt=""></span>
+                  <span class="tierIcon"><img src="https://mc-heads.net/item/diamond" alt=""></span>
+                  <span class="tierIcon"><img src="https://mc-heads.net/item/gold_ingot" alt=""></span>
+                  <span class="tierIcon"><img src="https://mc-heads.net/item/shield" alt=""></span>
                 </div>
 
-                <div class="pills">
+                <div class="tierPills">
                   <span class="pill">HT2</span><span class="pill">HT2</span><span class="pill">HT2</span>
                   <span class="pill">LT1</span><span class="pill">LT1</span>
                   <span class="pill">LT2</span><span class="pill">LT2</span>
@@ -151,61 +141,51 @@
               </div>
             </div>
 
-            <div class="entry">
-              <div class="rank">2.</div>
-
-              <div class="who">
-                <img class="skin" src="https://mc-heads.net/avatar/Gnomonic/64" alt="Gnomonic" />
-                <div class="meta">
-                  <div class="name">Gnomonic</div>
-                  <div class="pts">234 Pont</div>
+            <div class="row">
+              <div class="row__rank">2.</div>
+              <div class="row__player">
+                <img class="row__avatar" src="https://mc-heads.net/avatar/Gnomonic/64" alt="Gnomonic" />
+                <div class="row__meta">
+                  <div class="row__name">Gnomonic</div>
+                  <div class="row__points">234 Pont</div>
                 </div>
               </div>
-
-              <div class="tiers">
-                <div class="icons">
-                  <span class="circle"><img src="https://mc-heads.net/item/golden_apple" alt=""></span>
-                  <span class="circle"><img src="https://mc-heads.net/item/potion" alt=""></span>
-                  <span class="circle"><img src="https://mc-heads.net/item/ender_pearl" alt=""></span>
-                  <span class="circle"><img src="https://mc-heads.net/item/diamond_sword" alt=""></span>
-                  <span class="circle"><img src="https://mc-heads.net/item/diamond_axe" alt=""></span>
-                  <span class="circle"><img src="https://mc-heads.net/item/anvil" alt=""></span>
-                  <span class="circle"><img src="https://mc-heads.net/item/tnt_minecart" alt=""></span>
-                  <span class="circle"><img src="https://mc-heads.net/item/creeper_spawn_egg" alt=""></span>
-                  <span class="circle"><img src="https://mc-heads.net/item/diamond" alt=""></span>
-                  <span class="circle"><img src="https://mc-heads.net/item/shield" alt=""></span>
+              <div class="row__tiers">
+                <div class="tierIcons">
+                  <span class="tierIcon"><img src="https://mc-heads.net/item/golden_apple" alt=""></span>
+                  <span class="tierIcon"><img src="https://mc-heads.net/item/potion" alt=""></span>
+                  <span class="tierIcon"><img src="https://mc-heads.net/item/ender_pearl" alt=""></span>
+                  <span class="tierIcon"><img src="https://mc-heads.net/item/diamond_sword" alt=""></span>
+                  <span class="tierIcon"><img src="https://mc-heads.net/item/diamond_axe" alt=""></span>
+                  <span class="tierIcon"><img src="https://mc-heads.net/item/anvil" alt=""></span>
                 </div>
-
-                <div class="pills">
+                <div class="tierPills">
                   <span class="pill">RHT2</span><span class="pill">RHT2</span><span class="pill">RHT2</span>
                   <span class="pill">RLT2</span><span class="pill">LT5</span>
                 </div>
               </div>
             </div>
 
-            <div class="entry">
-              <div class="rank">3.</div>
-
-              <div class="who">
-                <img class="skin" src="https://mc-heads.net/avatar/Denji_Ryomen/64" alt="Denji_Ryomen" />
-                <div class="meta">
-                  <div class="name">Denji_Ryomen</div>
-                  <div class="pts">224 Pont</div>
+            <div class="row">
+              <div class="row__rank">3.</div>
+              <div class="row__player">
+                <img class="row__avatar" src="https://mc-heads.net/avatar/Denji_Ryomen/64" alt="Denji_Ryomen" />
+                <div class="row__meta">
+                  <div class="row__name">Denji_Ryomen</div>
+                  <div class="row__points">224 Pont</div>
                 </div>
               </div>
-
-              <div class="tiers">
-                <div class="icons">
-                  <span class="circle"><img src="https://mc-heads.net/item/end_crystal" alt=""></span>
-                  <span class="circle"><img src="https://mc-heads.net/item/golden_apple" alt=""></span>
-                  <span class="circle"><img src="https://mc-heads.net/item/potion" alt=""></span>
-                  <span class="circle"><img src="https://mc-heads.net/item/ender_pearl" alt=""></span>
-                  <span class="circle"><img src="https://mc-heads.net/item/diamond_sword" alt=""></span>
-                  <span class="circle"><img src="https://mc-heads.net/item/diamond_axe" alt=""></span>
-                  <span class="circle"><img src="https://mc-heads.net/item/anvil" alt=""></span>
+              <div class="row__tiers">
+                <div class="tierIcons">
+                  <span class="tierIcon"><img src="https://mc-heads.net/item/end_crystal" alt=""></span>
+                  <span class="tierIcon"><img src="https://mc-heads.net/item/golden_apple" alt=""></span>
+                  <span class="tierIcon"><img src="https://mc-heads.net/item/potion" alt=""></span>
+                  <span class="tierIcon"><img src="https://mc-heads.net/item/ender_pearl" alt=""></span>
+                  <span class="tierIcon"><img src="https://mc-heads.net/item/diamond_sword" alt=""></span>
+                  <span class="tierIcon"><img src="https://mc-heads.net/item/diamond_axe" alt=""></span>
+                  <span class="tierIcon"><img src="https://mc-heads.net/item/anvil" alt=""></span>
                 </div>
-
-                <div class="pills">
+                <div class="tierPills">
                   <span class="pill">RHT2</span><span class="pill">RHT2</span><span class="pill">RLT2</span>
                 </div>
               </div>
@@ -214,7 +194,7 @@
           </div>
         </section>
 
-        <!-- other panes -->
+        <!-- OTHER TABS PLACEHOLDER -->
         <section class="pane" id="tab-uhc"><div class="empty">UHC…</div></section>
         <section class="pane" id="tab-pot"><div class="empty">Pot…</div></section>
         <section class="pane" id="tab-nethpot"><div class="empty">NethPot…</div></section>
