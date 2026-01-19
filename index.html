@@ -1,8 +1,5 @@
-<link rel="stylesheet" href="style.css" />
-<script src="script.js" defer></script>
-
 <!doctype html>
-<html lang="en">
+<html lang="hu">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -22,70 +19,101 @@
       <a href="#" class="navlink">Discord</a>
       <a href="#" class="navlink">Mod</a>
     </nav>
+
+    <div class="search">
+      <span class="searchIcon">⌕</span>
+      <input class="searchInput" placeholder="Nyxen2311" />
+    </div>
   </header>
 
   <main class="wrap">
     <section class="panel">
-      <div class="panel-head">
-        <h1 class="title">Tierlist</h1>
-        <p class="subtitle">ProtTiers – leaderboard mock (static, free)</p>
-      </div>
 
-      <!-- Tabs -->
+      <!-- ALL GAMEMODE TABS (like your screenshot) -->
       <div class="tabs" role="tablist" aria-label="Modes">
-        <button class="tab active" data-tab="vanilla" role="tab">Vanilla</button>
-        <button class="tab" data-tab="uhc" role="tab">UHC</button>
-        <button class="tab" data-tab="pot" role="tab">Pot</button>
-        <button class="tab" data-tab="smp" role="tab">SMP</button>
-        <button class="tab" data-tab="netherpot" role="tab">NetherPot</button>
+        <button class="tab active" data-tab="vanilla" role="tab"><span class="ticon">🧊</span><span>Vanilla</span></button>
+        <button class="tab" data-tab="uhc" role="tab"><span class="ticon">❤️</span><span>UHC</span></button>
+        <button class="tab" data-tab="pot" role="tab"><span class="ticon">🧪</span><span>Pot</span></button>
+        <button class="tab" data-tab="netherpot" role="tab"><span class="ticon">🔥</span><span>NetherPot</span></button>
+        <button class="tab" data-tab="smp" role="tab"><span class="ticon">🌍</span><span>SMP</span></button>
+        <button class="tab" data-tab="sword" role="tab"><span class="ticon">⚔️</span><span>Sword</span></button>
+        <button class="tab" data-tab="axe" role="tab"><span class="ticon">🪓</span><span>Axe</span></button>
+        <button class="tab" data-tab="mace" role="tab"><span class="ticon">🔨</span><span>Mace</span></button>
+        <button class="tab" data-tab="cart" role="tab"><span class="ticon">🛒</span><span>Cart</span></button>
+        <button class="tab" data-tab="creeper" role="tab"><span class="ticon">💣</span><span>Creeper</span></button>
+        <button class="tab" data-tab="diasmp" role="tab"><span class="ticon">💎</span><span>DiaSMP</span></button>
+        <button class="tab" data-tab="ogvanilla" role="tab"><span class="ticon">🟡</span><span>OG Vanilla</span></button>
+        <button class="tab" data-tab="shieldlessuhc" role="tab"><span class="ticon">🛡️❌</span><span>Shieldless UHC</span></button>
       </div>
 
-      <!-- Tab content -->
+      <!-- Head row like the official layout -->
+      <div class="tableHead">
+        <div class="th num">#</div>
+        <div class="th nev">Név</div>
+        <div class="th tierek">Tierek</div>
+      </div>
+
+      <!-- CONTENT PANES -->
       <div class="tabpanes">
+
         <!-- VANILLA -->
         <section class="tabpane show" id="tab-vanilla" role="tabpanel">
           <div class="board">
+
             <div class="row top1">
-              <div class="rank">1</div>
-              <img class="avatar" src="https://mc-heads.net/avatar/Notch/48" alt="skin" />
+              <div class="rank">1.</div>
+              <img class="avatar" src="https://mc-heads.net/avatar/antidoe/48" alt="skin" />
               <div class="mid">
-                <div class="name">Notch</div>
-                <div class="points">234 Pont</div>
+                <div class="name">antidoe</div>
+                <div class="points">364 Pont</div>
               </div>
-              <div class="badges">
-                <span class="badge b-purple" title="Tier badge">★</span>
-                <span class="badge b-gold" title="Gold">✦</span>
-                <span class="badge b-green" title="Win">✓</span>
+              <div class="tiers">
+                <span class="circle c-purple" title="Sword">⚔️</span>
+                <span class="circle c-red" title="UHC">❤️</span>
+                <span class="circle c-green" title="SMP">🌍</span>
+                <span class="pill ht2">HT2</span>
+                <span class="pill ht2">HT2</span>
+                <span class="pill lt1">LT1</span>
+                <span class="pill lt1">LT1</span>
+                <span class="pill lt2">LT2</span>
               </div>
             </div>
 
             <div class="row">
-              <div class="rank">2</div>
-              <img class="avatar" src="https://mc-heads.net/avatar/Dream/48" alt="skin" />
+              <div class="rank">2.</div>
+              <img class="avatar" src="https://mc-heads.net/avatar/Gnomonic/48" alt="skin" />
               <div class="mid">
-                <div class="name">Dream</div>
-                <div class="points">190 Pont</div>
+                <div class="name">Gnomonic</div>
+                <div class="points">234 Pont</div>
               </div>
-              <div class="badges">
-                <span class="badge b-purple">★</span>
-                <span class="badge b-red">!</span>
-                <span class="badge b-green">✓</span>
+              <div class="tiers">
+                <span class="circle c-gold" title="Apple">🍎</span>
+                <span class="circle c-purple" title="Pot">🧪</span>
+                <span class="circle c-blue" title="Bow">➶</span>
+                <span class="pill rht2">RHT2</span>
+                <span class="pill rht2">RHT2</span>
+                <span class="pill rlt2">RLT2</span>
+                <span class="pill lt5">LT5</span>
               </div>
             </div>
 
             <div class="row top3">
-              <div class="rank">3</div>
-              <img class="avatar" src="https://mc-heads.net/avatar/Technoblade/48" alt="skin" />
+              <div class="rank">3.</div>
+              <img class="avatar" src="https://mc-heads.net/avatar/Denji_Ryomen/48" alt="skin" />
               <div class="mid">
-                <div class="name">Technoblade</div>
-                <div class="points">165 Pont</div>
+                <div class="name">Denji_Ryomen</div>
+                <div class="points">224 Pont</div>
               </div>
-              <div class="badges">
-                <span class="badge b-gold">✦</span>
-                <span class="badge b-purple">★</span>
-                <span class="badge b-green">✓</span>
+              <div class="tiers">
+                <span class="circle c-red" title="Danger">!</span>
+                <span class="circle c-purple" title="Sword">⚔️</span>
+                <span class="circle c-green" title="Win">✓</span>
+                <span class="pill rht2">RHT2</span>
+                <span class="pill rht2">RHT2</span>
+                <span class="pill rlt2">RLT2</span>
               </div>
             </div>
+
           </div>
         </section>
 
@@ -93,28 +121,31 @@
         <section class="tabpane" id="tab-uhc" role="tabpanel">
           <div class="board">
             <div class="row top1">
-              <div class="rank">1</div>
+              <div class="rank">1.</div>
               <img class="avatar" src="https://mc-heads.net/avatar/Steve/48" alt="skin" />
               <div class="mid">
                 <div class="name">Steve</div>
                 <div class="points">221 Pont</div>
               </div>
-              <div class="badges">
-                <span class="badge b-purple">★</span>
-                <span class="badge b-gold">✦</span>
+              <div class="tiers">
+                <span class="circle c-red">❤️</span>
+                <span class="circle c-gold">🍎</span>
+                <span class="pill ht2">HT2</span>
+                <span class="pill lt1">LT1</span>
               </div>
             </div>
 
             <div class="row">
-              <div class="rank">2</div>
+              <div class="rank">2.</div>
               <img class="avatar" src="https://mc-heads.net/avatar/Alex/48" alt="skin" />
               <div class="mid">
                 <div class="name">Alex</div>
                 <div class="points">178 Pont</div>
               </div>
-              <div class="badges">
-                <span class="badge b-purple">★</span>
-                <span class="badge b-red">!</span>
+              <div class="tiers">
+                <span class="circle c-red">❤️</span>
+                <span class="circle c-purple">🧊</span>
+                <span class="pill lt2">LT2</span>
               </div>
             </div>
           </div>
@@ -123,35 +154,18 @@
         <!-- POT -->
         <section class="tabpane" id="tab-pot" role="tabpanel">
           <div class="board">
-            <div class="row">
-              <div class="rank">1</div>
+            <div class="row top1">
+              <div class="rank">1.</div>
               <img class="avatar" src="https://mc-heads.net/avatar/Hypixel/48" alt="skin" />
               <div class="mid">
                 <div class="name">Hypixel</div>
                 <div class="points">250 Pont</div>
               </div>
-              <div class="badges">
-                <span class="badge b-purple">★</span>
-                <span class="badge b-green">✓</span>
-                <span class="badge b-gold">✦</span>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- SMP -->
-        <section class="tabpane" id="tab-smp" role="tabpanel">
-          <div class="board">
-            <div class="row">
-              <div class="rank">1</div>
-              <img class="avatar" src="https://mc-heads.net/avatar/Jeb_/48" alt="skin" />
-              <div class="mid">
-                <div class="name">Jeb_</div>
-                <div class="points">199 Pont</div>
-              </div>
-              <div class="badges">
-                <span class="badge b-purple">★</span>
-                <span class="badge b-green">✓</span>
+              <div class="tiers">
+                <span class="circle c-purple">🧪</span>
+                <span class="circle c-green">✓</span>
+                <span class="pill ht2">HT2</span>
+                <span class="pill lt2">LT2</span>
               </div>
             </div>
           </div>
@@ -160,16 +174,180 @@
         <!-- NETHERPOT -->
         <section class="tabpane" id="tab-netherpot" role="tabpanel">
           <div class="board">
-            <div class="row">
-              <div class="rank">1</div>
+            <div class="row top1">
+              <div class="rank">1.</div>
               <img class="avatar" src="https://mc-heads.net/avatar/Herobrine/48" alt="skin" />
               <div class="mid">
                 <div class="name">Herobrine</div>
                 <div class="points">666 Pont</div>
               </div>
-              <div class="badges">
-                <span class="badge b-red">!</span>
-                <span class="badge b-purple">★</span>
+              <div class="tiers">
+                <span class="circle c-red">!</span>
+                <span class="circle c-purple">🔥</span>
+                <span class="pill rht2">RHT2</span>
+                <span class="pill rlt2">RLT2</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SMP -->
+        <section class="tabpane" id="tab-smp" role="tabpanel">
+          <div class="board">
+            <div class="row top1">
+              <div class="rank">1.</div>
+              <img class="avatar" src="https://mc-heads.net/avatar/Jeb_/48" alt="skin" />
+              <div class="mid">
+                <div class="name">Jeb_</div>
+                <div class="points">199 Pont</div>
+              </div>
+              <div class="tiers">
+                <span class="circle c-green">🌍</span>
+                <span class="pill lt1">LT1</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SWORD -->
+        <section class="tabpane" id="tab-sword" role="tabpanel">
+          <div class="board">
+            <div class="row">
+              <div class="rank">1.</div>
+              <img class="avatar" src="https://mc-heads.net/avatar/Notch/48" alt="skin" />
+              <div class="mid">
+                <div class="name">Notch</div>
+                <div class="points">210 Pont</div>
+              </div>
+              <div class="tiers">
+                <span class="circle c-purple">⚔️</span>
+                <span class="pill ht2">HT2</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- AXE -->
+        <section class="tabpane" id="tab-axe" role="tabpanel">
+          <div class="board">
+            <div class="row">
+              <div class="rank">1.</div>
+              <img class="avatar" src="https://mc-heads.net/avatar/Alex/48" alt="skin" />
+              <div class="mid">
+                <div class="name">Alex</div>
+                <div class="points">205 Pont</div>
+              </div>
+              <div class="tiers">
+                <span class="circle c-purple">🪓</span>
+                <span class="pill lt1">LT1</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- MACE -->
+        <section class="tabpane" id="tab-mace" role="tabpanel">
+          <div class="board">
+            <div class="row">
+              <div class="rank">1.</div>
+              <img class="avatar" src="https://mc-heads.net/avatar/Steve/48" alt="skin" />
+              <div class="mid">
+                <div class="name">Steve</div>
+                <div class="points">198 Pont</div>
+              </div>
+              <div class="tiers">
+                <span class="circle c-purple">🔨</span>
+                <span class="pill lt2">LT2</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- CART -->
+        <section class="tabpane" id="tab-cart" role="tabpanel">
+          <div class="board">
+            <div class="row">
+              <div class="rank">1.</div>
+              <img class="avatar" src="https://mc-heads.net/avatar/Hypixel/48" alt="skin" />
+              <div class="mid">
+                <div class="name">Hypixel</div>
+                <div class="points">180 Pont</div>
+              </div>
+              <div class="tiers">
+                <span class="circle c-blue">🛒</span>
+                <span class="pill lt2">LT2</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- CREEPER -->
+        <section class="tabpane" id="tab-creeper" role="tabpanel">
+          <div class="board">
+            <div class="row">
+              <div class="rank">1.</div>
+              <img class="avatar" src="https://mc-heads.net/avatar/Herobrine/48" alt="skin" />
+              <div class="mid">
+                <div class="name">Herobrine</div>
+                <div class="points">300 Pont</div>
+              </div>
+              <div class="tiers">
+                <span class="circle c-green">💣</span>
+                <span class="pill rht2">RHT2</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- DIASMP -->
+        <section class="tabpane" id="tab-diasmp" role="tabpanel">
+          <div class="board">
+            <div class="row">
+              <div class="rank">1.</div>
+              <img class="avatar" src="https://mc-heads.net/avatar/Steve/48" alt="skin" />
+              <div class="mid">
+                <div class="name">Steve</div>
+                <div class="points">240 Pont</div>
+              </div>
+              <div class="tiers">
+                <span class="circle c-gold">💎</span>
+                <span class="pill ht2">HT2</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- OG VANILLA -->
+        <section class="tabpane" id="tab-ogvanilla" role="tabpanel">
+          <div class="board">
+            <div class="row">
+              <div class="rank">1.</div>
+              <img class="avatar" src="https://mc-heads.net/avatar/Notch/48" alt="skin" />
+              <div class="mid">
+                <div class="name">Notch</div>
+                <div class="points">170 Pont</div>
+              </div>
+              <div class="tiers">
+                <span class="circle c-gold">🟡</span>
+                <span class="pill lt1">LT1</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SHIELDLESS UHC -->
+        <section class="tabpane" id="tab-shieldlessuhc" role="tabpanel">
+          <div class="board">
+            <div class="row">
+              <div class="rank">1.</div>
+              <img class="avatar" src="https://mc-heads.net/avatar/Steve/48" alt="skin" />
+              <div class="mid">
+                <div class="name">Steve</div>
+                <div class="points">260 Pont</div>
+              </div>
+              <div class="tiers">
+                <span class="circle c-red">🛡️❌</span>
+                <span class="pill ht2">HT2</span>
               </div>
             </div>
           </div>
@@ -179,8 +357,6 @@
     </section>
   </main>
 
-  <footer class="footer">
-    <span>ProtTiers • Free HTML version</span>
-  </footer>
+  <footer class="footer">ProtTiers • Free HTML version</footer>
 </body>
 </html>
