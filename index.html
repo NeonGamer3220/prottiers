@@ -4,15 +4,15 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>ProtTiers</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="script.js" defer></script>
+  <link rel="stylesheet" href="./style.css" />
+  <script src="./script.js" defer></script>
 </head>
 
 <body>
-  <!-- TOP NAV (same vibe as screenshot) -->
+  <!-- TOP BAR -->
   <header class="topbar">
     <div class="topbar-inner">
-      <div class="logo">Prot<span>Tiers</span></div>
+      <div class="logo">Prot<span class="logoGlow">Tiers</span></div>
 
       <nav class="nav">
         <a class="navlink active" href="#">Főoldal</a>
@@ -21,95 +21,96 @@
       </nav>
 
       <div class="search">
-        <input placeholder="Keresés..." />
-        <button aria-label="Search">⌕</button>
+        <input class="searchInput" placeholder="Keresés..." />
+        <button class="searchBtn" aria-label="Search">⌕</button>
       </div>
     </div>
   </header>
 
-  <!-- APP CARD -->
+  <!-- CENTERED APP CARD -->
   <main class="app">
     <section class="card">
 
-      <!-- TABS (look like official buttons with icon above label) -->
+      <!-- ICON TABS (LIKE OFFICIAL) -->
       <div class="tabs" role="tablist" aria-label="Gamemodes">
-        <button class="tab active" data-tab="vanilla">
+        <button class="tab active" data-tab="vanilla" role="tab">
           <img src="https://mc-heads.net/item/end_crystal" alt="" />
           <span>Vanilla</span>
         </button>
 
-        <button class="tab" data-tab="uhc">
+        <button class="tab" data-tab="uhc" role="tab">
           <img src="https://mc-heads.net/item/golden_apple" alt="" />
           <span>UHC</span>
         </button>
 
-        <button class="tab" data-tab="pot">
+        <button class="tab" data-tab="pot" role="tab">
           <img src="https://mc-heads.net/item/potion" alt="" />
           <span>Pot</span>
         </button>
 
-        <button class="tab" data-tab="nethpot">
+        <button class="tab" data-tab="nethpot" role="tab">
           <img src="https://mc-heads.net/item/netherite_helmet" alt="" />
           <span>NethPot</span>
         </button>
 
-        <button class="tab" data-tab="smp">
+        <button class="tab" data-tab="smp" role="tab">
           <img src="https://mc-heads.net/item/ender_pearl" alt="" />
           <span>SMP</span>
         </button>
 
-        <button class="tab" data-tab="sword">
+        <button class="tab" data-tab="sword" role="tab">
           <img src="https://mc-heads.net/item/diamond_sword" alt="" />
           <span>Sword</span>
         </button>
 
-        <button class="tab" data-tab="axe">
+        <button class="tab" data-tab="axe" role="tab">
           <img src="https://mc-heads.net/item/diamond_axe" alt="" />
           <span>Axe</span>
         </button>
 
-        <!-- Mace: mc-heads may not support it. Use hammer icon but still “item style” -->
-        <button class="tab" data-tab="mace">
+        <!-- Mace icon fallback that exists -->
+        <button class="tab" data-tab="mace" role="tab">
           <img src="https://mc-heads.net/item/anvil" alt="" />
           <span>Mace</span>
         </button>
 
-        <button class="tab" data-tab="cart">
+        <button class="tab" data-tab="cart" role="tab">
           <img src="https://mc-heads.net/item/tnt_minecart" alt="" />
           <span>Cart</span>
         </button>
 
-        <button class="tab" data-tab="creeper">
+        <button class="tab" data-tab="creeper" role="tab">
           <img src="https://mc-heads.net/item/creeper_spawn_egg" alt="" />
           <span>Creeper</span>
         </button>
 
-        <button class="tab" data-tab="diasmp">
+        <button class="tab" data-tab="diasmp" role="tab">
           <img src="https://mc-heads.net/item/diamond" alt="" />
           <span>DiaSMP</span>
         </button>
 
-        <button class="tab" data-tab="ogvanilla">
+        <button class="tab" data-tab="ogvanilla" role="tab">
           <img src="https://mc-heads.net/item/gold_ingot" alt="" />
           <span>OG Vanilla</span>
         </button>
 
-        <button class="tab" data-tab="shieldless">
+        <button class="tab" data-tab="shieldless" role="tab">
           <img src="https://mc-heads.net/item/shield" alt="" />
           <span>Shieldless UHC</span>
         </button>
       </div>
 
-      <!-- COLUMN HEADERS INSIDE CARD (like screenshot) -->
+      <!-- HEADER ROW (INSIDE CARD) -->
       <div class="headrow">
         <div class="hcell">#</div>
         <div class="hcell">Név</div>
         <div class="hcell">Tierek</div>
       </div>
 
-      <!-- PANES -->
+      <!-- CONTENT PANES -->
       <div class="panes">
-        <!-- VANILLA PANE -->
+
+        <!-- VANILLA -->
         <section class="pane show" id="tab-vanilla" role="tabpanel">
           <div class="list">
 
@@ -213,7 +214,7 @@
           </div>
         </section>
 
-        <!-- other panes (so tabs work) -->
+        <!-- other panes -->
         <section class="pane" id="tab-uhc"><div class="empty">UHC…</div></section>
         <section class="pane" id="tab-pot"><div class="empty">Pot…</div></section>
         <section class="pane" id="tab-nethpot"><div class="empty">NethPot…</div></section>
@@ -226,8 +227,8 @@
         <section class="pane" id="tab-diasmp"><div class="empty">DiaSMP…</div></section>
         <section class="pane" id="tab-ogvanilla"><div class="empty">OG Vanilla…</div></section>
         <section class="pane" id="tab-shieldless"><div class="empty">Shieldless UHC…</div></section>
-      </div>
 
+      </div>
     </section>
   </main>
 
