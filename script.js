@@ -1,4 +1,4 @@
-const tabs = document.querySelectorAll(".mode");
+const tabs = document.querySelectorAll(".tab");
 const panes = document.querySelectorAll(".pane");
 
 function showTab(key){
