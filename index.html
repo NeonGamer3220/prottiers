@@ -1,538 +1,587 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="hu">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>NoobTiers</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NoobTiers</title>
 
-  <!-- (Optional) FontAwesome like the original -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <!-- Font Awesome (icons in navbar) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
 
-  <style>
-    :root{
-      --bg1:#050817;
-      --bg2:#0a0f2a;
+    <style>
+      :root{
+        --bg0:#040611;
+        --bg1:#070a1a;
+        --bg2:#0a0f24;
+        --card:#0b1025cc;
+        --card2:#0b1128e6;
+        --stroke:#ffffff12;
+        --stroke2:#ffffff1f;
+        --text:#e9eeff;
+        --muted:#aab3d6;
+        --muted2:#7f8ab6;
+        --purple:#7c4dff;
+        --purple2:#b08cff;
 
-      --card:#0b1027cc;
-      --card2:#0b1027a8;
-      --stroke:#ffffff14;
-      --stroke2:#ffffff1f;
+        /* tier colors (simple set) */
+        --HT2:#0f2c3a;
+        --HT2-fg:#7fe7ff;
 
-      --text:#e9ecff;
-      --muted:#aab0d6;
+        --LT1:#2d2a12;
+        --LT1-fg:#ffe38a;
 
-      --glow1:#7c3aed;
-      --glow2:#0ea5e9;
+        --LT2:#241a2f;
+        --LT2-fg:#d9a7ff;
 
-      /* ✅ alignment fix: bigger per-gamemode "slot" */
-      --tierSlot: 66px;     /* more horizontal space */
-      --tierCircle: 40px;   /* slightly bigger circles */
-      --tierIcon: 24px;     /* bigger icon inside */
-      --pillH: 26px;
-      --pillFont: 12.5px;
+        --RHT2:#31101d;
+        --RHT2-fg:#ff82c4;
 
-      --radius: 18px;
-      --radius2: 14px;
-      --shadow: 0 20px 60px #0000006b;
-    }
+        --RLT2:#2a1c10;
+        --RLT2-fg:#ffbd7a;
 
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color:var(--text);
-      background:
-        radial-gradient(900px 520px at 15% 30%, #7c3aed55 0%, transparent 60%),
-        radial-gradient(900px 520px at 90% 25%, #0ea5e955 0%, transparent 60%),
-        linear-gradient(180deg, var(--bg1), var(--bg2));
-      min-height:100vh;
-    }
+        --LT5:#1a1f33;
+        --LT5-fg:#b8c1ff;
+      }
 
-    /* top nav */
-    nav{
-      display:flex;
-      align-items:center;
-      gap:18px;
-      padding:14px 22px;
-      border-bottom:1px solid var(--stroke);
-      background: linear-gradient(180deg, #050817aa, #05081755);
-      backdrop-filter: blur(10px);
-      position:sticky; top:0; z-index:20;
-    }
-    .brand{
-      font-weight:800;
-      letter-spacing:.3px;
-      display:flex;
-      align-items:center;
-      gap:10px;
-      min-width:130px;
-    }
-    .brand span{opacity:.95}
-    .nav-links{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      flex:1;
-    }
-    .nav-btn{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:8px 12px;
-      border-radius:999px;
-      border:1px solid transparent;
-      color:var(--text);
-      text-decoration:none;
-      opacity:.92;
-      font-weight:600;
-      font-size:14px;
-    }
-    .nav-btn:hover{
-      border-color:var(--stroke2);
-      background:#0b102744;
-      opacity:1;
-    }
-    .nav-btn.active{
-      background:linear-gradient(180deg, #7c3aed33, #0b102733);
-      border-color:#7c3aed55;
-    }
-    .search-wrap{
-      margin-left:auto;
-      display:flex;
-      align-items:center;
-      gap:10px;
-      background:#0b102766;
-      border:1px solid var(--stroke2);
-      border-radius:999px;
-      padding:8px 12px;
-      min-width:240px;
-      box-shadow: 0 10px 30px #00000038;
-    }
-    .search-wrap input{
-      width:100%;
-      border:none;
-      outline:none;
-      background:transparent;
-      color:var(--text);
-      font-size:14px;
-    }
-    .search-wrap i{opacity:.8}
+      *{box-sizing:border-box}
+      html,body{height:100%}
+      body{
+        margin:0;
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+        color:var(--text);
+        background:
+          radial-gradient(900px 500px at 15% 40%, #5a2dff44 0%, transparent 55%),
+          radial-gradient(900px 600px at 85% 45%, #00d2ff26 0%, transparent 55%),
+          linear-gradient(180deg, var(--bg0), var(--bg1) 35%, var(--bg0));
+        overflow-x:hidden;
+      }
 
-    /* layout */
-    .wrap{
-      max-width:1240px;
-      margin:26px auto 60px;
-      padding:0 18px;
-    }
-    .panel{
-      background: linear-gradient(180deg, var(--card), var(--card2));
-      border:1px solid var(--stroke2);
-      border-radius:24px;
-      box-shadow: var(--shadow);
-      padding:18px;
-      position:relative;
-      overflow:hidden;
-    }
-    .panel::before{
-      content:"";
-      position:absolute; inset:-2px;
-      background:
-        radial-gradient(600px 240px at 20% 10%, #7c3aed22, transparent 60%),
-        radial-gradient(600px 240px at 80% 10%, #0ea5e922, transparent 60%);
-      pointer-events:none;
-    }
-    .panel > *{position:relative}
+      /* ===== NAV ===== */
+      nav{
+        height:64px;
+        display:flex;
+        align-items:center;
+        padding:0 18px;
+        gap:18px;
+        border-bottom:1px solid var(--stroke);
+        background:linear-gradient(180deg, #05081aee, #05081aaa);
+        backdrop-filter: blur(10px);
+        position:sticky;
+        top:0;
+        z-index:50;
+      }
 
-    /* gamemode tiles */
-    .modes{
-      display:flex;
-      flex-wrap:wrap;
-      gap:14px;
-      padding:12px;
-      border-radius:20px;
-      border:1px solid var(--stroke);
-      background:#05081733;
-    }
-    .mode{
-      width:96px;
-      height:84px;
-      border-radius:16px;
-      border:1px solid var(--stroke2);
-      background:linear-gradient(180deg, #0b102766, #0b102733);
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
-      text-decoration:none;
-      color:var(--text);
-      box-shadow: 0 10px 24px #00000038;
-    }
-    .mode.active{
-      outline:2px solid #7c3aed55;
-      box-shadow: 0 14px 36px #7c3aed22;
-    }
-    .mode img{
-      width:32px;
-      height:32px;
-      image-rendering: pixelated;
-      filter: drop-shadow(0 6px 10px #00000066);
-    }
-    .mode span{
-      font-size:12px;
-      font-weight:700;
-      opacity:.95;
-      text-align:center;
-      line-height:1.05;
-    }
+      .brand{
+        font-weight:800;
+        letter-spacing:.2px;
+        color:var(--purple2);
+        font-size:20px;
+        margin-right:6px;
+      }
 
-    hr.sep{
-      border:none;
-      border-top:1px solid var(--stroke);
-      margin:16px 0 14px;
-    }
+      .nav-links{
+        display:flex;
+        align-items:center;
+        gap:14px;
+        flex:1;
+      }
 
-    /* header row */
-    .table-head{
-      display:grid;
-      grid-template-columns: 90px 420px 1fr;
-      gap:16px;
-      padding:6px 10px 10px;
-      color:var(--muted);
-      font-size:13px;
-      letter-spacing:.2px;
-    }
-    .table-head div{opacity:.9}
-    .table-head .right{text-align:center}
+      .nav-button{
+        display:flex;
+        align-items:center;
+        gap:8px;
+        text-decoration:none;
+        color:var(--muted);
+        font-size:14px;
+        padding:10px 14px;
+        border-radius:14px;
+        transition:.18s;
+      }
+      .nav-button:hover{
+        color:var(--text);
+        background: #ffffff0b;
+        border:1px solid #ffffff10;
+      }
+      .nav-button.primary{
+        color:var(--text);
+        background: linear-gradient(180deg, #7c4dff33, #7c4dff14);
+        border:1px solid #7c4dff33;
+        box-shadow: 0 0 0 1px #00000055 inset;
+      }
 
-    /* player rows */
-    .row{
-      display:grid;
-      grid-template-columns: 90px 420px 1fr;
-      gap:16px;
-      align-items:center;
-      padding:18px 14px;
-      border-radius:18px;
-      border:1px solid var(--stroke);
-      background:linear-gradient(180deg, #0b102744, #0b102722);
-      margin-bottom:14px;
-      overflow:hidden;
-    }
-    .row.featured{
-      background:linear-gradient(90deg, #5a0d14cc, #5a0d1499 55%, #0b102722);
-      border-color:#ffffff18;
-    }
+      .search-wrap{
+        display:flex;
+        align-items:center;
+        gap:10px;
+        min-width:260px;
+        justify-content:flex-end;
+      }
+      .search{
+        width:260px;
+        max-width:36vw;
+        height:36px;
+        border-radius:999px;
+        border:1px solid #ffffff14;
+        background:#0a0f22;
+        color:var(--text);
+        padding:0 38px 0 14px;
+        outline:none;
+      }
+      .search:focus{
+        border-color:#7c4dff55;
+        box-shadow:0 0 0 3px #7c4dff22;
+      }
+      .search-icon{
+        position:relative;
+        margin-left:-36px;
+        width:28px;
+        height:28px;
+        border-radius:999px;
+        display:grid;
+        place-items:center;
+        color:var(--muted);
+        pointer-events:none;
+      }
 
-    .place{
-      font-size:38px;
-      font-weight:900;
-      opacity:.95;
-      padding-left:6px;
-    }
-    .who{
-      display:flex;
-      align-items:center;
-      gap:14px;
-      min-width:0;
-    }
-    .pfp{
-      width:56px;
-      height:56px;
-      border-radius:14px;
-      border:1px solid var(--stroke2);
-      background:#00000030;
-      object-fit:cover;
-      box-shadow: 0 10px 24px #00000050;
-    }
-    .who .meta{
-      display:flex;
-      flex-direction:column;
-      gap:3px;
-      min-width:0;
-    }
-    .who .name{
-      font-size:22px;
-      font-weight:900;
-      line-height:1.05;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-    .who .pts{
-      font-size:13px;
-      color:var(--muted);
-      font-weight:700;
-    }
+      /* ===== LAYOUT ===== */
+      .wrap{
+        max-width:1220px;
+        margin:22px auto 46px;
+        padding:0 18px;
+      }
 
-    /* tiers area */
-    .tiers{
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-      align-items:flex-end;
-    }
+      .panel{
+        border-radius:18px;
+        border:1px solid var(--stroke2);
+        background:linear-gradient(180deg, #0b1126b3, #0b1024a3);
+        box-shadow:
+          0 25px 70px #00000070,
+          0 0 0 1px #00000055 inset;
+        padding:18px;
+      }
 
-    /* ✅ IMPORTANT: both rows use the exact same grid (same slot width + gap) */
-    .tier-icons,
-    .tier-pills{
-      display:grid;
-      grid-template-columns: repeat(var(--cols), var(--tierSlot));
-      gap:14px;                 /* more space = labels align under icons */
-      align-items:center;
-      justify-content:end;
-      justify-items:center;
-      width: max-content;
-    }
+      .inner{
+        border-radius:16px;
+        border:1px solid var(--stroke);
+        background:linear-gradient(180deg, #0a0f22cc, #070a17aa);
+        padding:16px;
+        position:relative;
+      }
 
-    .tier-circle{
-      width:var(--tierCircle);
-      height:var(--tierCircle);
-      border-radius:999px;
-      border:1px solid var(--stroke2);
-      background:#05081755;
-      display:grid;
-      place-items:center;
-      box-shadow: inset 0 0 0 2px #00000020;
-    }
-    .tier-circle img{
-      width:var(--tierIcon);
-      height:var(--tierIcon);
-      image-rendering: pixelated;
-      filter: drop-shadow(0 6px 10px #00000066);
-    }
-    .tier-circle.empty{
-      background:#05081733;
-      border-color:#ffffff10;
-      box-shadow:none;
-    }
+      /* ===== GAMEMODES GRID ===== */
+      .modes{
+        display:flex;
+        flex-wrap:wrap;
+        gap:16px;                 /* MORE APART so text sits nicely */
+        padding:8px 8px 14px;
+      }
 
-    /* pill */
-    .pill{
-      height:var(--pillH);
-      width:var(--tierSlot);          /* ✅ lock width = slot width */
-      border-radius:999px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size:var(--pillFont);
-      font-weight:900;
-      letter-spacing:.3px;
-      border:1px solid var(--stroke2);
-      background:#05081755;
-      color:var(--text);
-      user-select:none;
-    }
-    .pill.empty{
-      border-color:#ffffff10;
-      background:#05081722;
-      color:#0000;
-    }
+      .mode{
+        width:96px;               /* consistent card size */
+        height:96px;
+        border-radius:16px;
+        border:1px solid #ffffff14;
+        background:linear-gradient(180deg, #0f1633aa, #0a1027aa);
+        box-shadow: 0 0 0 1px #00000066 inset;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        gap:9px;
+        text-decoration:none;
+        transition:.16s;
+      }
+      .mode:hover{
+        transform: translateY(-1px);
+        border-color:#7c4dff44;
+        box-shadow:
+          0 0 0 1px #00000066 inset,
+          0 10px 28px #00000055;
+      }
+      .mode.active{
+        border-color:#7c4dff66;
+        box-shadow:
+          0 0 0 1px #00000066 inset,
+          0 0 0 3px #7c4dff1a;
+        background:linear-gradient(180deg, #2d1a66aa, #0a1027aa);
+      }
 
-    /* tier colors (simple, tweak if you want) */
-    .t-HT2{border-color:#38bdf855; box-shadow: 0 0 0 2px #38bdf81f inset;}
-    .t-LT1{border-color:#f59e0b55; box-shadow: 0 0 0 2px #f59e0b1f inset;}
-    .t-LT2{border-color:#a78bfa55; box-shadow: 0 0 0 2px #a78bfa1f inset;}
-    .t-RHT2{border-color:#fb718555; box-shadow: 0 0 0 2px #fb71851f inset;}
-    .t-RLT2{border-color:#fbbf2455; box-shadow: 0 0 0 2px #fbbf241f inset;}
-    .t-LT5{border-color:#60a5fa55; box-shadow: 0 0 0 2px #60a5fa1f inset;}
+      .mode img{
+        width:34px;
+        height:34px;
+        image-rendering: pixelated;
+        filter: drop-shadow(0 8px 10px #00000066);
+      }
+      .mode span{
+        display:block;
+        width:100%;
+        text-align:center;        /* make text perfectly centered under icon */
+        font-size:11px;
+        color:var(--text);
+        line-height:1.05;
+        letter-spacing:.2px;
+        padding:0 6px;
+        white-space:normal;
+      }
 
-    footer{
-      margin-top:10px;
-      color:var(--muted);
-      font-size:12px;
-      padding:6px 2px 0;
-      opacity:.9;
-    }
+      .divider{
+        height:1px;
+        background:linear-gradient(90deg, transparent, #ffffff12, transparent);
+        margin:10px 0 12px;
+      }
 
-    /* responsive */
-    @media (max-width: 1020px){
-      .table-head{grid-template-columns: 80px 320px 1fr;}
-      .row{grid-template-columns: 80px 320px 1fr;}
-    }
-    @media (max-width: 860px){
-      .table-head{display:none;}
+      /* ===== HEADER ROW (labels) ===== */
+      .thead{
+        display:grid;
+        grid-template-columns: 90px 360px 1fr;
+        gap:14px;
+        padding:6px 8px 10px;
+        color:var(--muted2);
+        font-size:12px;
+      }
+      .thead .right{
+        text-align:center;
+      }
+
+      /* ===== PLAYER ROW ===== */
       .row{
-        grid-template-columns: 70px 1fr;
-        grid-template-rows: auto auto;
+        display:grid;
+        grid-template-columns: 90px 360px 1fr;
+        gap:14px;
+        padding:18px 16px;
+        border-radius:16px;
+        border:1px solid #ffffff12;
+        background:linear-gradient(180deg, #0e1430aa, #0b1027aa);
+        box-shadow: 0 0 0 1px #00000066 inset;
+        margin-bottom:12px;
+
+        /* IMPORTANT: don't clip the last icon/pill */
+        overflow: visible;        /* FIX CUT-OFF */
       }
+      .row.red{
+        background:linear-gradient(90deg, #5d0d1fdd, #2a0a14cc 60%, #1a0810cc);
+        border-color:#ff3b6b33;
+      }
+
+      .rank{
+        display:flex;
+        align-items:center;
+        justify-content:flex-start;
+        font-weight:900;
+        font-size:38px;
+        color:#ffffffdd;
+      }
+
+      .profile{
+        display:flex;
+        align-items:center;
+        gap:14px;
+      }
+      .pfp{
+        width:54px;
+        height:54px;
+        border-radius:12px;
+        border:1px solid #ffffff18;
+        background:#00000055;
+        overflow:hidden;
+        box-shadow: 0 0 0 1px #00000088 inset;
+      }
+      .pfp img{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+        image-rendering: pixelated;
+      }
+      .ptext h3{
+        margin:0;
+        font-size:20px;
+        letter-spacing:.2px;
+      }
+      .ptext p{
+        margin:2px 0 0;
+        font-size:12px;
+        color:var(--muted);
+      }
+
+      /* ===== TIERS AREA ===== */
       .tiers{
-        grid-column: 1 / -1;
-        align-items:flex-start;
+        justify-self:end;
+        width:100%;
+        max-width:680px;          /* wider so more ranks fit */
+        padding-right: 22px;      /* extra breathing room so nothing clips */
       }
-      .tier-icons,
-      .tier-pills{justify-content:start;}
-    }
-  </style>
-</head>
-<body>
 
-  <nav>
-    <div class="brand"><span>NoobTiers</span></div>
+      .tier-icons{
+        display:flex;
+        justify-content:flex-end;
+        gap:16px;                 /* MORE APART */
+        padding:0 2px 10px;
+      }
 
-    <div class="nav-links">
-      <a class="nav-btn active" href="#"><i class="fa-solid fa-house"></i> Főoldal</a>
-      <a class="nav-btn" href="https://discord.gg/TPk3vbcPyv" target="_blank" rel="noreferrer">
-        <i class="fa-brands fa-discord"></i> Discord
-      </a>
-      <a class="nav-btn" href="#" title="Mod linket ide"><i class="fa-solid fa-cube"></i> Mod</a>
-    </div>
+      .tier-icon{
+        width:28px;
+        height:28px;
+        border-radius:999px;
+        border:1px solid #ffffff12;
+        background:#0a1026;
+        display:grid;
+        place-items:center;
+        box-shadow: 0 0 0 1px #00000066 inset;
+      }
+      .tier-icon img{
+        width:16px;
+        height:16px;
+        image-rendering: pixelated;
+        opacity:.95;
+      }
 
-    <div class="search-wrap">
-      <input id="search" type="text" placeholder="Keresés..." />
-      <i class="fa-solid fa-magnifying-glass"></i>
-    </div>
-  </nav>
+      .tier-pills{
+        display:flex;
+        justify-content:flex-end;
+        gap:16px;                 /* MUST match tier-icons gap */
+        flex-wrap:nowrap;
+      }
 
-  <div class="wrap">
-    <div class="panel">
+      .pill,
+      .empty-pill{
+        width:52px;               /* fixed width = PERFECT alignment */
+        height:22px;
+        border-radius:999px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        font-weight:800;
+        font-size:11px;
+        letter-spacing:.4px;
+        text-transform:uppercase;
+        user-select:none;
+      }
 
-      <!-- gamemodes -->
-      <div class="modes" id="modes"></div>
+      .empty-pill{
+        border:1px solid #ffffff12;
+        background:#0b1025aa;
+        color:transparent;        /* visually empty */
+      }
 
-      <hr class="sep" />
+      .pill.ht2{ background: color-mix(in srgb, var(--HT2) 90%, #000); border:1px solid color-mix(in srgb, var(--HT2-fg) 55%, transparent); color:var(--HT2-fg); }
+      .pill.lt1{ background: color-mix(in srgb, var(--LT1) 90%, #000); border:1px solid color-mix(in srgb, var(--LT1-fg) 55%, transparent); color:var(--LT1-fg); }
+      .pill.lt2{ background: color-mix(in srgb, var(--LT2) 90%, #000); border:1px solid color-mix(in srgb, var(--LT2-fg) 55%, transparent); color:var(--LT2-fg); }
 
-      <div class="table-head">
-        <div>#</div>
-        <div>Név</div>
-        <div class="right">Tierek</div>
+      .pill.rht2{ background: color-mix(in srgb, var(--RHT2) 92%, #000); border:1px solid color-mix(in srgb, var(--RHT2-fg) 60%, transparent); color:var(--RHT2-fg); }
+      .pill.rlt2{ background: color-mix(in srgb, var(--RLT2) 92%, #000); border:1px solid color-mix(in srgb, var(--RLT2-fg) 60%, transparent); color:var(--RLT2-fg); }
+      .pill.lt5{ background: color-mix(in srgb, var(--LT5) 92%, #000); border:1px solid color-mix(in srgb, var(--LT5-fg) 55%, transparent); color:var(--LT5-fg); }
+
+      .footer{
+        margin-top:10px;
+        color:var(--muted2);
+        font-size:12px;
+        padding:2px 6px 0;
+      }
+
+      /* ===== RESPONSIVE ===== */
+      @media (max-width: 980px){
+        .thead, .row{
+          grid-template-columns: 70px 280px 1fr;
+        }
+        .tiers{max-width:560px}
+      }
+      @media (max-width: 820px){
+        .thead{display:none}
+        .row{
+          grid-template-columns: 70px 1fr;
+          grid-template-rows: auto auto;
+        }
+        .tiers{
+          grid-column:1 / -1;
+          max-width:none;
+          padding-right:0;
+        }
+        .tier-icons, .tier-pills{justify-content:flex-start}
+      }
+      @media (max-width: 520px){
+        .search{max-width:52vw}
+        .mode{width:90px;height:92px}
+        .tier-icons, .tier-pills{gap:12px}
+        .pill,.empty-pill{width:48px}
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav>
+      <div class="brand">NoobTiers</div>
+
+      <div class="nav-links">
+        <a class="nav-button primary" href="#"><i class="fa-solid fa-house"></i> Főoldal</a>
+        <a class="nav-button" href="https://discord.gg/" target="_blank" rel="noreferrer"><i class="fa-brands fa-discord"></i> Discord</a>
+        <a class="nav-button" href="#" target="_blank" rel="noreferrer"><i class="fa-solid fa-cube"></i> Mod</a>
       </div>
 
-      <div id="rows"></div>
+      <div class="search-wrap">
+        <input id="search" class="search" placeholder="Keresés..." />
+        <div class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+      </div>
+    </nav>
 
-      <footer>NoobTiers • static HTML</footer>
-    </div>
-  </div>
+    <div class="wrap">
+      <div class="panel">
+        <div class="inner">
+          <!-- GAMEMODES -->
+          <div class="modes" id="modes"></div>
 
-<script>
-  // ✅ Put your images in: assets/modes/<key>.png
-  // Example: assets/modes/vanilla.png, assets/modes/uhc.png, ...
+          <div class="divider"></div>
 
-  const MODE_ORDER = [
-    { key:"vanilla", label:"Vanilla" },
-    { key:"uhc", label:"UHC" },
-    { key:"pot", label:"Pot" },
-    { key:"nethpot", label:"NethPot" },
-    { key:"smp", label:"SMP" },
-    { key:"sword", label:"Sword" },
-    { key:"axe", label:"Axe" },
-    { key:"mace", label:"Mace" },
-    { key:"cart", label:"Cart" },
-    { key:"creeper", label:"Creeper" },
-    { key:"diasmp", label:"DiaSMP" },
-    { key:"ogvanilla", label:"OG Vanilla" },
-    { key:"shieldlessuhc", label:"Shieldless UHC" },
-  ];
-
-  // Demo data (layout only). Replace later with your real data if you want.
-  const PLAYERS = [
-    {
-      place: 1,
-      name: "antidoe",
-      points: 364,
-      // You can use any image url. This matches the "bust" style you used earlier.
-      pfp: "https://nmsr.jgj52.hu/bust/antidoe?w=100",
-      tiers: {
-        vanilla:"HT2", uhc:"HT2", pot:"HT2", nethpot:"HT2",
-        smp:"LT1", sword:"LT1", axe:"LT2", mace:"LT2",
-        cart:"HT2", creeper:"HT2", diasmp:"HT2", ogvanilla:"LT1",
-        shieldlessuhc:"LT2"
-      }
-    },
-    {
-      place: 2,
-      name: "Gnomonic",
-      points: 234,
-      pfp: "https://nmsr.jgj52.hu/bust/Gnomonic?w=100",
-      tiers: {
-        vanilla:"RLT2", uhc:"RHT2", pot:"RHT2", nethpot:"RHT2",
-        smp:"RHT2", sword:"RHT2", axe:"RLT2", mace:"LT5"
-        // missing modes will show empty boxes ✅
-      }
-    },
-    {
-      place: 3,
-      name: "Denji_Ryomen",
-      points: 224,
-      pfp: "https://nmsr.jgj52.hu/bust/Denji_Ryomen?w=100",
-      featured: true,
-      tiers: {
-        sword:"RHT2", axe:"RHT2", mace:"RLT2"
-        // missing modes will show empty boxes ✅
-      }
-    }
-  ];
-
-  const tierClass = (tier) => {
-    if(!tier) return "empty";
-    return "t-" + tier.replaceAll(" ", "").replaceAll(".", "");
-  };
-
-  function renderModes(){
-    const el = document.getElementById("modes");
-    el.innerHTML = MODE_ORDER.map((m,i)=>`
-      <a class="mode ${i===0 ? "active":""}" href="#" onclick="event.preventDefault()">
-        <img src="assets/modes/${m.key}.png" alt="${m.label}">
-        <span>${m.label}</span>
-      </a>
-    `).join("");
-  }
-
-  function renderRows(filter=""){
-    const cols = MODE_ORDER.length;
-    document.documentElement.style.setProperty("--cols", cols);
-
-    const el = document.getElementById("rows");
-    const q = (filter||"").trim().toLowerCase();
-
-    const list = PLAYERS.filter(p => !q || p.name.toLowerCase().includes(q));
-
-    el.innerHTML = list.map(p=>{
-      const tierIcons = MODE_ORDER.map(m=>{
-        // always show the icon circle (dim if missing tier)
-        const has = !!p.tiers[m.key];
-        return `
-          <div class="tier-circle ${has ? "" : "empty"}" title="${m.label}">
-            <img src="assets/modes/${m.key}.png" alt="${m.label}">
-          </div>
-        `;
-      }).join("");
-
-      const tierPills = MODE_ORDER.map(m=>{
-        const t = p.tiers[m.key];
-        if(!t){
-          return `<div class="pill empty">.</div>`; // invisible dot keeps height
-        }
-        return `<div class="pill ${tierClass(t)}">${t}</div>`;
-      }).join("");
-
-      return `
-        <div class="row ${p.featured ? "featured" : ""}">
-          <div class="place">${p.place}.</div>
-
-          <div class="who">
-            <img class="pfp" src="${p.pfp}" alt="${p.name}">
-            <div class="meta">
-              <div class="name">${p.name}</div>
-              <div class="pts">${p.points} Pont</div>
-            </div>
+          <!-- TABLE HEADER -->
+          <div class="thead">
+            <div>#</div>
+            <div>Név</div>
+            <div class="right">Tierek</div>
           </div>
 
-          <div class="tiers">
-            <div class="tier-icons">${tierIcons}</div>
-            <div class="tier-pills">${tierPills}</div>
-          </div>
+          <!-- ROWS -->
+          <div id="rows"></div>
+
+          <div class="footer">NoobTiers • static HTML</div>
         </div>
-      `;
-    }).join("");
-  }
+      </div>
+    </div>
 
-  renderModes();
-  renderRows();
+    <script>
+      // Put your mode images in: assets/modes/<id>.png
+      // Example: assets/modes/vanilla.png, uhc.png, pot.png, nethpot.png, smp.png, sword.png, axe.png, mace.png, cart.png, creeper.png, diasmp.png, ogvanilla.png, shieldlessuhc.png
 
-  document.getElementById("search").addEventListener("input", (e)=>{
-    renderRows(e.target.value);
-  });
-</script>
+      const MODES = [
+        { id: "vanilla", label: "Vanilla" },
+        { id: "uhc", label: "UHC" },
+        { id: "pot", label: "Pot" },
+        { id: "nethpot", label: "NethPot" },
+        { id: "smp", label: "SMP" },
+        { id: "sword", label: "Sword" },
+        { id: "axe", label: "Axe" },
+        { id: "mace", label: "Mace" },
+        { id: "cart", label: "Cart" },
+        { id: "creeper", label: "Creeper" },
+        { id: "diasmp", label: "DiaSMP" },
+        { id: "ogvanilla", label: "OG Vanilla" },
+        { id: "shieldlessuhc", label: "Shieldless UHC" },
+      ];
 
-</body>
+      // Your rows: tiers array MUST be same length as MODES.
+      // Use null for "no tier" => it will render an empty pill.
+      const PLAYERS = [
+        {
+          place: 1,
+          name: "antidoe",
+          points: 364,
+          pfp: "https://nmsr.jgj52.hu/bust/antidoe?w=100",
+          tiers: ["HT2","HT2","HT2","HT2","LT1","LT1","LT2","LT2","HT2","HT2","HT2","LT1","LT2"],
+        },
+        {
+          place: 2,
+          name: "Gnomonic",
+          points: 234,
+          pfp: "https://nmsr.jgj52.hu/bust/Gnomonic?w=100",
+          tiers: ["RLT2","RHT2","RHT2","RHT2","RHT2","RHT2","RLT2","LT5",null,null,null,null,null],
+        },
+        {
+          place: 3,
+          name: "Denji_Ryomen",
+          points: 224,
+          red: true,
+          pfp: "https://nmsr.jgj52.hu/bust/Denji_Ryomen?w=100",
+          tiers: [null,null,null,null,null,"RHT2","RHT2","RLT2",null,null,null,null,null],
+        },
+      ];
+
+      // map tier code -> css class
+      function tierClass(code){
+        if(!code) return "";
+        const c = code.toUpperCase();
+        if(c === "HT2") return "ht2";
+        if(c === "LT1") return "lt1";
+        if(c === "LT2") return "lt2";
+        if(c === "RHT2") return "rht2";
+        if(c === "RLT2") return "rlt2";
+        if(c === "LT5") return "lt5";
+        return "ht2";
+      }
+
+      // ===== render modes =====
+      const modesEl = document.getElementById("modes");
+      MODES.forEach((m, i) => {
+        const a = document.createElement("a");
+        a.href = "#";
+        a.className = "mode" + (i === 0 ? " active" : "");
+        a.innerHTML = `
+          <img src="assets/modes/${m.id}.png" alt="${m.label}">
+          <span>${m.label}</span>
+        `;
+        a.addEventListener("click", (e) => {
+          e.preventDefault();
+          document.querySelectorAll(".mode").forEach(x => x.classList.remove("active"));
+          a.classList.add("active");
+        });
+        modesEl.appendChild(a);
+      });
+
+      // ===== render rows =====
+      const rowsEl = document.getElementById("rows");
+
+      function render(players){
+        rowsEl.innerHTML = "";
+        players.forEach(p => {
+          // ensure tiers length exactly equals modes length
+          const tiers = (p.tiers || []).slice(0, MODES.length);
+          while (tiers.length < MODES.length) tiers.push(null);
+
+          const row = document.createElement("div");
+          row.className = "row" + (p.red ? " red" : "");
+
+          // tier icons (same for every row) + pills aligned with same gap and fixed pill width
+          const iconsHtml = MODES.map(m => `
+            <div class="tier-icon" title="${m.label}">
+              <img src="assets/modes/${m.id}.png" alt="${m.label}">
+            </div>
+          `).join("");
+
+          const pillsHtml = tiers.map(code => {
+            if(!code) return `<div class="empty-pill" aria-hidden="true"></div>`;
+            return `<div class="pill ${tierClass(code)}">${code}</div>`;
+          }).join("");
+
+          row.innerHTML = `
+            <div class="rank">${p.place}.</div>
+
+            <div class="profile">
+              <div class="pfp"><img src="${p.pfp}" alt="${p.name}"></div>
+              <div class="ptext">
+                <h3>${p.name}</h3>
+                <p>${p.points} Pont</p>
+              </div>
+            </div>
+
+            <div class="tiers">
+              <div class="tier-icons">${iconsHtml}</div>
+              <div class="tier-pills">${pillsHtml}</div>
+            </div>
+          `;
+
+          rowsEl.appendChild(row);
+        });
+      }
+
+      render(PLAYERS);
+
+      // ===== simple search (filters by name) =====
+      const search = document.getElementById("search");
+      search.addEventListener("input", () => {
+        const q = search.value.trim().toLowerCase();
+        if(!q) return render(PLAYERS);
+        render(PLAYERS.filter(p => p.name.toLowerCase().includes(q)));
+      });
+    </script>
+  </body>
 </html>
