@@ -2,381 +2,467 @@
 <html lang="hu">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>NoobTiers</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
 
   <style>
-    *{margin:0;padding:0;box-sizing:border-box;font-family:Inter,system-ui,-apple-system,sans-serif}
+    /* ===============================
+       RESET
+    ================================= */
+    *{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI,system-ui,-apple-system,Arial,sans-serif}
     body{
       min-height:100vh;
       color:#fff;
-      background: radial-gradient(circle at left, #4b2dff 0%, #0b1020 40%, #061018 100%);
+      background:
+        radial-gradient(circle at left, #3b2a8f 0%, #0b1220 35%) fixed,
+        radial-gradient(circle at right, #0f2b44 0%, #0b1220 35%) fixed;
+      background-color:#0b1220;
     }
 
-    /* ===== NAV ===== */
+    /* ===============================
+       NAVBAR
+    ================================= */
     nav{
       height:70px;
+      padding:0 40px;
       display:flex;
       align-items:center;
       justify-content:space-between;
-      padding:0 40px;
-      border-bottom:1px solid rgba(255,255,255,.06);
-      background:rgba(5,8,18,.35);
-      backdrop-filter: blur(12px);
+      border-bottom:1px solid rgba(255,255,255,0.05);
     }
-    .brand{font-size:22px;font-weight:800;color:#b68cff}
-    .nav-left{display:flex;align-items:center;gap:18px}
-    .nav-links{display:flex;gap:18px;align-items:center}
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:18px;
+      font-weight:800;
+      font-size:22px;
+      color:#b388ff;
+    }
+    .nav-links{
+      display:flex;
+      gap:16px;
+      align-items:center;
+    }
     .nav-links a{
       text-decoration:none;
-      color:#cfd8ff;
-      font-weight:600;
-      font-size:13px;
-      padding:8px 12px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,.06);
-      background:rgba(255,255,255,.03);
+      color:#cbd5ff;
+      padding:8px 14px;
+      border-radius:12px;
+      background:rgba(255,255,255,0.04);
+      border:1px solid rgba(255,255,255,0.06);
+      transition:.2s;
+      font-size:14px;
     }
-    .nav-links a.active{
-      border-color:rgba(182,140,255,.45);
-      box-shadow:0 0 22px rgba(182,140,255,.18);
-    }
-    .search-wrap{
-      width:260px;
+    .nav-links a:hover{background:rgba(255,255,255,0.08)}
+    .search{
       display:flex;
       align-items:center;
       gap:10px;
       padding:8px 12px;
-      border-radius:18px;
-      border:1px solid rgba(255,255,255,.08);
-      background:rgba(10,14,28,.55);
+      border-radius:14px;
+      background:rgba(255,255,255,0.03);
+      border:1px solid rgba(255,255,255,0.06);
+      min-width:260px;
     }
-    .search-wrap input{
+    .search input{
       width:100%;
+      background:transparent;
       border:none;
       outline:none;
-      background:transparent;
       color:#fff;
       font-size:13px;
       opacity:.9;
     }
-    .search-wrap span{opacity:.6;font-size:12px}
+    .search .icon{opacity:.7;font-size:14px}
 
-    /* ===== LAYOUT ===== */
-    .panel{
-      max-width:1500px;   /* EXPANDED LEFT+RIGHT */
-      margin:42px auto;
-      padding:28px 28px 24px;
-      border-radius:22px;
-      background:rgba(15,22,40,.62);
-      border:1px solid rgba(255,255,255,.07);
-      box-shadow:0 0 0 1px rgba(255,255,255,.02) inset;
-      backdrop-filter: blur(14px);
+    /* ===============================
+       MAIN CONTAINER (slight LEFT shift)
+    ================================= */
+    .container{
+      width:95%;
+      max-width:1700px;
+      margin:40px auto;
+      padding:30px;
+      border-radius:25px;
+      background:rgba(255,255,255,0.02);
+      backdrop-filter:blur(12px);
+      border:1px solid rgba(255,255,255,0.05);
+
+      /* <<< EZ tolja picit balra >>> */
+      transform: translateX(-40px);
+    }
+    @media (max-width: 1200px){
+      .container{ transform:none; }
     }
 
-    /* ===== GAMEMODES BAR ===== */
+    /* ===============================
+       GAMEMODES
+    ================================= */
     .gamemodes{
       display:flex;
       flex-wrap:wrap;
-      gap:14px;
-      padding:14px;
+      gap:22px;
+      justify-content:flex-start;
+      padding:10px 10px 25px;
       border-radius:18px;
-      border:1px solid rgba(255,255,255,.06);
-      background:rgba(255,255,255,.02);
-      margin-bottom:16px;
+      background:rgba(255,255,255,0.01);
+      border:1px solid rgba(255,255,255,0.04);
+      margin-bottom:22px;
     }
-    .gm{
-      width:96px;
-      height:84px;
-      border-radius:16px;
-      border:1px solid rgba(255,255,255,.07);
-      background:rgba(255,255,255,.03);
+    .gamemode{
+      width:135px;height:135px;
+      border-radius:20px;
+      background:rgba(255,255,255,0.03);
+      border:1px solid rgba(255,255,255,0.05);
       display:flex;
       flex-direction:column;
       align-items:center;
       justify-content:center;
-      gap:7px;
+      transition:.2s ease;
+      padding-top:6px;
     }
-    .gm.active{
-      border-color:rgba(182,140,255,.5);
-      box-shadow:0 0 22px rgba(182,140,255,.18);
-      background:rgba(182,140,255,.10);
+    .gamemode:hover{transform:translateY(-3px);background:rgba(255,255,255,0.06)}
+    .gamemode img{
+      width:64px;height:64px;
+      object-fit:contain;
+      margin-bottom:10px;
     }
-    .gm img{width:34px;height:34px;object-fit:contain;display:block}
-    .gm div{
-      font-size:11px;
-      font-weight:700;
-      opacity:.92;
+    /* Shieldless ikon legyen nagyobb */
+    .gamemode img[src*="shieldless"]{width:78px;height:78px;margin-bottom:8px}
+    .gamemode p{
+      font-size:13px;
       text-align:center;
-      line-height:1.1;
+      width:100%;
+      line-height:1.15;
+      opacity:.95;
     }
 
-    /* ===== HEADER ROW ===== */
-    .header{
+    /* ===============================
+       HEADER ROW
+    ================================= */
+    .header-row{
       display:grid;
-      grid-template-columns: 90px 340px 1fr;
-      align-items:center;
-      padding:10px 16px;
-      opacity:.55;
-      font-size:12px;
-      border-bottom:1px solid rgba(255,255,255,.06);
-      margin:8px 0 14px;
+      grid-template-columns:100px 320px 1fr;
+      margin:10px 0 14px;
+      opacity:.65;
+      font-size:13px;
+      padding:0 10px;
     }
-    .header .right{justify-self:center}
 
-    /* ===== PLAYER CARDS ===== */
-    .row{
+    /* ===============================
+       PLAYER CARD
+    ================================= */
+    .card{
       display:grid;
-      grid-template-columns: 90px 340px 1fr;
+      grid-template-columns:100px 320px 1fr;
       align-items:center;
-      padding:18px 16px;
-      border-radius:18px;
-      background:rgba(255,255,255,.03);
-      border:1px solid rgba(255,255,255,.06);
-      margin-bottom:14px;
-      overflow:visible; /* prevent cutoff */
+      padding:26px 16px;
+      margin-bottom:18px;
+      border-radius:22px;
+      background:rgba(255,255,255,0.03);
+      border:1px solid rgba(255,255,255,0.05);
+      transition:.2s ease;
     }
-    .row.highlight{
-      background:linear-gradient(90deg, rgba(120,0,0,.62), rgba(60,0,0,.42));
-      border-color:rgba(255,80,80,.20);
+    .card:hover{background:rgba(255,255,255,0.06)}
+    .card.highlight{
+      background:linear-gradient(90deg,#4a0d17,#7a121f);
+      border-color: rgba(255,120,120,0.15);
     }
 
+    /* LEFT */
     .place{
-      font-size:34px;
-      font-weight:900;
-      opacity:.9;
+      font-size:40px;
+      font-weight:800;
+      padding-left:10px;
+      opacity:.95;
     }
-
-    .player{
+    .profile{
       display:flex;
       align-items:center;
-      gap:14px;
+      gap:18px;
     }
-    .pfp{
-      width:62px;height:62px;border-radius:16px;
-      border:1px solid rgba(255,255,255,.08);
-      background:rgba(255,255,255,.04);
-      object-fit:cover;
+    .profile img{
+      width:70px;height:70px;
+      border-radius:14px;
     }
-    .pname{font-size:18px;font-weight:800}
-    .ppoints{font-size:12px;opacity:.7;margin-top:2px}
+    .profile h2{font-size:20px;font-weight:700}
+    .profile p{opacity:.65;font-size:13px;margin-top:2px}
 
-    /* ===== THE IMPORTANT PART: PERFECT ALIGNMENT =====
-       We use ONE GRID for each mode column.
-       Each column contains icon + pill stacked in the same cell.
-       => They can NEVER desync.
-    */
+    /* ===============================
+       TIERS (icons + labels perfectly aligned)
+    ================================= */
     .tiers{
-      justify-self:stretch;
-      padding-right:10px;
-    }
-    .tierGrid{
-      display:grid;
-      grid-template-columns: repeat(var(--cols), 66px);
-      justify-content:end;
-      gap:14px;
-      align-items:start;
-    }
-    .cell{
-      width:66px;
       display:flex;
       flex-direction:column;
+      gap:12px;
+      padding-right:10px;
+    }
+    .tier-icons{
+      display:flex;
+      gap:26px; /* <- icons spacing */
       align-items:center;
-      gap:8px;
     }
-    .circle{
-      width:44px;height:44px;border-radius:50%;
-      display:flex;align-items:center;justify-content:center;
-      border:1px solid rgba(255,255,255,.10);
-      background:rgba(255,255,255,.04);
-    }
-    .circle img{width:22px;height:22px;object-fit:contain;display:block}
-
-    .pill{
-      width:54px;
-      height:22px;
+    .tier-icons .icon-wrap{
+      width:44px; /* fixed width = label width */
+      height:44px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
       border-radius:999px;
-      display:flex;align-items:center;justify-content:center;
+      background: rgba(255,255,255,0.03);
+      border:1px solid rgba(255,255,255,0.06);
+    }
+    .tier-icons img{
+      width:28px;height:28px;
+      object-fit:contain;
+      opacity:.95;
+    }
+
+    .tier-labels{
+      display:flex;
+      gap:26px; /* MUST MATCH .tier-icons gap */
+      align-items:center;
+    }
+    .tier-label{
+      width:44px;
+      height:24px;
+      border-radius:12px;
+      text-align:center;
       font-size:11px;
-      font-weight:800;
+      line-height:24px;
+      border:1px solid rgba(255,255,255,0.15);
+      background:rgba(255,255,255,0.04);
       letter-spacing:.2px;
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(255,255,255,.04);
+      user-select:none;
     }
-    .emptyPill{opacity:.16}
+    .tier-label.empty{
+      background:rgba(255,255,255,0.02);
+      border-color: rgba(255,255,255,0.08);
+      opacity:.35;
+    }
 
-    /* tier colors */
-    .HT2{border-color:#00e5ff;color:#00e5ff}
-    .HT1{border-color:#ffd700;color:#ffd700}
-    .LT2{border-color:#b68cff;color:#b68cff}
-    .LT1{border-color:#6cf58c;color:#6cf58c}
-    .RHT2{border-color:#ff4fb0;color:#ff4fb0}
-    .RLT2{border-color:#ffb84f;color:#ffb84f}
-    .LT5{border-color:#9fb2ff;color:#9fb2ff}
+    /* ===============================
+       COLORS (HT1..HT5 + LT1..LT5)
+       (közel mctiers vibe)
+    ================================= */
 
-    footer{
+    /* HT */
+    .ht1{border-color:#00ffd5;color:#00ffd5}
+    .ht2{border-color:#00e0ff;color:#00e0ff}
+    .ht3{border-color:#35a7ff;color:#35a7ff}
+    .ht4{border-color:#7b5cff;color:#7b5cff}
+    .ht5{border-color:#b388ff;color:#b388ff}
+
+    /* LT */
+    .lt1{border-color:#ffe066;color:#ffe066}
+    .lt2{border-color:#ffb84d;color:#ffb84d}
+    .lt3{border-color:#ff8a4d;color:#ff8a4d}
+    .lt4{border-color:#ff5c8a;color:#ff5c8a}
+    .lt5{border-color:#b0c4ff;color:#b0c4ff}
+
+    /* Some extra (ha később kell) */
+    .rht2{border-color:#ff4081;color:#ff4081}
+    .rlt2{border-color:#ff9f1a;color:#ff9f1a}
+
+    /* footer tiny */
+    .footer-note{
       margin-top:6px;
-      opacity:.5;
+      opacity:.55;
       font-size:11px;
-      padding:4px 6px;
+      padding-left:6px;
     }
-
-    /* responsive: if screen is small, allow horizontal scroll instead of breaking alignment */
-    .tiersScroll{
-      overflow-x:auto;
-      padding-bottom:6px;
-    }
-    .tiersScroll::-webkit-scrollbar{height:10px}
-    .tiersScroll::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:999px}
-    .tiersScroll::-webkit-scrollbar-track{background:rgba(255,255,255,.04);border-radius:999px}
   </style>
 </head>
 
 <body>
   <nav>
-    <div class="nav-left">
-      <div class="brand">NoobTiers</div>
-      <div class="nav-links">
-        <a class="active" href="#">🏠 Főoldal</a>
-        <a href="#">🎮 Discord</a>
-        <a href="#">🧊 Mod</a>
-      </div>
+    <div class="brand">NoobTiers</div>
+
+    <div class="nav-links">
+      <a href="#">🏠 Főoldal</a>
+      <a href="https://discord.com" target="_blank" rel="noreferrer">💬 Discord</a>
+      <a href="#" target="_blank" rel="noreferrer">🧊 Mod</a>
     </div>
 
-    <div class="search-wrap">
-      <span>🔎</span>
-      <input placeholder="Keresés..." />
+    <div class="search">
+      <span class="icon">🔎</span>
+      <input type="text" placeholder="Keresés..." />
     </div>
   </nav>
 
-  <div class="panel">
-    <div class="gamemodes" id="gamemodes"></div>
-
-    <div class="header">
-      <div>#</div>
-      <div>Név</div>
-      <div class="right">Tierek</div>
+  <main class="container">
+    <!-- GAMEMODES -->
+    <div class="gamemodes">
+      <div class="gamemode"><img src="assets/modes/vanilla.png" alt="Vanilla"><p>Vanilla</p></div>
+      <div class="gamemode"><img src="assets/modes/uhc.png" alt="UHC"><p>UHC</p></div>
+      <div class="gamemode"><img src="assets/modes/pot.png" alt="Pot"><p>Pot</p></div>
+      <div class="gamemode"><img src="assets/modes/nethpot.png" alt="NethPot"><p>NethPot</p></div>
+      <div class="gamemode"><img src="assets/modes/smp.png" alt="SMP"><p>SMP</p></div>
+      <div class="gamemode"><img src="assets/modes/sword.png" alt="Sword"><p>Sword</p></div>
+      <div class="gamemode"><img src="assets/modes/axe.png" alt="Axe"><p>Axe</p></div>
+      <div class="gamemode"><img src="assets/modes/mace.png" alt="Mace"><p>Mace</p></div>
+      <div class="gamemode"><img src="assets/modes/cart.png" alt="Cart"><p>Cart</p></div>
+      <div class="gamemode"><img src="assets/modes/creeper.png" alt="Creeper"><p>Creeper</p></div>
+      <div class="gamemode"><img src="assets/modes/diasmp.png" alt="DiaSMP"><p>DiaSMP</p></div>
+      <div class="gamemode"><img src="assets/modes/ogvanilla.png" alt="OG Vanilla"><p>OG Vanilla</p></div>
+      <div class="gamemode"><img src="assets/modes/shieldlessuhc.png" alt="Shieldless UHC"><p>Shieldless UHC</p></div>
     </div>
 
-    <div id="rows"></div>
+    <!-- TABLE HEADER -->
+    <div class="header-row">
+      <div>#</div>
+      <div>Név</div>
+      <div style="text-align:center;">Tierek</div>
+    </div>
 
-    <footer>NoobTiers • static HTML</footer>
-  </div>
+    <!-- CARD 1 (RENAMED + HT1..LT5) -->
+    <div class="card">
+      <div class="place">1.</div>
 
-  <script>
-    // IMPORTANT: names must match your filenames in assets/modes/
-    // Example: assets/modes/vanilla.png, uhc.png, pot.png ...
-    const modes = [
-      { key:"vanilla", label:"Vanilla" },
-      { key:"uhc", label:"UHC" },
-      { key:"pot", label:"Pot" },
-      { key:"nethpot", label:"NethPot" },
-      { key:"smp", label:"SMP" },
-      { key:"sword", label:"Sword" },
-      { key:"axe", label:"Axe" },
-      { key:"mace", label:"Mace" },
-      { key:"cart", label:"Cart" },
-      { key:"creeper", label:"Creeper" },
-      { key:"diasmp", label:"DiaSMP" },
-      { key:"ogvanilla", label:"OG Vanilla" },
-      { key:"shieldlessuhc", label:"Shieldless UHC" },
-    ];
+      <div class="profile">
+        <img src="https://nmsr.jgj52.hu/bust/antidoe?w=70" alt="NeonGamer322">
+        <div>
+          <h2>NeonGamer322</h2>
+          <p>364 Pont</p>
+        </div>
+      </div>
 
-    // sample data (replace later)
-    // tiers: object where key is mode.key and value is tier string
-    const players = [
-      {
-        place: 1,
-        name: "antidoe",
-        points: 364,
-        pfp: "https://nmsr.jgj52.hu/bust/antidoe?w=100",
-        tiers: {
-          vanilla:"HT2", uhc:"HT2", pot:"HT2", nethpot:"HT2",
-          smp:"LT1", sword:"LT1", axe:"LT2", mace:"LT2",
-          cart:"HT2", creeper:"HT2", diasmp:"HT2", ogvanilla:"LT1", shieldlessuhc:"LT2"
-        }
-      },
-      {
-        place: 2,
-        name: "Gnomonic",
-        points: 234,
-        pfp: "https://nmsr.jgj52.hu/bust/Gnomonic?w=100",
-        tiers: {
-          vanilla:"RLT2", uhc:"RHT2", pot:"RHT2", nethpot:"RHT2",
-          smp:"RHT2", sword:"RHT2", axe:"RLT2", mace:"LT5"
-          // missing modes will render empty automatically
-        }
-      },
-      {
-        place: 3,
-        name: "Denji_Ryomen",
-        points: 224,
-        pfp: "https://nmsr.jgj52.hu/bust/Denji_Ryomen?w=100",
-        highlight: true,
-        tiers: {
-          sword:"RHT2", axe:"RHT2", mace:"RLT2"
-          // rest missing => empty boxes
-        }
-      }
-    ];
-
-    // --- render gamemodes ---
-    const gm = document.getElementById("gamemodes");
-    modes.forEach((m, i) => {
-      const el = document.createElement("div");
-      el.className = "gm" + (i === 0 ? " active" : "");
-      el.innerHTML = `
-        <img src="assets/modes/${m.key}.png" alt="${m.label}">
-        <div>${m.label}</div>
-      `;
-      gm.appendChild(el);
-    });
-
-    // --- render rows ---
-    const rows = document.getElementById("rows");
-
-    function pillClass(tier){
-      if(!tier) return "pill emptyPill";
-      return "pill " + tier;
-    }
-
-    players.forEach(p => {
-      const row = document.createElement("div");
-      row.className = "row" + (p.highlight ? " highlight" : "");
-      const cols = modes.length;
-
-      row.innerHTML = `
-        <div class="place">${p.place}.</div>
-
-        <div class="player">
-          <img class="pfp" src="${p.pfp}" alt="${p.name}">
-          <div>
-            <div class="pname">${p.name}</div>
-            <div class="ppoints">${p.points} Pont</div>
-          </div>
+      <div class="tiers">
+        <!-- ICONS row -->
+        <div class="tier-icons">
+          <div class="icon-wrap"><img src="assets/modes/vanilla.png" alt=""></div>
+          <div class="icon-wrap"><img src="assets/modes/uhc.png" alt=""></div>
+          <div class="icon-wrap"><img src="assets/modes/pot.png" alt=""></div>
+          <div class="icon-wrap"><img src="assets/modes/nethpot.png" alt=""></div>
+          <div class="icon-wrap"><img src="assets/modes/smp.png" alt=""></div>
+          <div class="icon-wrap"><img src="assets/modes/sword.png" alt=""></div>
+          <div class="icon-wrap"><img src="assets/modes/axe.png" alt=""></div>
+          <div class="icon-wrap"><img src="assets/modes/mace.png" alt=""></div>
+          <div class="icon-wrap"><img src="assets/modes/cart.png" alt=""></div>
+          <div class="icon-wrap"><img src="assets/modes/creeper.png" alt=""></div>
+          <div class="icon-wrap"><img src="assets/modes/diasmp.png" alt=""></div>
+          <div class="icon-wrap"><img src="assets/modes/ogvanilla.png" alt=""></div>
+          <div class="icon-wrap"><img src="assets/modes/shieldlessuhc.png" alt=""></div>
         </div>
 
-        <div class="tiers">
-          <div class="tiersScroll">
-            <div class="tierGrid" style="--cols:${cols}">
-              ${modes.map(m => {
-                const tier = p.tiers[m.key] || "";
-                return `
-                  <div class="cell">
-                    <div class="circle">
-                      <img src="assets/modes/${m.key}.png" alt="${m.label}">
-                    </div>
-                    <div class="${pillClass(tier)}">${tier || ""}</div>
-                  </div>
-                `;
-              }).join("")}
-            </div>
-          </div>
-        </div>
-      `;
+        <!-- LABELS row (HT1..HT5 + LT1..LT5, a többi üres mert több a gamemode) -->
+        <div class="tier-labels">
+          <div class="tier-label ht1">HT1</div>
+          <div class="tier-label ht2">HT2</div>
+          <div class="tier-label ht3">HT3</div>
+          <div class="tier-label ht4">HT4</div>
+          <div class="tier-label ht5">HT5</div>
 
-      rows.appendChild(row);
-    });
-  </script>
+          <div class="tier-label lt1">LT1</div>
+          <div class="tier-label lt2">LT2</div>
+          <div class="tier-label lt3">LT3</div>
+          <div class="tier-label lt4">LT4</div>
+          <div class="tier-label lt5">LT5</div>
+
+          <!-- maradék 3 gamemode: üres -->
+          <div class="tier-label empty"></div>
+          <div class="tier-label empty"></div>
+          <div class="tier-label empty"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 2 -->
+    <div class="card">
+      <div class="place">2.</div>
+
+      <div class="profile">
+        <img src="https://nmsr.jgj52.hu/bust/Gnomonic?w=70" alt="Gnomonic">
+        <div>
+          <h2>Gnomonic</h2>
+          <p>234 Pont</p>
+        </div>
+      </div>
+
+      <div class="tiers">
+        <div class="tier-icons">
+          <div class="icon-wrap"><img src="assets/modes/vanilla.png" alt=""></div>
+          <div class="icon-wrap"><img src="assets/modes/uhc.png" alt=""></div>
+          <div class="icon-wrap"><img src="assets/modes/pot.png" alt=""></div>
+          <div class="icon-wrap"><img src="assets/modes/nethpot.png" alt=""></div>
+          <div class="icon-wrap"><img src="assets/modes/smp.png" alt=""></div>
+          <div class="icon-wrap"><img src="assets/modes/sword.png" alt=""></div>
+          <div class="icon-wrap"><img src="assets/modes/axe.png" alt=""></div>
+          <div class="icon-wrap"><img src="assets/modes/mace.png" alt=""></div>
+          <div class="icon-wrap"><img src="assets/modes/cart.png" alt=""></div>
+          <div class="icon-wrap"><img src="assets/modes/creeper.png" alt=""></div>
+          <div class="icon-wrap"><img src="assets/modes/diasmp.png" alt=""></div>
+          <div class="icon-wrap"><img src="assets/modes/ogvanilla.png" alt=""></div>
+          <div class="icon-wrap"><img src="assets/modes/shieldlessuhc.png" alt=""></div>
+        </div>
+
+        <div class="tier-labels">
+          <div class="tier-label rlt2">RLT2</div>
+          <div class="tier-label rht2">RHT2</div>
+          <div class="tier-label rht2">RHT2</div>
+          <div class="tier-label rht2">RHT2</div>
+          <div class="tier-label rht2">RHT2</div>
+          <div class="tier-label rht2">RHT2</div>
+          <div class="tier-label rlt2">RLT2</div>
+          <div class="tier-label lt5">LT5</div>
+          <div class="tier-label empty"></div>
+          <div class="tier-label empty"></div>
+          <div class="tier-label empty"></div>
+          <div class="tier-label empty"></div>
+          <div class="tier-label empty"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 3 (highlight) -->
+    <div class="card highlight">
+      <div class="place">3.</div>
+
+      <div class="profile">
+        <img src="https://nmsr.jgj52.hu/bust/Denji_Ryomen?w=70" alt="Denji_Ryomen">
+        <div>
+          <h2>Denji_Ryomen</h2>
+          <p>224 Pont</p>
+        </div>
+      </div>
+
+      <div class="tiers">
+        <div class="tier-icons">
+          <div class="icon-wrap"><img src="assets/modes/vanilla.png" alt=""></div>
+          <div class="icon-wrap"><img src="assets/modes/uhc.png" alt=""></div>
+          <div class="icon-wrap"><img src="assets/modes/pot.png" alt=""></div>
+          <div class="icon-wrap"><img src="assets/modes/nethpot.png" alt=""></div>
+          <div class="icon-wrap"><img src="assets/modes/smp.png" alt=""></div>
+          <div class="icon-wrap"><img src="assets/modes/sword.png" alt=""></div>
+          <div class="icon-wrap"><img src="assets/modes/axe.png" alt=""></div>
+          <div class="icon-wrap"><img src="assets/modes/mace.png" alt=""></div>
+          <div class="icon-wrap"><img src="assets/modes/cart.png" alt=""></div>
+          <div class="icon-wrap"><img src="assets/modes/creeper.png" alt=""></div>
+          <div class="icon-wrap"><img src="assets/modes/diasmp.png" alt=""></div>
+          <div class="icon-wrap"><img src="assets/modes/ogvanilla.png" alt=""></div>
+          <div class="icon-wrap"><img src="assets/modes/shieldlessuhc.png" alt=""></div>
+        </div>
+
+        <div class="tier-labels">
+          <div class="tier-label empty"></div>
+          <div class="tier-label empty"></div>
+          <div class="tier-label empty"></div>
+          <div class="tier-label empty"></div>
+          <div class="tier-label empty"></div>
+          <div class="tier-label rht2">RHT2</div>
+          <div class="tier-label rht2">RHT2</div>
+          <div class="tier-label rlt2">RLT2</div>
+          <div class="tier-label empty"></div>
+          <div class="tier-label empty"></div>
+          <div class="tier-label empty"></div>
+          <div class="tier-label empty"></div>
+          <div class="tier-label empty"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-note">NoobTiers • static HTML</div>
+  </main>
 </body>
 </html>
