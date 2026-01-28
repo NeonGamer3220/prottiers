@@ -15,7 +15,435 @@
       --shadow: 0 16px 40px rgba(0,0,0,.35);
     }
 
+    *{ box-sizing:border-box; }<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NoobTiers</title>
+  <style>
+    :root{
+      --bg: #0b0f17;
+      --panel: #0f1624;
+      --panel2:#0c1320;
+      --border:#203047;
+      --text:#e8f0ff;
+      --muted:#a9b6cc;
+      --shadow: 0 16px 40px rgba(0,0,0,.35);
+    }
+
     *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      background: radial-gradient(1200px 600px at 20% -10%, rgba(68,120,255,.25), transparent 55%),
+                  radial-gradient(900px 500px at 110% 10%, rgba(255,88,164,.18), transparent 55%),
+                  var(--bg);
+      color: var(--text);
+    }
+
+    .nav{
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(10,14,22,.75);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(32,48,71,.55);
+    }
+    .nav-inner{
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 14px 16px;
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      justify-content: space-between;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      font-weight: 800;
+      letter-spacing: .2px;
+    }
+    .brand-badge{
+      width: 34px; height:34px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(68,120,255,.95), rgba(255,88,164,.8));
+      box-shadow: 0 10px 25px rgba(68,120,255,.18);
+    }
+    .brand span{ font-size: 18px; }
+
+    .search{
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+    .search input{
+      width: min(360px, 55vw);
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(32,48,71,.65);
+      background: rgba(15,22,36,.85);
+      color: var(--text);
+      outline: none;
+    }
+    .search button{
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(32,48,71,.65);
+      background: rgba(15,22,36,.85);
+      color: var(--text);
+      cursor:pointer;
+    }
+    .search button:hover{ background: rgba(20,30,50,.9); }
+
+    .wrap{
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 18px 16px 60px;
+    }
+
+    .header-row{
+      display:flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 12px;
+      margin: 14px 0 12px;
+    }
+    .header-row h1{
+      margin:0;
+      font-size: 22px;
+      letter-spacing:.2px;
+    }
+    .hint{
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .board{
+      border: 1px solid rgba(32,48,71,.7);
+      background: rgba(15,22,36,.72);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+
+    .board-head{
+      display:grid;
+      grid-template-columns: 84px 110px 1fr 160px;
+      gap: 12px;
+      padding: 14px 16px;
+      background: rgba(12,19,32,.85);
+      border-bottom: 1px solid rgba(32,48,71,.7);
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+    }
+
+    .row{
+      display:grid;
+      grid-template-columns: 84px 110px 1fr 160px;
+      gap: 12px;
+      padding: 14px 16px;
+      align-items:center;
+      border-bottom: 1px solid rgba(32,48,71,.45);
+    }
+    .row:nth-child(even){ background: rgba(12,19,32,.35); }
+    .row:last-child{ border-bottom:none; }
+
+    .rank{
+      font-weight: 800;
+      font-size: 18px;
+      opacity:.95;
+    }
+
+    .skin{
+      width: 86px;
+      height: 86px;
+      border-radius: 18px;
+      border: 1px solid rgba(32,48,71,.8);
+      background: rgba(10,14,22,.35);
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .skin img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      image-rendering: pixelated;
+      transform: scale(1.05);
+    }
+
+    .name{
+      font-weight: 800;
+      font-size: 16px;
+      line-height: 1.1;
+    }
+    .sub{
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 6px;
+    }
+
+    /* ÚJ: tier lista stílus */
+    .tiers{
+      margin-top: 8px;
+      display:flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap: 6px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(32,48,71,.65);
+      background: rgba(10,14,22,.25);
+      color: var(--text);
+      font-size: 12px;
+      line-height: 1;
+      opacity: .95;
+      white-space: nowrap;
+    }
+    .chip b{
+      color: var(--muted);
+      font-weight: 800;
+      letter-spacing:.2px;
+    }
+
+    .points{
+      text-align:right;
+      font-weight: 900;
+      font-size: 18px;
+    }
+    .points span{
+      display:block;
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 12px;
+      margin-top: 4px;
+      letter-spacing:.4px;
+      text-transform: uppercase;
+    }
+
+    .pill{
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(32,48,71,.65);
+      background: rgba(10,14,22,.28);
+      color: var(--muted);
+      font-size: 12px;
+      margin-left: 10px;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 720px){
+      .board-head{ display:none; }
+      .row{
+        grid-template-columns: 70px 90px 1fr;
+      }
+      .skin{ width: 76px; height: 76px; border-radius: 16px; }
+      .points{ text-align:left; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="nav">
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-badge"></div>
+        <span>NoobTiers</span>
+      </div>
+
+      <div class="search">
+        <input id="filter" type="text" placeholder="Játékos keresése (szűrés)" />
+        <button id="clear">Törlés</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="header-row">
+      <h1>Ranglista <span class="pill" id="meta">0 játékos</span></h1>
+      <div class="hint">Dinamikus pontszámítás a tier-eseményekből</div>
+    </div>
+
+    <div class="board">
+      <div class="board-head">
+        <div>#</div>
+        <div>Skin</div>
+        <div>Név</div>
+        <div style="text-align:right;">Pont</div>
+      </div>
+
+      <div id="rows"></div>
+    </div>
+  </div>
+
+  <script>
+    // Ponttábla
+    const tierPoints = {
+      "LT5": 1,
+      "HT5": 2,
+      "LT4": 3,
+      "HT4": 4,
+      "LT3": 5,
+      "HT3": 6,
+      "LT2": 7,
+      "HT2": 8,
+      "LT1": 9,
+      "HT1": 10,
+    };
+
+    // ESEMÉNYEK
+    const events = [
+      "Krisionyt LT3 - mace",
+      "OwandYTOwnsMe LT3 - mace",
+      "kakashajas LT5 - vanilla",
+      "Botilezsa LT3 - mace",
+      "OwandYTOwnsMe LT3 - Creeper",
+      "pvlevi HT5 - mace",
+      "LuxzyOne LT3 - vanilla",
+      "LuxzyOne HT5 - Mace",
+      "keviin HT4 - vanilla",
+      "__Foxythatguy__ HT3 - mace",
+      "NeonGamer322 LT3 - mace",
+      "Krazy_attached HT5 - sword",
+      "NeonGamer322 HT4 - sword",
+      "Krisionyt LT4 - sword",
+      "KevinREAL LT4 - mace",
+      "Krisionyt HT4 - mace",
+      "JGJ52 HT4 - sword",
+    ];
+
+    function normMode(s){
+      // "mace" -> "Mace", "Creeper" marad "Creeper"
+      const t = String(s).trim();
+      if(!t) return "";
+      return t[0].toUpperCase() + t.slice(1).toLowerCase();
+    }
+
+    // Compute: pont + eseményszám + tier-lista
+    function computeScores(lines){
+      const score = new Map();
+      const eventCount = new Map();
+      const tiers = new Map(); // player -> [{tier, mode}...]
+
+      for (const raw of lines){
+        const line = raw.trim();
+        if(!line) continue;
+
+        // "<player> <TIER> - <mode>"
+        const match = line.match(/^(\S+)\s+(HT[1-5]|LT[1-5])\s*-\s*(.+)$/i);
+        if(!match) continue;
+
+        const player = match[1];
+        const tier = match[2].toUpperCase();
+        const mode = normMode(match[3]);
+
+        const pts = tierPoints[tier] ?? 0;
+        score.set(player, (score.get(player) ?? 0) + pts);
+        eventCount.set(player, (eventCount.get(player) ?? 0) + 1);
+
+        if(!tiers.has(player)) tiers.set(player, []);
+        tiers.get(player).push({ tier, mode });
+      }
+
+      const arr = Array.from(score.entries()).map(([player, points]) => ({
+        player,
+        points,
+        events: eventCount.get(player) ?? 0,
+        tiers: tiers.get(player) ?? []
+      }));
+
+      // pont desc, név asc
+      arr.sort((a,b) => b.points - a.points || a.player.localeCompare(b.player));
+      return arr;
+    }
+
+    function bustUrl(player){
+      return `https://nmsr.jgj52.hu/bust/${encodeURIComponent(player)}?w=90`;
+    }
+
+    function render(list, filterText=""){
+      const rows = document.getElementById("rows");
+      rows.innerHTML = "";
+
+      const ft = filterText.trim().toLowerCase();
+      const filtered = ft ? list.filter(x => x.player.toLowerCase().includes(ft)) : list;
+
+      document.getElementById("meta").textContent = `${filtered.length} játékos`;
+
+      filtered.forEach((item, idx) => {
+        const row = document.createElement("div");
+        row.className = "row";
+
+        const tierHtml = item.tiers
+          .map(t => `<span class="chip"><b>${t.tier}</b> ${t.mode}</span>`)
+          .join("");
+
+        row.innerHTML = `
+          <div class="rank">${idx+1}.</div>
+
+          <div class="skin">
+            <img alt="${item.player}" src="${bustUrl(item.player)}"
+              onerror="this.onerror=null; this.src='https://nmsr.jgj52.hu/bust/Steve?w=90';">
+          </div>
+
+          <div class="name-wrap">
+            <div class="name">${item.player}</div>
+            <div class="sub">${item.events} esemény alapján</div>
+            <div class="tiers">${tierHtml}</div>
+          </div>
+
+          <div class="points">
+            ${item.points}
+            <span>Pont</span>
+          </div>
+        `;
+        rows.appendChild(row);
+      });
+
+      if(filtered.length === 0){
+        const empty = document.createElement("div");
+        empty.className = "row";
+        empty.innerHTML = `
+          <div class="rank">—</div>
+          <div class="skin"></div>
+          <div class="name-wrap">
+            <div class="name">Nincs találat</div>
+            <div class="sub">Próbáld más névvel</div>
+          </div>
+          <div class="points">—<span>Pont</span></div>
+        `;
+        rows.appendChild(empty);
+      }
+    }
+
+    const scores = computeScores(events);
+    render(scores);
+
+    const filter = document.getElementById("filter");
+    filter.addEventListener("input", () => render(scores, filter.value));
+
+    document.getElementById("clear").addEventListener("click", () => {
+      filter.value = "";
+      render(scores, "");
+      filter.focus();
+    });
+  </script>
+</body>
+</html>
+
     body{
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
