@@ -1,202 +1,206 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="hu">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ProtTiers</title>
 
-  <link rel="stylesheet" href="./style.css" />
-  <script src="./script.js" defer></script>
+  <link rel="icon" href="favicon.png" />
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
-  <!-- TOP NAV -->
+  <div class="bg"></div>
+
   <header class="topbar">
-    <div class="topbar__inner">
-      <div class="logo">Prot<span>Tiers</span></div>
+    <div class="topbar-inner">
+      <div class="brand">
+        <span class="brand-name">ProtTiers</span>
+      </div>
 
       <nav class="nav">
-        <a class="nav__link nav__link--active" href="#">Főoldal</a>
-        <a class="nav__link" href="#">Discord</a>
-        <a class="nav__link" href="#">Mod</a>
+        <a class="nav-link active" href="#">Főoldal</a>
+        <a class="nav-link" href="https://discord.gg/" target="_blank" rel="noreferrer">Discord</a>
+        <a class="nav-link" href="https://modrinth.com/" target="_blank" rel="noreferrer">Mod</a>
       </nav>
 
       <div class="search">
-        <input id="searchInput" placeholder="Keresés..." />
+        <input id="searchInput" type="text" placeholder="Keresés..." />
         <button id="searchBtn" aria-label="Search">⌕</button>
       </div>
     </div>
   </header>
 
-  <main class="page">
+  <main class="container">
     <section class="panel">
-      <!-- GAMEMODE TABS -->
       <div class="modes" id="modes">
-        <button class="mode mode--active" data-mode="vanilla">
-          <img src="/assets/modes/vanilla.png" alt="Vanilla" />
-          <span>Vanilla</span>
-        </button>
-        <button class="mode" data-mode="uhc">
-          <img src="/assets/modes/uhc.png" alt="UHC" />
-          <span>UHC</span>
-        </button>
-        <button class="mode" data-mode="pot">
-          <img src="/assets/modes/pot.png" alt="Pot" />
-          <span>Pot</span>
-        </button>
-        <button class="mode" data-mode="nethpot">
-          <img src="/assets/modes/nethpot.png" alt="NethPot" />
-          <span>NethPot</span>
-        </button>
-        <button class="mode" data-mode="smp">
-          <img src="/assets/modes/smp.png" alt="SMP" />
-          <span>SMP</span>
-        </button>
-        <button class="mode" data-mode="sword">
-          <img src="/assets/modes/sword.png" alt="Sword" />
-          <span>Sword</span>
-        </button>
-        <button class="mode" data-mode="axe">
-          <img src="/assets/modes/axe.png" alt="Axe" />
-          <span>Axe</span>
-        </button>
-        <button class="mode" data-mode="mace">
-          <img src="/assets/modes/mace.png" alt="Mace" />
-          <span>Mace</span>
-        </button>
-        <button class="mode" data-mode="cart">
-          <img src="/assets/modes/cart.png" alt="Cart" />
-          <span>Cart</span>
-        </button>
-        <button class="mode" data-mode="creeper">
-          <img src="/assets/modes/creeper.png" alt="Creeper" />
-          <span>Creeper</span>
-        </button>
-        <button class="mode" data-mode="diasmp">
-          <img src="/assets/modes/diasmp.png" alt="DiaSMP" />
-          <span>DiaSMP</span>
-        </button>
-        <button class="mode" data-mode="ogvanilla">
-          <img src="/assets/modes/ogvanilla.png" alt="OG Vanilla" />
-          <span>OG Vanilla</span>
-        </button>
-        <button class="mode" data-mode="shieldlessuhc">
-          <img src="/assets/modes/shieldlessuhc.png" alt="Shieldless UHC" />
-          <span>Shieldless UHC</span>
-        </button>
+        <!-- Make sure these files exist in assets/modes/ -->
+        <a class="mode" href="#"><img src="assets/modes/vanilla.png" alt="Vanilla"><span>Vanilla</span></a>
+        <a class="mode" href="#"><img src="assets/modes/uhc.png" alt="UHC"><span>UHC</span></a>
+        <a class="mode" href="#"><img src="assets/modes/pot.png" alt="Pot"><span>Pot</span></a>
+        <a class="mode" href="#"><img src="assets/modes/nethpot.png" alt="NethPot"><span>NethPot</span></a>
+        <a class="mode" href="#"><img src="assets/modes/smp.png" alt="SMP"><span>SMP</span></a>
+        <a class="mode" href="#"><img src="assets/modes/sword.png" alt="Sword"><span>Sword</span></a>
+        <a class="mode" href="#"><img src="assets/modes/axe.png" alt="Axe"><span>Axe</span></a>
+        <a class="mode" href="#"><img src="assets/modes/mace.png" alt="Mace"><span>Mace</span></a>
+        <a class="mode" href="#"><img src="assets/modes/cart.png" alt="Cart"><span>Cart</span></a>
+        <a class="mode" href="#"><img src="assets/modes/creeper.png" alt="Creeper"><span>Creeper</span></a>
+        <a class="mode" href="#"><img src="assets/modes/diasmp.png" alt="DiaSMP"><span>DiaSMP</span></a>
+        <a class="mode" href="#"><img src="assets/modes/ogvanilla.png" alt="OG Vanilla"><span>OG Vanilla</span></a>
+        <a class="mode" href="#"><img src="assets/modes/shieldlessuhc.png" alt="Shieldless UHC"><span>Shieldless UHC</span></a>
       </div>
 
-      <!-- TABLE HEADER -->
-      <div class="tableHead">
-        <div class="th">#</div>
-        <div class="th">Név</div>
-        <div class="th">Tierek</div>
+      <div class="divider"></div>
+
+      <div class="table-head">
+        <div class="th th-rank">#</div>
+        <div class="th th-name">Név</div>
+        <div class="th th-tiers">Tierek</div>
       </div>
 
-      <!-- LIST -->
-      <div class="list" id="list">
-        <!-- row -->
-        <div class="row" data-name="antidoe">
+      <div class="list">
+
+        <!-- CARD 1 -->
+        <article class="card">
           <div class="rank">1.</div>
 
           <div class="player">
-            <img class="avatar" src="https://mc-heads.net/avatar/antidoe/64" alt="antidoe" />
-            <div class="pmeta">
-              <div class="pname">antidoe</div>
-              <div class="ppoints">364 Pont</div>
+            <img class="pfp" src="https://nmsr.jgj52.hu/bust/antidoe?w=100" alt="antidoe">
+            <div class="player-text">
+              <div class="player-name">antidoe</div>
+              <div class="player-points">364 Pont</div>
             </div>
           </div>
 
           <div class="tiers">
-            <div class="tierIcons">
-              <span class="ticon"><img src="/assets/modes/vanilla.png" alt=""></span>
-              <span class="ticon"><img src="/assets/modes/uhc.png" alt=""></span>
-              <span class="ticon"><img src="/assets/modes/pot.png" alt=""></span>
-              <span class="ticon"><img src="/assets/modes/nethpot.png" alt=""></span>
-              <span class="ticon"><img src="/assets/modes/smp.png" alt=""></span>
-              <span class="ticon"><img src="/assets/modes/sword.png" alt=""></span>
-              <span class="ticon"><img src="/assets/modes/axe.png" alt=""></span>
-              <span class="ticon"><img src="/assets/modes/mace.png" alt=""></span>
-              <span class="ticon"><img src="/assets/modes/cart.png" alt=""></span>
-              <span class="ticon"><img src="/assets/modes/creeper.png" alt=""></span>
-              <span class="ticon"><img src="/assets/modes/diasmp.png" alt=""></span>
-              <span class="ticon"><img src="/assets/modes/ogvanilla.png" alt=""></span>
-              <span class="ticon"><img src="/assets/modes/shieldlessuhc.png" alt=""></span>
+            <div class="tier-icons">
+              <div class="tier-icon"><img src="assets/modes/vanilla.png" alt=""></div>
+              <div class="tier-icon"><img src="assets/modes/uhc.png" alt=""></div>
+              <div class="tier-icon"><img src="assets/modes/pot.png" alt=""></div>
+              <div class="tier-icon"><img src="assets/modes/nethpot.png" alt=""></div>
+              <div class="tier-icon"><img src="assets/modes/smp.png" alt=""></div>
+              <div class="tier-icon"><img src="assets/modes/sword.png" alt=""></div>
+              <div class="tier-icon"><img src="assets/modes/axe.png" alt=""></div>
+              <div class="tier-icon"><img src="assets/modes/mace.png" alt=""></div>
+              <div class="tier-icon"><img src="assets/modes/cart.png" alt=""></div>
+              <div class="tier-icon"><img src="assets/modes/creeper.png" alt=""></div>
+              <div class="tier-icon"><img src="assets/modes/diasmp.png" alt=""></div>
+              <div class="tier-icon"><img src="assets/modes/ogvanilla.png" alt=""></div>
+              <div class="tier-icon"><img src="assets/modes/shieldlessuhc.png" alt=""></div>
             </div>
 
-            <div class="tierPills">
-              <span class="pill">HT2</span><span class="pill">HT2</span><span class="pill">HT2</span><span class="pill">HT2</span>
-              <span class="pill">LT1</span><span class="pill">LT1</span>
-              <span class="pill">LT2</span><span class="pill">LT2</span>
-              <span class="pill">HT2</span><span class="pill">HT2</span><span class="pill">HT2</span>
-              <span class="pill">LT1</span><span class="pill">LT2</span>
+            <div class="tier-labels">
+              <span class="pill ht2">HT2</span>
+              <span class="pill ht2">HT2</span>
+              <span class="pill ht2">HT2</span>
+              <span class="pill ht2">HT2</span>
+              <span class="pill lt1">LT1</span>
+              <span class="pill lt1">LT1</span>
+              <span class="pill lt2">LT2</span>
+              <span class="pill lt2">LT2</span>
+              <span class="pill ht2">HT2</span>
+              <span class="pill ht2">HT2</span>
+              <span class="pill ht2">HT2</span>
+              <span class="pill lt1">LT1</span>
+              <span class="pill lt2">LT2</span>
             </div>
           </div>
-        </div>
+        </article>
 
-        <div class="row" data-name="gnomonic">
+        <!-- CARD 2 -->
+        <article class="card">
           <div class="rank">2.</div>
 
           <div class="player">
-            <img class="avatar" src="https://mc-heads.net/avatar/Gnomonic/64" alt="Gnomonic" />
-            <div class="pmeta">
-              <div class="pname">Gnomonic</div>
-              <div class="ppoints">234 Pont</div>
+            <img class="pfp" src="https://nmsr.jgj52.hu/bust/Gnomonic?w=100" alt="Gnomonic">
+            <div class="player-text">
+              <div class="player-name">Gnomonic</div>
+              <div class="player-points">234 Pont</div>
             </div>
           </div>
 
           <div class="tiers">
-            <div class="tierIcons">
-              <span class="ticon"><img src="/assets/modes/uhc.png" alt=""></span>
-              <span class="ticon"><img src="/assets/modes/pot.png" alt=""></span>
-              <span class="ticon"><img src="/assets/modes/sword.png" alt=""></span>
-              <span class="ticon"><img src="/assets/modes/axe.png" alt=""></span>
-              <span class="ticon"><img src="/assets/modes/mace.png" alt=""></span>
-              <span class="ticon"><img src="/assets/modes/cart.png" alt=""></span>
-              <span class="ticon"><img src="/assets/modes/creeper.png" alt=""></span>
-              <span class="ticon"><img src="/assets/modes/diasmp.png" alt=""></span>
-              <span class="ticon"><img src="/assets/modes/ogvanilla.png" alt=""></span>
+            <div class="tier-icons">
+              <div class="tier-icon"><img src="assets/modes/vanilla.png" alt=""></div>
+              <div class="tier-icon"><img src="assets/modes/uhc.png" alt=""></div>
+              <div class="tier-icon"><img src="assets/modes/pot.png" alt=""></div>
+              <div class="tier-icon"><img src="assets/modes/nethpot.png" alt=""></div>
+              <div class="tier-icon"><img src="assets/modes/smp.png" alt=""></div>
+              <div class="tier-icon"><img src="assets/modes/sword.png" alt=""></div>
+              <div class="tier-icon"><img src="assets/modes/axe.png" alt=""></div>
+              <div class="tier-icon"><img src="assets/modes/mace.png" alt=""></div>
+              <div class="tier-icon"><img src="assets/modes/cart.png" alt=""></div>
+              <div class="tier-icon"><img src="assets/modes/creeper.png" alt=""></div>
+              <div class="tier-icon"><img src="assets/modes/diasmp.png" alt=""></div>
+              <div class="tier-icon"><img src="assets/modes/ogvanilla.png" alt=""></div>
+              <div class="tier-icon"><img src="assets/modes/shieldlessuhc.png" alt=""></div>
             </div>
 
-            <div class="tierPills">
-              <span class="pill">RLT2</span><span class="pill">RHT2</span><span class="pill">RHT2</span>
-              <span class="pill">RHT2</span><span class="pill">RLT2</span>
-              <span class="pill">LT5</span>
+            <div class="tier-labels">
+              <span class="pill rlt2">RLT2</span>
+              <span class="pill rht2">RHT2</span>
+              <span class="pill rht2">RHT2</span>
+              <span class="pill rht2">RHT2</span>
+              <span class="pill rht2">RHT2</span>
+              <span class="pill rlt2">RLT2</span>
+              <span class="pill lt5">LT5</span>
             </div>
           </div>
-        </div>
+        </article>
 
-        <div class="row" data-name="denji_ryomen">
+        <!-- CARD 3 -->
+        <article class="card danger">
           <div class="rank">3.</div>
 
           <div class="player">
-            <img class="avatar" src="https://mc-heads.net/avatar/Denji_Ryomen/64" alt="Denji_Ryomen" />
-            <div class="pmeta">
-              <div class="pname">Denji_Ryomen</div>
-              <div class="ppoints">224 Pont</div>
+            <img class="pfp" src="https://nmsr.jgj52.hu/bust/Denji_Ryomen?w=100" alt="Denji_Ryomen">
+            <div class="player-text">
+              <div class="player-name">Denji_Ryomen</div>
+              <div class="player-points">224 Pont</div>
             </div>
           </div>
 
           <div class="tiers">
-            <div class="tierIcons">
-              <span class="ticon"><img src="/assets/modes/vanilla.png" alt=""></span>
-              <span class="ticon"><img src="/assets/modes/uhc.png" alt=""></span>
-              <span class="ticon"><img src="/assets/modes/pot.png" alt=""></span>
-              <span class="ticon"><img src="/assets/modes/sword.png" alt=""></span>
-              <span class="ticon"><img src="/assets/modes/axe.png" alt=""></span>
-              <span class="ticon"><img src="/assets/modes/mace.png" alt=""></span>
+            <div class="tier-icons">
+              <div class="tier-icon"><img src="assets/modes/vanilla.png" alt=""></div>
+              <div class="tier-icon"><img src="assets/modes/uhc.png" alt=""></div>
+              <div class="tier-icon"><img src="assets/modes/pot.png" alt=""></div>
+              <div class="tier-icon"><img src="assets/modes/nethpot.png" alt=""></div>
+              <div class="tier-icon"><img src="assets/modes/smp.png" alt=""></div>
+              <div class="tier-icon"><img src="assets/modes/sword.png" alt=""></div>
+              <div class="tier-icon"><img src="assets/modes/axe.png" alt=""></div>
+              <div class="tier-icon"><img src="assets/modes/mace.png" alt=""></div>
+              <div class="tier-icon"><img src="assets/modes/cart.png" alt=""></div>
+              <div class="tier-icon"><img src="assets/modes/creeper.png" alt=""></div>
+              <div class="tier-icon"><img src="assets/modes/diasmp.png" alt=""></div>
+              <div class="tier-icon"><img src="assets/modes/ogvanilla.png" alt=""></div>
+              <div class="tier-icon"><img src="assets/modes/shieldlessuhc.png" alt=""></div>
             </div>
 
-            <div class="tierPills">
-              <span class="pill">RHT2</span><span class="pill">RHT2</span><span class="pill">RLT2</span>
+            <div class="tier-labels">
+              <span class="pill rht2">RHT2</span>
+              <span class="pill rht2">RHT2</span>
+              <span class="pill rlt2">RLT2</span>
             </div>
           </div>
-        </div>
+        </article>
 
       </div>
 
-      <div class="foot">ProtTiers • static HTML</div>
+      <footer class="footer">ProtTiers • static HTML</footer>
     </section>
   </main>
+
+  <script>
+    // simple search demo (doesn't fetch anything, just filters the 3 cards by name)
+    const input = document.getElementById("searchInput");
+    const cards = Array.from(document.querySelectorAll(".card"));
+    input.addEventListener("input", () => {
+      const q = input.value.toLowerCase().trim();
+      cards.forEach(c => {
+        const name = c.querySelector(".player-name")?.textContent?.toLowerCase() || "";
+        c.style.display = name.includes(q) ? "" : "none";
+      });
+    });
+  </script>
 </body>
 </html>
