@@ -19,13 +19,11 @@
         --bg1: #07081a;
         --panel: rgba(16, 20, 40, 0.62);
         --stroke: rgba(255, 255, 255, 0.10);
-        --shadow: rgba(0, 0, 0, 0.45);
         --text: rgba(255, 255, 255, 0.92);
         --muted: rgba(255, 255, 255, 0.62);
         --muted2: rgba(255, 255, 255, 0.48);
         --brand: #bba3ff;
 
-        /* sizing knobs */
         --wrapMax: 1320px;
 
         --modeBoxW: 108px;
@@ -39,8 +37,11 @@
         --tierCircle: 38px;
         --tierIcon: 22px;
 
+        /* ✅ important: one fixed column slot width for BOTH icon row + pill row */
+        --tierSlot: 54px; /* controls perfect alignment */
+        --cols: 13; /* will be overwritten by JS to MODES.length */
+
         --pillH: 26px;
-        --pillPx: 12px;
         --pillFont: 12.5px;
       }
 
@@ -59,7 +60,6 @@
 
       a { color: inherit; text-decoration: none; }
 
-      /* top nav */
       .topbar {
         height: 70px;
         display: flex;
@@ -144,7 +144,6 @@
 
       .searchicon { opacity: 0.75; font-size: 14px; }
 
-      /* wrapper */
       .wrap {
         width: min(var(--wrapMax), calc(100% - 24px));
         margin: 22px auto 40px;
@@ -174,21 +173,20 @@
         justify-content: start;
       }
 
-      /* ✅ FIX: perfect icon+text alignment */
       .mode {
         width: var(--modeBoxW);
         height: var(--modeBoxH);
         border-radius: 18px;
         border: 1px solid rgba(255, 255, 255, 0.10);
         background: rgba(16, 20, 40, 0.45);
-        padding: 10px 10px 10px;
+        padding: 10px;
         transition: 0.15s ease;
 
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 8px; /* exact spacing between icon and text */
+        gap: 8px;
       }
 
       .mode:hover {
@@ -206,7 +204,7 @@
       }
 
       .mode .label {
-        height: calc(var(--modeText) * 2.4); /* keeps label area consistent */
+        height: calc(var(--modeText) * 2.4);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -310,13 +308,15 @@
         justify-items: end;
       }
 
+      /* ✅ PERFECT ALIGNMENT: both rows share identical columns */
       .tier-icons,
       .tier-pills {
         display: grid;
-        grid-auto-flow: column;
-        grid-auto-columns: max-content;
+        grid-template-columns: repeat(var(--cols), var(--tierSlot));
         gap: 10px;
         align-items: center;
+        justify-content: end;
+        justify-items: center; /* centers circle/pill inside each slot */
       }
 
       .tiercircle {
@@ -338,17 +338,13 @@
         display: block;
       }
 
-      /* ✅ empty circle should still exist, but show no icon */
-      .tiercircle.empty {
-        opacity: 0.25;
-      }
-      .tiercircle.empty img {
-        display: none; /* real “empty box” */
-      }
+      /* empty circle (keep the slot + ring, but no icon) */
+      .tiercircle.empty { opacity: 0.25; }
+      .tiercircle.empty img { display: none; }
 
       .pill {
         height: var(--pillH);
-        padding: 0 var(--pillPx);
+        width: var(--tierSlot); /* ✅ fixes drift: pills same slot width as circles */
         border-radius: 999px;
         display: inline-flex;
         align-items: center;
@@ -359,6 +355,7 @@
         border: 1px solid rgba(255, 255, 255, 0.18);
         background: rgba(0, 0, 0, 0.18);
         color: rgba(255, 255, 255, 0.92);
+        padding: 0; /* width controls size */
       }
 
       .pill.empty {
@@ -366,7 +363,6 @@
         color: rgba(255, 255, 255, 0.55);
       }
 
-      /* tier borders */
       .t-HT2 { border-color: rgba(85, 209, 255, 0.55); }
       .t-LT1 { border-color: rgba(255, 205, 102, 0.55); }
       .t-LT2 { border-color: rgba(187, 163, 255, 0.55); }
@@ -402,8 +398,14 @@
         }
         .place { font-size: 36px; }
         .tiers { justify-content: flex-start; }
+
         .tiers-stack { justify-items: start; max-width: 100%; }
-        .tier-icons, .tier-pills { overflow-x: auto; padding-bottom: 4px; }
+
+        .tier-icons, .tier-pills {
+          overflow-x: auto;
+          padding-bottom: 4px;
+          justify-content: start; /* nicer on mobile */
+        }
       }
     </style>
   </head>
@@ -472,7 +474,6 @@
           place: 1,
           name: "antidoe",
           points: 364,
-          highlight: "",
           tiers: {
             vanilla: "HT2",
             uhc: "HT2",
@@ -517,6 +518,9 @@
         }
       ];
 
+      // ✅ set the global column count so both icon row + pill row match perfectly
+      document.documentElement.style.setProperty("--cols", String(MODES.length));
+
       function tierClass(t) {
         if (!t) return "empty";
         return "t-" + t.replace(/\s+/g, "");
@@ -526,7 +530,6 @@
         return "https://nmsr.jgj52.hu/bust/" + encodeURIComponent(username) + "?w=100";
       }
 
-      // modes
       const modesEl = document.getElementById("modes");
       modesEl.innerHTML = MODES.map(m => `
         <a class="mode" href="#${m.key}" title="${m.name}">
@@ -535,22 +538,18 @@
         </a>
       `).join("");
 
-      // rows
       const rowsEl = document.getElementById("rows");
 
       function render(players) {
         rowsEl.innerHTML = players.map(p => {
           const rowClass = p.highlight === "red" ? "row red" : "row";
 
-          // ✅ Empty circles when missing: render a circle always, but hide img if missing
           const iconsRow = MODES.map(m => {
             const t = p.tiers?.[m.key];
             const empty = !t ? " empty" : "";
-            const imgTag = `<img src="${MODE_ICON_BASE}${m.icon}" alt="${m.name}" />`;
-            return `<div class="tiercircle${empty}">${imgTag}</div>`;
+            return `<div class="tiercircle${empty}"><img src="${MODE_ICON_BASE}${m.icon}" alt="${m.name}" /></div>`;
           }).join("");
 
-          // pills (empty if missing)
           const pillsRow = MODES.map(m => {
             const t = p.tiers?.[m.key];
             if (!t) return `<div class="pill empty">&nbsp;</div>`;
@@ -584,7 +583,6 @@
 
       render(PLAYERS);
 
-      // search
       const searchInput = document.getElementById("searchInput");
       searchInput.addEventListener("input", () => {
         const q = searchInput.value.trim().toLowerCase();
