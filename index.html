@@ -1,281 +1,627 @@
 <!doctype html>
 <html lang="hu">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NoobTiers</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NoobTiers</title>
 
-  <meta name="description" content="NoobTiers - Magyar Tierlist" />
-  <meta property="og:title" content="NoobTiers - Magyar Tierlist" />
-  <meta property="og:description" content="Magyarország legnagyobb PVP közössége. Teszteld magad több játékmódban és mászd meg a ranglétrát!" />
-  <meta property="og:type" content="website" />
+    <meta property="og:title" content="NoobTiers - Magyar Tierlist" />
+    <meta
+      property="og:description"
+      content="Magyarország legnagyobb PVP közössége. Teszteld magad több játékmódban és mászd meg a ranglétrát!"
+    />
+    <meta property="og:image" content="favicon.png" />
+    <meta property="og:type" content="website" />
 
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-</head>
+    <style>
+      :root {
+        --bg0: #050613;
+        --bg1: #07081a;
+        --panel: rgba(16, 20, 40, 0.62);
+        --panel2: rgba(12, 16, 34, 0.62);
+        --stroke: rgba(255, 255, 255, 0.10);
+        --stroke2: rgba(255, 255, 255, 0.14);
+        --shadow: rgba(0, 0, 0, 0.45);
+        --text: rgba(255, 255, 255, 0.92);
+        --muted: rgba(255, 255, 255, 0.62);
+        --muted2: rgba(255, 255, 255, 0.48);
+        --brand: #bba3ff;
+        --brand2: #7a56ff;
+        --good: #55d1ff;
+        --warn: #ffcc66;
+        --bad: #ff4b6a;
 
-<body>
-  <div class="bg-glow"></div>
+        /* sizing knobs (these make the “bigger” look) */
+        --wrapMax: 1320px;
 
-  <nav class="nav">
-    <div class="nav-left">
-      <div class="brand">NoobTiers</div>
+        --modeBoxW: 108px;
+        --modeBoxH: 94px;
+        --modeIcon: 44px;
+        --modeText: 13px;
 
-      <div class="nav-links">
-        <a class="nav-link active" href="#"><i class="fa-solid fa-house"></i> Főoldal</a>
-        <a class="nav-link" href="https://discord.gg/" target="_blank" rel="noreferrer"><i class="fa-brands fa-discord"></i> Discord</a>
-        <a class="nav-link" href="https://modrinth.com/" target="_blank" rel="noreferrer"><i class="fa-solid fa-cube"></i> Mod</a>
-      </div>
-    </div>
+        --rowH: 120px;
+        --pfp: 74px;
 
-    <div class="nav-search">
-      <input id="search" type="text" placeholder="Keresés..." />
-      <button id="searchBtn" aria-label="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
-    </div>
-  </nav>
+        --tierCircle: 38px;
+        --tierIcon: 22px;
 
-  <main class="container">
-    <div class="panel">
-      <!-- Gamemodes -->
-      <div class="modes-wrap">
-        <div class="modes-grid">
-          <a class="mode-card active" href="#">
-            <div class="mode-icon"><img src="assets/modes/vanilla.png" alt="Vanilla"></div>
-            <div class="mode-name">Vanilla</div>
-          </a>
-          <a class="mode-card" href="#">
-            <div class="mode-icon"><img src="assets/modes/uhc.png" alt="UHC"></div>
-            <div class="mode-name">UHC</div>
-          </a>
-          <a class="mode-card" href="#">
-            <div class="mode-icon"><img src="assets/modes/pot.png" alt="Pot"></div>
-            <div class="mode-name">Pot</div>
-          </a>
-          <a class="mode-card" href="#">
-            <div class="mode-icon"><img src="assets/modes/nethpot.png" alt="NethPot"></div>
-            <div class="mode-name">NethPot</div>
-          </a>
-          <a class="mode-card" href="#">
-            <div class="mode-icon"><img src="assets/modes/smp.png" alt="SMP"></div>
-            <div class="mode-name">SMP</div>
-          </a>
-          <a class="mode-card" href="#">
-            <div class="mode-icon"><img src="assets/modes/sword.png" alt="Sword"></div>
-            <div class="mode-name">Sword</div>
-          </a>
-          <a class="mode-card" href="#">
-            <div class="mode-icon"><img src="assets/modes/axe.png" alt="Axe"></div>
-            <div class="mode-name">Axe</div>
-          </a>
-          <a class="mode-card" href="#">
-            <div class="mode-icon"><img src="assets/modes/mace.png" alt="Mace"></div>
-            <div class="mode-name">Mace</div>
-          </a>
-          <a class="mode-card" href="#">
-            <div class="mode-icon"><img src="assets/modes/cart.png" alt="Cart"></div>
-            <div class="mode-name">Cart</div>
-          </a>
-          <a class="mode-card" href="#">
-            <div class="mode-icon"><img src="assets/modes/creeper.png" alt="Creeper"></div>
-            <div class="mode-name">Creeper</div>
-          </a>
-          <a class="mode-card" href="#">
-            <div class="mode-icon"><img src="assets/modes/diasmp.png" alt="DiaSMP"></div>
-            <div class="mode-name">DiaSMP</div>
-          </a>
-          <a class="mode-card" href="#">
-            <div class="mode-icon"><img src="assets/modes/ogvanilla.png" alt="OG Vanilla"></div>
-            <div class="mode-name">OG Vanilla</div>
-          </a>
-          <a class="mode-card" href="#">
-            <div class="mode-icon"><img src="assets/modes/shieldlessuhc.png" alt="Shieldless UHC"></div>
-            <div class="mode-name">Shieldless UHC</div>
-          </a>
+        --pillH: 26px;
+        --pillPx: 12px;
+        --pillFont: 12.5px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+        color: var(--text);
+        background:
+          radial-gradient(900px 520px at 12% 25%, rgba(122, 86, 255, 0.35), transparent 60%),
+          radial-gradient(780px 480px at 88% 75%, rgba(79, 255, 232, 0.12), transparent 60%),
+          linear-gradient(180deg, var(--bg0), var(--bg1));
+        min-height: 100vh;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      /* top nav */
+      .topbar {
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 18px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        background: rgba(10, 12, 26, 0.60);
+        backdrop-filter: blur(10px);
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+
+      .topbar-inner {
+        width: min(var(--wrapMax), calc(100% - 24px));
+        display: grid;
+        grid-template-columns: 220px 1fr 300px;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .brand {
+        font-weight: 800;
+        letter-spacing: 0.2px;
+        font-size: 22px;
+        color: var(--brand);
+      }
+
+      .navlinks {
+        display: flex;
+        gap: 14px;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .navpill {
+        padding: 10px 14px;
+        border-radius: 999px;
+        border: 1px solid transparent;
+        color: var(--muted);
+        transition: 0.15s ease;
+      }
+
+      .navpill.active {
+        background: rgba(122, 86, 255, 0.16);
+        border-color: rgba(122, 86, 255, 0.30);
+        color: var(--text);
+      }
+
+      .navpill:hover {
+        color: var(--text);
+        border-color: rgba(255, 255, 255, 0.10);
+      }
+
+      .search {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+      }
+
+      .searchbox {
+        width: 100%;
+        max-width: 300px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.10);
+        border-radius: 999px;
+        padding: 10px 14px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .searchbox input {
+        border: none;
+        outline: none;
+        background: transparent;
+        color: var(--text);
+        width: 100%;
+        font-size: 14px;
+      }
+
+      .searchicon {
+        opacity: 0.75;
+        font-size: 14px;
+      }
+
+      /* layout wrapper */
+      .wrap {
+        width: min(var(--wrapMax), calc(100% - 24px));
+        margin: 22px auto 40px;
+      }
+
+      .panel {
+        background: var(--panel);
+        border: 1px solid var(--stroke);
+        border-radius: 26px;
+        box-shadow: 0 22px 70px rgba(0, 0, 0, 0.35);
+        backdrop-filter: blur(14px);
+        padding: 20px;
+      }
+
+      .modes-area {
+        padding: 18px 18px 14px;
+        background: rgba(8, 10, 22, 0.40);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        border-radius: 22px;
+      }
+
+      .modes-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(var(--modeBoxW), var(--modeBoxW)));
+        gap: 12px;
+        align-items: start;
+        justify-content: start;
+      }
+
+      .mode {
+        width: var(--modeBoxW);
+        height: var(--modeBoxH);
+        border-radius: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.10);
+        background: rgba(16, 20, 40, 0.45);
+        display: grid;
+        grid-template-rows: 1fr auto;
+        padding: 12px 10px 10px;
+        transition: 0.15s ease;
+      }
+
+      .mode:hover {
+        transform: translateY(-1px);
+        border-color: rgba(255, 255, 255, 0.16);
+        background: rgba(18, 22, 46, 0.52);
+      }
+
+      .mode .icon {
+        display: grid;
+        place-items: center;
+      }
+
+      .mode img {
+        width: var(--modeIcon);
+        height: var(--modeIcon);
+        image-rendering: pixelated;
+        filter: drop-shadow(0 6px 16px rgba(0,0,0,0.35));
+      }
+
+      .mode .label {
+        text-align: center;
+        font-size: var(--modeText);
+        color: rgba(255, 255, 255, 0.90);
+        margin-top: 6px;
+        line-height: 1.05;
+      }
+
+      .divider {
+        height: 1px;
+        margin: 16px 0 12px;
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      /* header row */
+      .tablehead {
+        display: grid;
+        grid-template-columns: 90px 420px 1fr;
+        align-items: center;
+        color: var(--muted2);
+        font-size: 13px;
+        padding: 6px 8px 10px;
+      }
+
+      /* player rows */
+      .row {
+        height: var(--rowH);
+        border-radius: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(12, 16, 34, 0.42);
+        display: grid;
+        grid-template-columns: 90px 420px 1fr;
+        align-items: center;
+        padding: 12px 14px;
+        margin: 12px 0;
+        overflow: hidden;
+      }
+
+      .row.red {
+        background: rgba(120, 10, 18, 0.62);
+        border-color: rgba(255, 255, 255, 0.10);
+      }
+
+      .place {
+        font-size: 42px;
+        font-weight: 900;
+        opacity: 0.95;
+        padding-left: 6px;
+      }
+
+      .profile {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .pfp {
+        width: var(--pfp);
+        height: var(--pfp);
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.06);
+        flex: 0 0 auto;
+      }
+
+      .pfp img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        image-rendering: pixelated;
+      }
+
+      .ptext .name {
+        font-size: 22px;
+        font-weight: 800;
+        margin: 0;
+        line-height: 1.05;
+      }
+
+      .ptext .pts {
+        margin: 4px 0 0;
+        color: rgba(255, 255, 255, 0.80);
+        font-size: 14px;
+      }
+
+      /* tiers area */
+      .tiers {
+        padding-right: 10px;
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      .tiers-stack {
+        width: 100%;
+        max-width: 760px;
+        display: grid;
+        grid-template-rows: auto auto;
+        gap: 10px;
+        justify-items: end;
+      }
+
+      .tier-icons,
+      .tier-pills {
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: max-content;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .tiercircle {
+        width: var(--tierCircle);
+        height: var(--tierCircle);
+        border-radius: 999px;
+        display: grid;
+        place-items: center;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(0, 0, 0, 0.22);
+        box-shadow: 0 12px 26px rgba(0, 0, 0, 0.20);
+      }
+
+      .tiercircle img {
+        width: var(--tierIcon);
+        height: var(--tierIcon);
+        image-rendering: pixelated;
+        filter: drop-shadow(0 6px 10px rgba(0,0,0,0.35));
+      }
+
+      .tiercircle.empty {
+        opacity: 0.25;
+      }
+
+      .pill {
+        height: var(--pillH);
+        padding: 0 var(--pillPx);
+        border-radius: 999px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        letter-spacing: 0.2px;
+        font-size: var(--pillFont);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        background: rgba(0, 0, 0, 0.18);
+        color: rgba(255, 255, 255, 0.92);
+      }
+
+      .pill.empty {
+        opacity: 0.25;
+        color: rgba(255, 255, 255, 0.55);
+      }
+
+      /* tier colors (feel free to tweak) */
+      .t-HT2 { border-color: rgba(85, 209, 255, 0.55); }
+      .t-LT1 { border-color: rgba(255, 205, 102, 0.55); }
+      .t-LT2 { border-color: rgba(187, 163, 255, 0.55); }
+      .t-RHT2 { border-color: rgba(255, 75, 106, 0.60); }
+      .t-RLT2 { border-color: rgba(255, 205, 102, 0.60); }
+      .t-LT5 { border-color: rgba(140, 170, 255, 0.55); }
+
+      .footer {
+        margin-top: 18px;
+        color: rgba(255, 255, 255, 0.45);
+        font-size: 12px;
+        padding-left: 4px;
+      }
+
+      /* responsiveness */
+      @media (max-width: 1100px) {
+        :root {
+          --wrapMax: 980px;
+          --rowH: 128px;
+        }
+        .topbar-inner {
+          grid-template-columns: 180px 1fr 240px;
+        }
+        .tablehead,
+        .row {
+          grid-template-columns: 80px 360px 1fr;
+        }
+      }
+
+      @media (max-width: 860px) {
+        .topbar-inner {
+          grid-template-columns: 1fr;
+          gap: 10px;
+        }
+        .navlinks { justify-content: flex-start; }
+        .search { justify-content: flex-start; }
+        .searchbox { max-width: 100%; }
+
+        .tablehead { display: none; }
+        .row {
+          height: auto;
+          grid-template-columns: 1fr;
+          gap: 12px;
+          padding: 14px;
+        }
+        .place { font-size: 36px; }
+        .tiers { justify-content: flex-start; }
+        .tiers-stack { justify-items: start; max-width: 100%; }
+        .tier-icons, .tier-pills { overflow-x: auto; padding-bottom: 4px; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="brand">NoobTiers</div>
+
+        <nav class="navlinks">
+          <a class="navpill active" href="#">Főoldal</a>
+          <a class="navpill" href="https://discord.gg/TPk3vbcPyv" target="_blank" rel="noreferrer">Discord</a>
+          <a class="navpill" href="#" title="Mod link">Mod</a>
+        </nav>
+
+        <div class="search">
+          <div class="searchbox">
+            <span class="searchicon">⌕</span>
+            <input id="searchInput" placeholder="Keresés..." />
+          </div>
         </div>
       </div>
+    </header>
 
-      <div class="divider"></div>
-
-      <div class="table-head">
-        <div>#</div>
-        <div>Név</div>
-        <div class="tiers-head">Tierek</div>
-      </div>
-
-      <div class="cards">
-        <!-- 1 -->
-        <div class="card">
-          <div class="place">1.</div>
-
-          <div class="player">
-            <img class="avatar" src="https://nmsr.jgj52.hu/bust/antidoe?w=96" alt="antidoe">
-            <div class="player-meta">
-              <div class="player-name">antidoe</div>
-              <div class="player-points">364 Pont</div>
-            </div>
-          </div>
-
-          <div class="tiers">
-            <!-- icons row: ALWAYS 13 slots -->
-            <div class="tiers-row icons">
-              <div class="tiers-scroll">
-                <div class="tier-slot"><img src="assets/modes/vanilla.png" alt="Vanilla"></div>
-                <div class="tier-slot"><img src="assets/modes/uhc.png" alt="UHC"></div>
-                <div class="tier-slot"><img src="assets/modes/pot.png" alt="Pot"></div>
-                <div class="tier-slot"><img src="assets/modes/nethpot.png" alt="NethPot"></div>
-                <div class="tier-slot"><img src="assets/modes/smp.png" alt="SMP"></div>
-                <div class="tier-slot"><img src="assets/modes/sword.png" alt="Sword"></div>
-                <div class="tier-slot"><img src="assets/modes/axe.png" alt="Axe"></div>
-                <div class="tier-slot"><img src="assets/modes/mace.png" alt="Mace"></div>
-                <div class="tier-slot"><img src="assets/modes/cart.png" alt="Cart"></div>
-                <div class="tier-slot"><img src="assets/modes/creeper.png" alt="Creeper"></div>
-                <div class="tier-slot"><img src="assets/modes/diasmp.png" alt="DiaSMP"></div>
-                <div class="tier-slot"><img src="assets/modes/ogvanilla.png" alt="OG Vanilla"></div>
-                <div class="tier-slot"><img src="assets/modes/shieldlessuhc.png" alt="Shieldless UHC"></div>
-              </div>
-            </div>
-
-            <!-- pill row: ALWAYS 13 pills -->
-            <div class="tiers-row pills">
-              <div class="tiers-scroll">
-                <span class="pill ht2">HT2</span>
-                <span class="pill ht2">HT2</span>
-                <span class="pill ht2">HT2</span>
-                <span class="pill ht2">HT2</span>
-                <span class="pill lt1">LT1</span>
-                <span class="pill lt1">LT1</span>
-                <span class="pill lt2">LT2</span>
-                <span class="pill lt2">LT2</span>
-                <span class="pill ht2">HT2</span>
-                <span class="pill ht2">HT2</span>
-                <span class="pill ht2">HT2</span>
-                <span class="pill lt1">LT1</span>
-                <span class="pill lt2">LT2</span>
-              </div>
-            </div>
-          </div>
+    <main class="wrap">
+      <section class="panel">
+        <div class="modes-area">
+          <div id="modes" class="modes-grid"></div>
         </div>
 
-        <!-- 2 (example: missing tiers -> empty slots) -->
-        <div class="card">
-          <div class="place">2.</div>
+        <div class="divider"></div>
 
-          <div class="player">
-            <img class="avatar" src="https://nmsr.jgj52.hu/bust/Gnomonic?w=96" alt="Gnomonic">
-            <div class="player-meta">
-              <div class="player-name">Gnomonic</div>
-              <div class="player-points">234 Pont</div>
-            </div>
-          </div>
-
-          <div class="tiers">
-            <div class="tiers-row icons">
-              <div class="tiers-scroll">
-                <div class="tier-slot"><img src="assets/modes/vanilla.png" alt="Vanilla"></div>
-                <div class="tier-slot"><img src="assets/modes/uhc.png" alt="UHC"></div>
-                <div class="tier-slot"><img src="assets/modes/pot.png" alt="Pot"></div>
-                <div class="tier-slot"><img src="assets/modes/nethpot.png" alt="NethPot"></div>
-                <div class="tier-slot"><img src="assets/modes/smp.png" alt="SMP"></div>
-                <div class="tier-slot"><img src="assets/modes/sword.png" alt="Sword"></div>
-                <div class="tier-slot"><img src="assets/modes/axe.png" alt="Axe"></div>
-                <div class="tier-slot"><img src="assets/modes/mace.png" alt="Mace"></div>
-                <div class="tier-slot"><img src="assets/modes/cart.png" alt="Cart"></div>
-                <div class="tier-slot"><img src="assets/modes/creeper.png" alt="Creeper"></div>
-                <div class="tier-slot"><img src="assets/modes/diasmp.png" alt="DiaSMP"></div>
-                <div class="tier-slot"><img src="assets/modes/ogvanilla.png" alt="OG Vanilla"></div>
-                <div class="tier-slot"><img src="assets/modes/shieldlessuhc.png" alt="Shieldless UHC"></div>
-              </div>
-            </div>
-
-            <div class="tiers-row pills">
-              <div class="tiers-scroll">
-                <span class="pill rlt2">RLT2</span>
-                <span class="pill rht2">RHT2</span>
-                <span class="pill rht2">RHT2</span>
-                <span class="pill rht2">RHT2</span>
-                <span class="pill rht2">RHT2</span>
-                <span class="pill rlt2">RLT2</span>
-                <span class="pill lt5">LT5</span>
-                <span class="pill empty"></span>
-                <span class="pill empty"></span>
-                <span class="pill empty"></span>
-                <span class="pill empty"></span>
-                <span class="pill empty"></span>
-                <span class="pill empty"></span>
-              </div>
-            </div>
-          </div>
+        <div class="tablehead">
+          <div>#</div>
+          <div>Név</div>
+          <div style="text-align:right;">Tierek</div>
         </div>
 
-        <!-- 3 (example: many missing tiers -> empty slots) -->
-        <div class="card danger">
-          <div class="place">3.</div>
+        <div id="rows"></div>
 
-          <div class="player">
-            <img class="avatar" src="https://nmsr.jgj52.hu/bust/Denji_Ryomen?w=96" alt="Denji_Ryomen">
-            <div class="player-meta">
-              <div class="player-name">Denji_Ryomen</div>
-              <div class="player-points">224 Pont</div>
-            </div>
+        <div class="footer">NoobTiers • static HTML</div>
+      </section>
+    </main>
+
+    <script>
+      // --- CONFIG ---
+      // Your icons live here (you said: assets/modes)
+      const MODE_ICON_BASE = "assets/modes/";
+
+      // This order controls BOTH the top boxes and the tier columns (icons+pills).
+      const MODES = [
+        { key: "vanilla", name: "Vanilla", icon: "vanilla.png" },
+        { key: "uhc", name: "UHC", icon: "uhc.png" },
+        { key: "pot", name: "Pot", icon: "pot.png" },
+        { key: "nethpot", name: "NethPot", icon: "nethpot.png" },
+        { key: "smp", name: "SMP", icon: "smp.png" },
+        { key: "sword", name: "Sword", icon: "sword.png" },
+        { key: "axe", name: "Axe", icon: "axe.png" },
+        { key: "mace", name: "Mace", icon: "mace.png" },
+        { key: "cart", name: "Cart", icon: "cart.png" },
+        { key: "creeper", name: "Creeper", icon: "creeper.png" },
+        { key: "diasmp", name: "DiaSMP", icon: "diasmp.png" },
+        { key: "ogvanilla", name: "OG Vanilla", icon: "ogvanilla.png" },
+        { key: "shieldlessuhc", name: "Shieldless UHC", icon: "shieldlessuhc.png" }
+      ];
+
+      // Demo data (layout example)
+      // Put null/undefined/missing mode => empty box + empty pill automatically.
+      const PLAYERS = [
+        {
+          place: 1,
+          name: "antidoe",
+          points: 364,
+          highlight: "",
+          tiers: {
+            vanilla: "HT2",
+            uhc: "HT2",
+            pot: "HT2",
+            nethpot: "HT2",
+            smp: "LT1",
+            sword: "LT1",
+            axe: "LT2",
+            mace: "LT2",
+            cart: "HT2",
+            creeper: "HT2",
+            diasmp: "HT2",
+            ogvanilla: "LT1",
+            shieldlessuhc: "LT2"
+          }
+        },
+        {
+          place: 2,
+          name: "Gnomonic",
+          points: 234,
+          tiers: {
+            vanilla: "RLT2",
+            uhc: "RHT2",
+            pot: "RHT2",
+            nethpot: "RHT2",
+            smp: "RHT2",
+            sword: "RHT2",
+            axe: "RLT2",
+            mace: "LT5"
+          }
+        },
+        {
+          place: 3,
+          name: "Denji_Ryomen",
+          points: 224,
+          highlight: "red",
+          tiers: {
+            sword: "RHT2",
+            axe: "RHT2",
+            mace: "RLT2"
+          }
+        }
+      ];
+
+      // tier -> css class (border color)
+      function tierClass(t) {
+        if (!t) return "empty";
+        return "t-" + t.replace(/\s+/g, "");
+      }
+
+      function pfpUrl(username) {
+        // Nice minecraft bust renders; if you want another provider, swap this URL.
+        return "https://nmsr.jgj52.hu/bust/" + encodeURIComponent(username) + "?w=100";
+      }
+
+      // --- RENDER MODES ---
+      const modesEl = document.getElementById("modes");
+      modesEl.innerHTML = MODES.map(m => `
+        <a class="mode" href="#${m.key}" title="${m.name}">
+          <div class="icon">
+            <img src="${MODE_ICON_BASE}${m.icon}" alt="${m.name}" />
           </div>
+          <div class="label">${m.name}</div>
+        </a>
+      `).join("");
 
-          <div class="tiers">
-            <div class="tiers-row icons">
-              <div class="tiers-scroll">
-                <div class="tier-slot"><img src="assets/modes/vanilla.png" alt="Vanilla"></div>
-                <div class="tier-slot"><img src="assets/modes/uhc.png" alt="UHC"></div>
-                <div class="tier-slot"><img src="assets/modes/pot.png" alt="Pot"></div>
-                <div class="tier-slot empty-slot"></div>
-                <div class="tier-slot empty-slot"></div>
-                <div class="tier-slot empty-slot"></div>
-                <div class="tier-slot empty-slot"></div>
-                <div class="tier-slot empty-slot"></div>
-                <div class="tier-slot empty-slot"></div>
-                <div class="tier-slot empty-slot"></div>
-                <div class="tier-slot empty-slot"></div>
-                <div class="tier-slot empty-slot"></div>
-                <div class="tier-slot empty-slot"></div>
+      // --- RENDER ROWS ---
+      const rowsEl = document.getElementById("rows");
+
+      function render(players) {
+        rowsEl.innerHTML = players.map(p => {
+          const rowClass = p.highlight === "red" ? "row red" : "row";
+
+          // icons row: ALWAYS show all modes. If missing tier => empty circle.
+          const iconsRow = MODES.map(m => {
+            const t = p.tiers?.[m.key];
+            const empty = !t ? " empty" : "";
+            return `
+              <div class="tiercircle${empty}">
+                <img src="${MODE_ICON_BASE}${m.icon}" alt="${m.name}" />
+              </div>
+            `;
+          }).join("");
+
+          // pills row: ALWAYS show all modes. If missing tier => empty pill.
+          const pillsRow = MODES.map(m => {
+            const t = p.tiers?.[m.key];
+            if (!t) {
+              return `<div class="pill empty">&nbsp;</div>`;
+            }
+            return `<div class="pill ${tierClass(t)}">${t}</div>`;
+          }).join("");
+
+          return `
+            <div class="${rowClass}">
+              <div class="place">${p.place}.</div>
+
+              <div class="profile">
+                <div class="pfp">
+                  <img src="${pfpUrl(p.name)}" alt="${p.name}" />
+                </div>
+                <div class="ptext">
+                  <p class="name">${p.name}</p>
+                  <p class="pts">${p.points} Pont</p>
+                </div>
+              </div>
+
+              <div class="tiers">
+                <div class="tiers-stack">
+                  <div class="tier-icons">${iconsRow}</div>
+                  <div class="tier-pills">${pillsRow}</div>
+                </div>
               </div>
             </div>
+          `;
+        }).join("");
+      }
 
-            <div class="tiers-row pills">
-              <div class="tiers-scroll">
-                <span class="pill rht2">RHT2</span>
-                <span class="pill rht2">RHT2</span>
-                <span class="pill rlt2">RLT2</span>
-                <span class="pill empty"></span>
-                <span class="pill empty"></span>
-                <span class="pill empty"></span>
-                <span class="pill empty"></span>
-                <span class="pill empty"></span>
-                <span class="pill empty"></span>
-                <span class="pill empty"></span>
-                <span class="pill empty"></span>
-                <span class="pill empty"></span>
-                <span class="pill empty"></span>
-              </div>
-            </div>
-          </div>
-        </div>
+      render(PLAYERS);
 
-      </div>
-
-      <div class="footer">NoobTiers • static HTML</div>
-    </div>
-  </main>
-
-  <script>
-    const input = document.getElementById('search');
-    const cards = document.querySelectorAll('.card');
-    document.getElementById('searchBtn').addEventListener('click', () => {
-      const q = (input.value || '').trim().toLowerCase();
-      cards.forEach(c => c.classList.remove('highlight'));
-      if(!q) return;
-      cards.forEach(c => {
-        const name = c.querySelector('.player-name')?.textContent?.toLowerCase() || '';
-        if(name.includes(q)) c.classList.add('highlight');
+      // simple client-side search
+      const searchInput = document.getElementById("searchInput");
+      searchInput.addEventListener("input", () => {
+        const q = searchInput.value.trim().toLowerCase();
+        if (!q) return render(PLAYERS);
+        render(PLAYERS.filter(p => p.name.toLowerCase().includes(q)));
       });
-    });
-  </script>
-</body>
+    </script>
+  </body>
 </html>
