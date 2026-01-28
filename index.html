@@ -14,7 +14,6 @@
       :root{
         --bg0:#040611;
         --bg1:#070a1a;
-        --card:#0b1025cc;
         --stroke:#ffffff12;
         --stroke2:#ffffff1f;
         --text:#e9eeff;
@@ -44,7 +43,7 @@
         overflow-x:hidden;
       }
 
-      /* NAV (unchanged conceptually) */
+      /* NAV */
       nav{
         height:64px;
         display:flex;
@@ -127,11 +126,10 @@
         pointer-events:none;
       }
 
-      /* ✅ EXPAND EVERYTHING BELOW NAV */
+      /* CONTENT WRAP */
       .wrap{
-        width: min(1680px, calc(100vw - 56px)); /* basically full width */
+        width: min(1680px, calc(100vw - 56px));
         margin:22px auto 46px;
-        padding:0; /* no extra squeeze */
       }
 
       .panel{
@@ -272,20 +270,33 @@
         color:var(--muted);
       }
 
-      /* TIERS: make it use full remaining width */
+      /* ✅ PERFECT ALIGNMENT: BOTH rows are the SAME grid */
       .tiers{
         width:100%;
         justify-self:stretch;
         padding-right:18px;
+
+        /* set by JS */
+        --cols: 13;
+        --cell: 58px;
+        --gap: 18px;
+      }
+
+      .tier-grid{
+        display:grid;
+        grid-template-columns: repeat(var(--cols), var(--cell));
+        gap: var(--gap);
+        justify-content:end;
+        align-items:center;
       }
 
       .tier-icons{
-        display:flex;
-        justify-content:flex-end;
-        gap:18px;
         padding:0 2px 12px;
-        flex-wrap:nowrap;
       }
+      .tier-pills{
+        padding:0 2px 0;
+      }
+
       .tier-icon{
         width:34px;
         height:34px;
@@ -295,7 +306,7 @@
         display:grid;
         place-items:center;
         box-shadow: 0 0 0 1px #00000066 inset;
-        flex:0 0 auto;
+        margin:0 auto; /* center inside the 58px grid cell */
       }
       .tier-icon img{
         width:20px;
@@ -304,15 +315,8 @@
         opacity:.95;
       }
 
-      .tier-pills{
-        display:flex;
-        justify-content:flex-end;
-        gap:18px;
-        flex-wrap:nowrap;
-      }
-
       .pill, .empty-pill{
-        width:58px;
+        width:58px; /* SAME as grid cell width */
         height:24px;
         border-radius:999px;
         display:flex;
@@ -323,7 +327,6 @@
         letter-spacing:.4px;
         text-transform:uppercase;
         user-select:none;
-        flex:0 0 auto;
       }
       .empty-pill{
         border:1px solid #ffffff12;
@@ -353,7 +356,7 @@
           grid-template-rows: auto auto;
         }
         .tiers{ grid-column:1 / -1; padding-right:0; }
-        .tier-icons,.tier-pills{justify-content:flex-start}
+        .tier-grid{ justify-content:start; }
       }
     </style>
   </head>
@@ -500,9 +503,9 @@
               </div>
             </div>
 
-            <div class="tiers">
-              <div class="tier-icons">${iconsHtml}</div>
-              <div class="tier-pills">${pillsHtml}</div>
+            <div class="tiers" style="--cols:${MODES.length}">
+              <div class="tier-icons tier-grid">${iconsHtml}</div>
+              <div class="tier-pills tier-grid">${pillsHtml}</div>
             </div>
           `;
 
