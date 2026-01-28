@@ -18,20 +18,14 @@
         --bg0: #050613;
         --bg1: #07081a;
         --panel: rgba(16, 20, 40, 0.62);
-        --panel2: rgba(12, 16, 34, 0.62);
         --stroke: rgba(255, 255, 255, 0.10);
-        --stroke2: rgba(255, 255, 255, 0.14);
         --shadow: rgba(0, 0, 0, 0.45);
         --text: rgba(255, 255, 255, 0.92);
         --muted: rgba(255, 255, 255, 0.62);
         --muted2: rgba(255, 255, 255, 0.48);
         --brand: #bba3ff;
-        --brand2: #7a56ff;
-        --good: #55d1ff;
-        --warn: #ffcc66;
-        --bad: #ff4b6a;
 
-        /* sizing knobs (these make the “bigger” look) */
+        /* sizing knobs */
         --wrapMax: 1320px;
 
         --modeBoxW: 108px;
@@ -50,9 +44,7 @@
         --pillFont: 12.5px;
       }
 
-      * {
-        box-sizing: border-box;
-      }
+      * { box-sizing: border-box; }
 
       body {
         margin: 0;
@@ -65,10 +57,7 @@
         min-height: 100vh;
       }
 
-      a {
-        color: inherit;
-        text-decoration: none;
-      }
+      a { color: inherit; text-decoration: none; }
 
       /* top nav */
       .topbar {
@@ -153,12 +142,9 @@
         font-size: 14px;
       }
 
-      .searchicon {
-        opacity: 0.75;
-        font-size: 14px;
-      }
+      .searchicon { opacity: 0.75; font-size: 14px; }
 
-      /* layout wrapper */
+      /* wrapper */
       .wrap {
         width: min(var(--wrapMax), calc(100% - 24px));
         margin: 22px auto 40px;
@@ -188,16 +174,21 @@
         justify-content: start;
       }
 
+      /* ✅ FIX: perfect icon+text alignment */
       .mode {
         width: var(--modeBoxW);
         height: var(--modeBoxH);
         border-radius: 18px;
         border: 1px solid rgba(255, 255, 255, 0.10);
         background: rgba(16, 20, 40, 0.45);
-        display: grid;
-        grid-template-rows: 1fr auto;
-        padding: 12px 10px 10px;
+        padding: 10px 10px 10px;
         transition: 0.15s ease;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px; /* exact spacing between icon and text */
       }
 
       .mode:hover {
@@ -206,24 +197,26 @@
         background: rgba(18, 22, 46, 0.52);
       }
 
-      .mode .icon {
-        display: grid;
-        place-items: center;
-      }
-
       .mode img {
         width: var(--modeIcon);
         height: var(--modeIcon);
         image-rendering: pixelated;
         filter: drop-shadow(0 6px 16px rgba(0,0,0,0.35));
+        display: block;
       }
 
       .mode .label {
+        height: calc(var(--modeText) * 2.4); /* keeps label area consistent */
+        display: flex;
+        align-items: center;
+        justify-content: center;
         text-align: center;
         font-size: var(--modeText);
         color: rgba(255, 255, 255, 0.90);
-        margin-top: 6px;
         line-height: 1.05;
+        margin: 0;
+        padding: 0;
+        width: 100%;
       }
 
       .divider {
@@ -232,7 +225,6 @@
         background: rgba(255, 255, 255, 0.08);
       }
 
-      /* header row */
       .tablehead {
         display: grid;
         grid-template-columns: 90px 420px 1fr;
@@ -242,7 +234,6 @@
         padding: 6px 8px 10px;
       }
 
-      /* player rows */
       .row {
         height: var(--rowH);
         border-radius: 18px;
@@ -304,7 +295,6 @@
         font-size: 14px;
       }
 
-      /* tiers area */
       .tiers {
         padding-right: 10px;
         display: flex;
@@ -345,10 +335,15 @@
         height: var(--tierIcon);
         image-rendering: pixelated;
         filter: drop-shadow(0 6px 10px rgba(0,0,0,0.35));
+        display: block;
       }
 
+      /* ✅ empty circle should still exist, but show no icon */
       .tiercircle.empty {
         opacity: 0.25;
+      }
+      .tiercircle.empty img {
+        display: none; /* real “empty box” */
       }
 
       .pill {
@@ -371,7 +366,7 @@
         color: rgba(255, 255, 255, 0.55);
       }
 
-      /* tier colors (feel free to tweak) */
+      /* tier borders */
       .t-HT2 { border-color: rgba(85, 209, 255, 0.55); }
       .t-LT1 { border-color: rgba(255, 205, 102, 0.55); }
       .t-LT2 { border-color: rgba(187, 163, 255, 0.55); }
@@ -386,26 +381,14 @@
         padding-left: 4px;
       }
 
-      /* responsiveness */
       @media (max-width: 1100px) {
-        :root {
-          --wrapMax: 980px;
-          --rowH: 128px;
-        }
-        .topbar-inner {
-          grid-template-columns: 180px 1fr 240px;
-        }
-        .tablehead,
-        .row {
-          grid-template-columns: 80px 360px 1fr;
-        }
+        :root { --wrapMax: 980px; --rowH: 128px; }
+        .topbar-inner { grid-template-columns: 180px 1fr 240px; }
+        .tablehead, .row { grid-template-columns: 80px 360px 1fr; }
       }
 
       @media (max-width: 860px) {
-        .topbar-inner {
-          grid-template-columns: 1fr;
-          gap: 10px;
-        }
+        .topbar-inner { grid-template-columns: 1fr; gap: 10px; }
         .navlinks { justify-content: flex-start; }
         .search { justify-content: flex-start; }
         .searchbox { max-width: 100%; }
@@ -466,11 +449,8 @@
     </main>
 
     <script>
-      // --- CONFIG ---
-      // Your icons live here (you said: assets/modes)
       const MODE_ICON_BASE = "assets/modes/";
 
-      // This order controls BOTH the top boxes and the tier columns (icons+pills).
       const MODES = [
         { key: "vanilla", name: "Vanilla", icon: "vanilla.png" },
         { key: "uhc", name: "UHC", icon: "uhc.png" },
@@ -487,8 +467,6 @@
         { key: "shieldlessuhc", name: "Shieldless UHC", icon: "shieldlessuhc.png" }
       ];
 
-      // Demo data (layout example)
-      // Put null/undefined/missing mode => empty box + empty pill automatically.
       const PLAYERS = [
         {
           place: 1,
@@ -539,52 +517,43 @@
         }
       ];
 
-      // tier -> css class (border color)
       function tierClass(t) {
         if (!t) return "empty";
         return "t-" + t.replace(/\s+/g, "");
       }
 
       function pfpUrl(username) {
-        // Nice minecraft bust renders; if you want another provider, swap this URL.
         return "https://nmsr.jgj52.hu/bust/" + encodeURIComponent(username) + "?w=100";
       }
 
-      // --- RENDER MODES ---
+      // modes
       const modesEl = document.getElementById("modes");
       modesEl.innerHTML = MODES.map(m => `
         <a class="mode" href="#${m.key}" title="${m.name}">
-          <div class="icon">
-            <img src="${MODE_ICON_BASE}${m.icon}" alt="${m.name}" />
-          </div>
+          <img src="${MODE_ICON_BASE}${m.icon}" alt="${m.name}" />
           <div class="label">${m.name}</div>
         </a>
       `).join("");
 
-      // --- RENDER ROWS ---
+      // rows
       const rowsEl = document.getElementById("rows");
 
       function render(players) {
         rowsEl.innerHTML = players.map(p => {
           const rowClass = p.highlight === "red" ? "row red" : "row";
 
-          // icons row: ALWAYS show all modes. If missing tier => empty circle.
+          // ✅ Empty circles when missing: render a circle always, but hide img if missing
           const iconsRow = MODES.map(m => {
             const t = p.tiers?.[m.key];
             const empty = !t ? " empty" : "";
-            return `
-              <div class="tiercircle${empty}">
-                <img src="${MODE_ICON_BASE}${m.icon}" alt="${m.name}" />
-              </div>
-            `;
+            const imgTag = `<img src="${MODE_ICON_BASE}${m.icon}" alt="${m.name}" />`;
+            return `<div class="tiercircle${empty}">${imgTag}</div>`;
           }).join("");
 
-          // pills row: ALWAYS show all modes. If missing tier => empty pill.
+          // pills (empty if missing)
           const pillsRow = MODES.map(m => {
             const t = p.tiers?.[m.key];
-            if (!t) {
-              return `<div class="pill empty">&nbsp;</div>`;
-            }
+            if (!t) return `<div class="pill empty">&nbsp;</div>`;
             return `<div class="pill ${tierClass(t)}">${t}</div>`;
           }).join("");
 
@@ -615,7 +584,7 @@
 
       render(PLAYERS);
 
-      // simple client-side search
+      // search
       const searchInput = document.getElementById("searchInput");
       searchInput.addEventListener("input", () => {
         const q = searchInput.value.trim().toLowerCase();
