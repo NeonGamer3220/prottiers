@@ -43,62 +43,50 @@
             <div class="mode-icon"><img src="assets/modes/vanilla.png" alt="Vanilla"></div>
             <div class="mode-name">Vanilla</div>
           </a>
-
           <a class="mode-card" href="#">
             <div class="mode-icon"><img src="assets/modes/uhc.png" alt="UHC"></div>
             <div class="mode-name">UHC</div>
           </a>
-
           <a class="mode-card" href="#">
             <div class="mode-icon"><img src="assets/modes/pot.png" alt="Pot"></div>
             <div class="mode-name">Pot</div>
           </a>
-
           <a class="mode-card" href="#">
             <div class="mode-icon"><img src="assets/modes/nethpot.png" alt="NethPot"></div>
             <div class="mode-name">NethPot</div>
           </a>
-
           <a class="mode-card" href="#">
             <div class="mode-icon"><img src="assets/modes/smp.png" alt="SMP"></div>
             <div class="mode-name">SMP</div>
           </a>
-
           <a class="mode-card" href="#">
             <div class="mode-icon"><img src="assets/modes/sword.png" alt="Sword"></div>
             <div class="mode-name">Sword</div>
           </a>
-
           <a class="mode-card" href="#">
             <div class="mode-icon"><img src="assets/modes/axe.png" alt="Axe"></div>
             <div class="mode-name">Axe</div>
           </a>
-
           <a class="mode-card" href="#">
             <div class="mode-icon"><img src="assets/modes/mace.png" alt="Mace"></div>
             <div class="mode-name">Mace</div>
           </a>
-
           <a class="mode-card" href="#">
             <div class="mode-icon"><img src="assets/modes/cart.png" alt="Cart"></div>
             <div class="mode-name">Cart</div>
           </a>
-
           <a class="mode-card" href="#">
             <div class="mode-icon"><img src="assets/modes/creeper.png" alt="Creeper"></div>
             <div class="mode-name">Creeper</div>
           </a>
-
           <a class="mode-card" href="#">
             <div class="mode-icon"><img src="assets/modes/diasmp.png" alt="DiaSMP"></div>
             <div class="mode-name">DiaSMP</div>
           </a>
-
           <a class="mode-card" href="#">
             <div class="mode-icon"><img src="assets/modes/ogvanilla.png" alt="OG Vanilla"></div>
             <div class="mode-name">OG Vanilla</div>
           </a>
-
           <a class="mode-card" href="#">
             <div class="mode-icon"><img src="assets/modes/shieldlessuhc.png" alt="Shieldless UHC"></div>
             <div class="mode-name">Shieldless UHC</div>
@@ -108,21 +96,19 @@
 
       <div class="divider"></div>
 
-      <!-- Table header -->
       <div class="table-head">
         <div>#</div>
         <div>Név</div>
         <div class="tiers-head">Tierek</div>
       </div>
 
-      <!-- Cards -->
       <div class="cards">
         <!-- 1 -->
         <div class="card">
           <div class="place">1.</div>
 
           <div class="player">
-            <img class="avatar" src="https://nmsr.jgj52.hu/bust/antidoe?w=80" alt="antidoe">
+            <img class="avatar" src="https://nmsr.jgj52.hu/bust/antidoe?w=96" alt="antidoe">
             <div class="player-meta">
               <div class="player-name">antidoe</div>
               <div class="player-points">364 Pont</div>
@@ -130,6 +116,7 @@
           </div>
 
           <div class="tiers">
+            <!-- icons row: ALWAYS 13 slots -->
             <div class="tiers-row icons">
               <div class="tiers-scroll">
                 <div class="tier-slot"><img src="assets/modes/vanilla.png" alt="Vanilla"></div>
@@ -148,6 +135,7 @@
               </div>
             </div>
 
+            <!-- pill row: ALWAYS 13 pills -->
             <div class="tiers-row pills">
               <div class="tiers-scroll">
                 <span class="pill ht2">HT2</span>
@@ -168,12 +156,12 @@
           </div>
         </div>
 
-        <!-- 2 -->
+        <!-- 2 (example: missing tiers -> empty slots) -->
         <div class="card">
           <div class="place">2.</div>
 
           <div class="player">
-            <img class="avatar" src="https://nmsr.jgj52.hu/bust/Gnomonic?w=80" alt="Gnomonic">
+            <img class="avatar" src="https://nmsr.jgj52.hu/bust/Gnomonic?w=96" alt="Gnomonic">
             <div class="player-meta">
               <div class="player-name">Gnomonic</div>
               <div class="player-points">234 Pont</div>
@@ -208,23 +196,23 @@
                 <span class="pill rht2">RHT2</span>
                 <span class="pill rlt2">RLT2</span>
                 <span class="pill lt5">LT5</span>
-                <span class="pill rht2">RHT2</span>
-                <span class="pill rlt2">RLT2</span>
-                <span class="pill rlt2">RLT2</span>
-                <span class="pill rht2">RHT2</span>
-                <span class="pill lt5">LT5</span>
-                <span class="pill rht2">RHT2</span>
+                <span class="pill empty"></span>
+                <span class="pill empty"></span>
+                <span class="pill empty"></span>
+                <span class="pill empty"></span>
+                <span class="pill empty"></span>
+                <span class="pill empty"></span>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- 3 -->
-        <div class="card">
+        <!-- 3 (example: many missing tiers -> empty slots) -->
+        <div class="card danger">
           <div class="place">3.</div>
 
           <div class="player">
-            <img class="avatar" src="https://nmsr.jgj52.hu/bust/Denji_Ryomen?w=80" alt="Denji_Ryomen">
+            <img class="avatar" src="https://nmsr.jgj52.hu/bust/Denji_Ryomen?w=96" alt="Denji_Ryomen">
             <div class="player-meta">
               <div class="player-name">Denji_Ryomen</div>
               <div class="player-points">224 Pont</div>
@@ -237,6 +225,16 @@
                 <div class="tier-slot"><img src="assets/modes/vanilla.png" alt="Vanilla"></div>
                 <div class="tier-slot"><img src="assets/modes/uhc.png" alt="UHC"></div>
                 <div class="tier-slot"><img src="assets/modes/pot.png" alt="Pot"></div>
+                <div class="tier-slot empty-slot"></div>
+                <div class="tier-slot empty-slot"></div>
+                <div class="tier-slot empty-slot"></div>
+                <div class="tier-slot empty-slot"></div>
+                <div class="tier-slot empty-slot"></div>
+                <div class="tier-slot empty-slot"></div>
+                <div class="tier-slot empty-slot"></div>
+                <div class="tier-slot empty-slot"></div>
+                <div class="tier-slot empty-slot"></div>
+                <div class="tier-slot empty-slot"></div>
               </div>
             </div>
 
@@ -245,6 +243,16 @@
                 <span class="pill rht2">RHT2</span>
                 <span class="pill rht2">RHT2</span>
                 <span class="pill rlt2">RLT2</span>
+                <span class="pill empty"></span>
+                <span class="pill empty"></span>
+                <span class="pill empty"></span>
+                <span class="pill empty"></span>
+                <span class="pill empty"></span>
+                <span class="pill empty"></span>
+                <span class="pill empty"></span>
+                <span class="pill empty"></span>
+                <span class="pill empty"></span>
+                <span class="pill empty"></span>
               </div>
             </div>
           </div>
@@ -257,7 +265,6 @@
   </main>
 
   <script>
-    // tiny fake search highlight (optional)
     const input = document.getElementById('search');
     const cards = document.querySelectorAll('.card');
     document.getElementById('searchBtn').addEventListener('click', () => {
