@@ -4,822 +4,739 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>NoobTiers</title>
-  <link rel="icon" type="image/png" href="favicon.png" />
+
+  <!-- Font Awesome (ha használod az ikonokat felül) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
   <style>
     :root{
-      --bg1:#070A12;
-      --bg2:#081327;
-      --panel: rgba(10,16,30,.72);
-      --panel2: rgba(12,20,38,.55);
-      --stroke: rgba(255,255,255,.08);
-      --stroke2: rgba(255,255,255,.12);
-      --text:#eaf0ff;
-      --muted:#9bb0d3;
-      --accent:#00d5ff;
-      --accent2:#7c5cff;
+      --bg0:#070a12;
+      --bg1:#0b1020;
+      --card:#0d1426cc;
+      --card2:#0b1326cc;
+      --stroke:#ffffff18;
+      --stroke2:#ffffff10;
+      --text:#eaf2ff;
+      --muted:#9db2d7;
+
+      --cyan:#00d4ff;
+      --purple:#7a5cff;
+      --pink:#ff3dbb;
 
       --gold:#ffcc33;
-      --silver:#bcd0ff;
-      --bronze:#ff8c4b;
+      --silver:#b8c2d6;
+      --bronze:#e0a070;
 
-      --ht1:#19d0ff; --ht1b:#0aa9d1;
-      --lt1:#31ffb2; --lt1b:#20c789;
-      --ht2:#62b3ff; --ht2b:#2f7de0;
-      --lt2:#b38cff; --lt2b:#8b60e8;
-      --ht3:#ff4dd6; --ht3b:#c92aa6;
-      --lt3:#ff9b2f; --lt3b:#d36f00;
-      --ht4:#ff3d5c; --ht4b:#c92a3f;
-      --lt4:#ffd060; --lt4b:#d7a000;
-      --ht5:#a9b0c2; --ht5b:#7f879c;
-      --lt5:#8a8f9d; --lt5b:#5e6372;
-      --no:#2a3144; --nob:#202738;
+      --shadow: 0 18px 45px #0000007a;
+      --shadow2: 0 8px 18px #00000055;
+
+      --radius: 22px;
+      --radius2: 18px;
+
+      /* tier chip base */
+      --chip-bg: #0b1320;
+      --chip-stroke: #ffffff1f;
     }
 
     *{box-sizing:border-box}
+    html,body{height:100%}
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      font-family: ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
       color:var(--text);
       background:
-        radial-gradient(900px 600px at 12% 55%, rgba(124,92,255,.45), transparent 60%),
-        radial-gradient(900px 600px at 88% 55%, rgba(0,213,255,.22), transparent 60%),
-        linear-gradient(180deg, var(--bg1), var(--bg2));
-      min-height:100vh;
+        radial-gradient(900px 600px at 15% 60%, #5c2cff55 0%, transparent 65%),
+        radial-gradient(900px 600px at 90% 35%, #00d4ff2d 0%, transparent 55%),
+        radial-gradient(700px 500px at 70% 95%, #ff3dbb1a 0%, transparent 55%),
+        linear-gradient(180deg, var(--bg0) 0%, var(--bg1) 60%, #05060c 100%);
+      overflow-x:hidden;
     }
 
-    /* ===== Top nav ===== */
+    /* top bar */
     .topbar{
       position:sticky;
       top:0;
-      z-index:10;
-      backdrop-filter: blur(16px);
-      background: rgba(6,10,18,.55);
-      border-bottom: 1px solid rgba(255,255,255,.06);
+      z-index:50;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, #070a12cc 0%, #070a1295 100%);
+      border-bottom:1px solid var(--stroke2);
     }
     .topbar-inner{
-      max-width: 1400px;
+      max-width:1200px;
       margin:0 auto;
       padding:14px 18px;
       display:flex;
-      gap:14px;
       align-items:center;
+      gap:16px;
     }
     .brand{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      min-width: 180px;
+      display:flex; align-items:center; gap:10px;
+      font-weight:800;
+      letter-spacing:0.3px;
+      font-size:24px;
+      color:#7db5ff;
     }
     .brand-badge{
-      width:34px;height:34px;border-radius:10px;
-      background: linear-gradient(135deg, var(--accent2), var(--accent));
-      box-shadow: 0 0 22px rgba(124,92,255,.25), 0 0 22px rgba(0,213,255,.18);
-    }
-    .brand h1{
-      margin:0;
-      font-size:22px;
-      font-weight:800;
-      letter-spacing:.2px;
-      color: #8fd6ff;
-      text-shadow: 0 0 18px rgba(0,213,255,.18);
-    }
-    .navlinks{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      flex:1;
-    }
-    .navbtn{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:10px 12px;
+      width:34px; height:34px;
       border-radius:12px;
-      color:var(--text);
-      text-decoration:none;
-      font-weight:700;
-      font-size:14px;
-      border:1px solid rgba(255,255,255,.08);
-      background: rgba(12,18,32,.35);
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,.04);
-      transition: transform .12s ease, border-color .12s ease, background .12s ease;
-      user-select:none;
-    }
-    .navbtn:hover{
-      transform: translateY(-1px);
-      border-color: rgba(0,213,255,.25);
-      background: rgba(12,18,32,.55);
-    }
-    .navbtn.primary{
-      border-color: rgba(124,92,255,.35);
-      background: rgba(124,92,255,.14);
+      background: linear-gradient(135deg, #00d4ff 0%, #7a5cff 50%, #ff3dbb 100%);
+      box-shadow: 0 10px 25px #00000055;
     }
 
-    .searchwrap{
-      display:flex;
-      gap:10px;
+    .navlinks{
+      display:flex; gap:10px;
       align-items:center;
+      margin-left:6px;
+    }
+    .navbtn{
+      display:flex; align-items:center; gap:8px;
+      padding:10px 14px;
+      border-radius:14px;
+      border:1px solid var(--stroke);
+      color:var(--text);
+      text-decoration:none;
+      background: #0b1224aa;
+      box-shadow: var(--shadow2);
+      transition: transform .12s ease, border-color .12s ease;
+      font-weight:700;
+      font-size:14px;
+      opacity:.95;
+    }
+    .navbtn:hover{ transform: translateY(-1px); border-color:#ffffff2a; }
+
+    .spacer{ flex:1; }
+
+    .searchwrap{
+      display:flex; align-items:center; gap:10px;
+      width:min(520px, 48vw);
     }
     .search{
-      width:min(520px, 42vw);
-      display:flex;
-      align-items:center;
-      gap:10px;
-      padding:10px 12px;
-      border-radius:14px;
-      background: rgba(12,18,32,.55);
-      border: 1px solid rgba(255,255,255,.08);
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,.04);
+      flex:1;
+      display:flex; align-items:center; gap:10px;
+      padding:10px 14px;
+      border-radius:16px;
+      border:1px solid var(--stroke);
+      background:#0b1224aa;
+      box-shadow: var(--shadow2);
     }
-    .search i{color: rgba(159,190,255,.8)}
+    .search i{ color:#9db2d7aa; }
     .search input{
+      flex:1;
       border:none;
       outline:none;
       background:transparent;
       color:var(--text);
-      width:100%;
       font-size:14px;
     }
     .clearbtn{
-      padding:10px 12px;
-      border-radius:12px;
-      border:1px solid rgba(255,255,255,.08);
-      background: rgba(12,18,32,.35);
+      padding:10px 14px;
+      border-radius:16px;
+      border:1px solid var(--stroke);
+      background:#0b1224aa;
       color:var(--text);
-      font-weight:800;
       cursor:pointer;
-      transition: transform .12s ease, border-color .12s ease, background .12s ease;
+      font-weight:800;
+      box-shadow: var(--shadow2);
+      transition: transform .12s ease, border-color .12s ease;
     }
-    .clearbtn:hover{
-      transform: translateY(-1px);
-      border-color: rgba(255,255,255,.16);
-      background: rgba(12,18,32,.55);
-    }
+    .clearbtn:hover{ transform: translateY(-1px); border-color:#ffffff2a; }
 
-    /* ===== Page container ===== */
+    /* main container */
     .wrap{
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 26px 18px 60px;
+      max-width:1200px;
+      margin: 28px auto 70px;
+      padding: 0 16px;
     }
 
-    /* ===== Main panel ===== */
     .panel{
-      max-width: 1180px;
-      margin: 30px auto 0;
-      border-radius: 20px;
-      padding: 16px 16px 18px;
-      background: linear-gradient(180deg, rgba(10,16,30,.78), rgba(10,16,30,.62));
-      border: 1px solid rgba(255,255,255,.08);
-      box-shadow:
-        0 20px 70px rgba(0,0,0,.55),
-        inset 0 0 0 1px rgba(255,255,255,.03);
-    }
-
-    /* ===== Gamemodes icon grid (old style) ===== */
-    .modes-box{
-      border-radius: 18px;
-      padding: 12px;
-      background: rgba(12,20,38,.40);
-      border: 1px solid rgba(255,255,255,.07);
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,.03);
+      border-radius: 26px;
+      border:1px solid #ffffff1a;
+      background: linear-gradient(180deg, #0a1226aa 0%, #080f1faa 100%);
+      box-shadow: var(--shadow);
+      padding: 18px;
+      position:relative;
       overflow:hidden;
     }
-    .modes-grid{
+    .panel:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(900px 500px at 20% 20%, #7a5cff22 0%, transparent 60%),
+        radial-gradient(700px 450px at 80% 35%, #00d4ff18 0%, transparent 55%),
+        radial-gradient(700px 450px at 50% 95%, #ff3dbb10 0%, transparent 55%);
+      pointer-events:none;
+    }
+    .panel > *{ position:relative; z-index:1; }
+
+    /* gamemode icon grid (ONLY this filter UI) */
+    .modes{
+      border-radius: 20px;
+      border:1px solid var(--stroke2);
+      background: linear-gradient(180deg, #070d1a88 0%, #070d1a66 100%);
+      padding: 14px;
+    }
+    .modegrid{
       display:flex;
       flex-wrap:wrap;
-      gap: 12px;
-      align-items:flex-start;
+      gap:12px;
+      align-items:stretch;
     }
-    .mode-tile{
-      width: 86px;
-      height: 92px;
-      border-radius: 16px;
+
+    .mode{
+      width:92px;
+      height:92px;
+      border-radius:18px;
+      border:1px solid var(--stroke);
+      background: linear-gradient(180deg, #0b1327aa 0%, #0a1122aa 100%);
+      box-shadow: inset 0 0 0 1px #ffffff0c;
       display:flex;
       flex-direction:column;
       align-items:center;
-      justify-content:flex-start;
-      gap: 8px;
-      padding: 10px 8px 8px;
-      background: rgba(10,16,30,.50);
-      border: 1px solid rgba(255,255,255,.08);
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,.03);
+      justify-content:center;
+      gap:8px;
       cursor:pointer;
       user-select:none;
-      transition: transform .12s ease, border-color .12s ease, background .12s ease;
+      transition: transform .12s ease, border-color .12s ease, box-shadow .12s ease;
     }
-    .mode-tile:hover{
-      transform: translateY(-2px);
-      border-color: rgba(0,213,255,.20);
-      background: rgba(10,16,30,.66);
+    .mode:hover{ transform: translateY(-1px); border-color:#ffffff2a; }
+    .mode.active{
+      border-color: #7a5cff66;
+      box-shadow: 0 0 0 2px #7a5cff22, inset 0 0 0 1px #ffffff12;
+      background: linear-gradient(180deg, #2b1c5aaa 0%, #0a1122aa 100%);
     }
-    .mode-tile.active{
-      border-color: rgba(124,92,255,.35);
-      background: rgba(124,92,255,.16);
-      box-shadow:
-        0 0 0 1px rgba(124,92,255,.15),
-        0 0 30px rgba(124,92,255,.18),
-        inset 0 0 0 1px rgba(255,255,255,.03);
-    }
-    .mode-tile img{
-      width: 34px;
-      height: 34px;
+    .mode img{
+      width:32px; height:32px;
       image-rendering: pixelated;
-      filter: drop-shadow(0 6px 10px rgba(0,0,0,.35));
+      filter: drop-shadow(0 4px 10px #00000066);
     }
-    .mode-tile .label{
-      font-size: 11.5px;
-      font-weight: 800;
-      color: rgba(234,240,255,.92);
+    .mode .label{
+      font-size:11px;
+      font-weight:800;
+      letter-spacing:.2px;
       text-align:center;
-      line-height: 1.1;
-      width:100%;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      line-height:1.05;
+      color:#eaf2ff;
+      opacity:.95;
     }
 
-    /* ===== Filter pills row ===== */
-    .filters{
-      margin-top: 14px;
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:flex-start;
+    .mode.all{
+      background: linear-gradient(135deg, #00d4ff22 0%, #7a5cff22 45%, #ff3dbb14 100%);
+      border-color:#ffffff22;
     }
-    .pill{
-      padding: 10px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(12,18,32,.35);
-      color: rgba(234,240,255,.92);
-      font-weight: 900;
-      cursor:pointer;
-      user-select:none;
-      transition: transform .12s ease, border-color .12s ease, background .12s ease;
-    }
-    .pill:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.16); }
-    .pill.active{
-      background: rgba(0,213,255,.18);
-      border-color: rgba(0,213,255,.35);
-      color: #bff4ff;
-      box-shadow: 0 0 22px rgba(0,213,255,.14);
+    .mode.all .all-dot{
+      width:34px; height:34px;
+      border-radius:14px;
+      background: linear-gradient(135deg, #00d4ff 0%, #7a5cff 55%, #ff3dbb 100%);
+      box-shadow: 0 10px 25px #00000055;
     }
 
-    /* ===== Leaderboard header ===== */
-    .lb-head{
-      margin-top: 18px;
-      padding: 10px 6px 0;
+    /* header */
+    .sectionhead{
+      margin-top:18px;
       display:flex;
-      justify-content:space-between;
       align-items:flex-end;
-      gap: 10px;
+      gap:12px;
     }
-    .lb-title{
-      display:flex;
-      align-items:center;
-      gap:10px;
-    }
-    .lb-title h2{
+    .sectionhead h2{
       margin:0;
-      font-size: 22px;
-      font-weight: 900;
+      font-size:24px;
       letter-spacing:.2px;
     }
-    .countchip{
-      font-size: 12px;
-      font-weight: 900;
-      color: rgba(234,240,255,.88);
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(12,18,32,.35);
-      border-radius: 999px;
-      padding: 7px 10px;
-    }
-    .lb-note{
-      font-size: 13px;
-      font-weight: 900;
-      color: rgba(0,213,255,.78);
-      text-align:right;
+    .countpill{
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid var(--stroke);
+      background:#0b1224aa;
+      color:var(--muted);
+      font-weight:800;
+      font-size:12px;
     }
 
-    /* ===== Table-like header row ===== */
-    .columns{
-      margin-top: 14px;
-      padding: 12px 14px;
+    /* table header row */
+    .thead{
+      margin-top:12px;
+      padding: 10px 12px;
       border-radius: 16px;
-      background: rgba(10,16,30,.35);
-      border: 1px solid rgba(255,255,255,.06);
+      border: 1px solid var(--stroke2);
+      background: linear-gradient(180deg, #070d1a99 0%, #070d1a66 100%);
       display:grid;
-      grid-template-columns: 70px 110px 1.7fr 1.2fr 140px;
-      gap: 12px;
-      color: rgba(155,176,211,.95);
-      font-weight: 900;
-      font-size: 12px;
-      letter-spacing: .08em;
-      text-transform: uppercase;
+      grid-template-columns: 70px 130px 1fr 1fr 120px;
+      gap:12px;
+      color:#9db2d7;
+      font-weight:900;
+      font-size:12px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
     }
 
-    /* ===== Player rows ===== */
-    .rows{
-      margin-top: 10px;
-      display:flex;
-      flex-direction:column;
-      gap: 12px;
-    }
+    /* rows */
+    .rows{ display:flex; flex-direction:column; gap:14px; margin-top:12px; }
     .row{
-      border-radius: 18px;
-      padding: 16px 14px;
-      background: linear-gradient(90deg, rgba(8,16,32,.72), rgba(8,16,32,.55));
-      border: 1px solid rgba(255,255,255,.08);
-      box-shadow:
-        0 18px 55px rgba(0,0,0,.35),
-        inset 0 0 0 1px rgba(255,255,255,.03);
-      display:grid;
-      grid-template-columns: 70px 110px 1.7fr 1.2fr 140px;
-      gap: 12px;
-      align-items:center;
+      border-radius: 20px;
+      border: 1px solid var(--stroke2);
+      background: linear-gradient(90deg, #0a1226aa 0%, #091122aa 60%, #07101faa 100%);
+      box-shadow: var(--shadow2);
       overflow:hidden;
+      display:grid;
+      grid-template-columns: 70px 130px 1fr 1fr 120px;
+      gap:12px;
+      align-items:center;
+      padding: 14px 12px;
       position:relative;
     }
 
-    .row.gold::before,
-    .row.silver::before,
-    .row.bronze::before{
+    /* top3 glow */
+    .row.top1:before, .row.top2:before, .row.top3:before{
       content:"";
-      position:absolute;
-      inset:-2px;
-      border-radius: 20px;
+      position:absolute; inset:-2px;
       pointer-events:none;
+      filter: blur(0px);
       opacity:.55;
-      filter: blur(10px);
     }
-    .row.gold::before{ background: radial-gradient(700px 140px at 50% 0%, rgba(255,204,51,.75), transparent 70%); }
-    .row.silver::before{ background: radial-gradient(700px 140px at 50% 0%, rgba(188,208,255,.75), transparent 70%); }
-    .row.bronze::before{ background: radial-gradient(700px 140px at 50% 0%, rgba(255,140,75,.75), transparent 70%); }
+    .row.top1:before{
+      background: radial-gradient(800px 120px at 40% 50%, #ffcc3333 0%, transparent 65%);
+    }
+    .row.top2:before{
+      background: radial-gradient(800px 120px at 40% 50%, #b8c2d633 0%, transparent 65%);
+    }
+    .row.top3:before{
+      background: radial-gradient(800px 120px at 40% 50%, #e0a07033 0%, transparent 65%);
+    }
+    .row > *{ position:relative; z-index:1; }
 
     .rank{
-      font-size: 26px;
-      font-weight: 1000;
-      color: rgba(234,240,255,.95);
+      font-size:28px;
+      font-weight:1000;
       text-align:center;
+      color:#eaf2ff;
     }
+
     .skin{
-      width: 92px;
-      height: 92px;
-      border-radius: 16px;
-      background: rgba(12,18,32,.35);
-      border: 1px solid rgba(255,255,255,.08);
-      display:flex;
-      align-items:center;
-      justify-content:center;
+      width:92px; height:92px;
+      border-radius:18px;
+      border:1px solid var(--stroke);
+      background:#0b1327aa;
+      display:flex; align-items:center; justify-content:center;
       overflow:hidden;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,.03);
+      box-shadow: inset 0 0 0 1px #ffffff12;
     }
     .skin img{
-      width: 92px;
-      height: 92px;
+      width:86px; height:86px;
       image-rendering: pixelated;
       transform: translateY(2px);
     }
 
-    .nameblock{
-      display:flex;
-      flex-direction:column;
-      gap: 6px;
+    .name{
+      display:flex; flex-direction:column;
+      gap:4px;
       min-width:0;
     }
-    .pname{
-      font-size: 20px;
-      font-weight: 1000;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+    .name .nick{
+      font-weight:1000;
+      font-size:20px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .name .sub{
+      font-size:12px;
+      color:var(--muted);
+      font-weight:800;
     }
 
     .tiers{
       display:flex;
       flex-wrap:wrap;
-      gap: 10px;
+      gap:10px;
       align-items:center;
+      justify-content:flex-start;
     }
+
     .chip{
       display:inline-flex;
       align-items:center;
-      gap: 8px;
-      padding: 8px 10px;
+      gap:8px;
+      padding: 8px 12px;
       border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(12,18,32,.35);
-      font-weight: 950;
-      font-size: 12.5px;
-      color: rgba(234,240,255,.95);
-      white-space: nowrap;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,.03);
+      border: 1px solid var(--chip-stroke);
+      background: linear-gradient(180deg, #0b1320 0%, #081020 100%);
+      box-shadow: inset 0 0 0 1px #ffffff0e;
+      font-weight:900;
+      font-size:13px;
+      color:#eaf2ff;
+      white-space:nowrap;
     }
     .chip img{
-      width: 16px;
-      height: 16px;
+      width:16px; height:16px;
       image-rendering: pixelated;
-      filter: drop-shadow(0 4px 8px rgba(0,0,0,.35));
+      opacity:.95;
     }
-    .chip strong{ font-weight: 1000; }
 
     .points{
       text-align:right;
-      padding-right: 6px;
+      font-weight:1000;
+      color: var(--cyan);
+      font-size:26px;
+      line-height:1;
+      padding-right:6px;
     }
-    .points .num{
-      font-size: 24px;
-      font-weight: 1000;
-      color: var(--accent);
-      text-shadow: 0 0 18px rgba(0,213,255,.20);
-      line-height: 1.05;
-    }
-    .points .lbl{
-      font-size: 11px;
-      font-weight: 1000;
-      letter-spacing: .12em;
-      color: rgba(0,213,255,.75);
+    .points span{
+      display:block;
+      margin-top:6px;
+      font-size:12px;
+      letter-spacing:.2em;
+      color: #00d4ffbb;
+      text-transform:uppercase;
     }
 
-    .foot{
-      margin-top: 14px;
-      color: rgba(155,176,211,.65);
-      font-weight: 800;
-      font-size: 12px;
-      padding: 0 8px;
-    }
+    /* tier colors (based on YOUR point map) */
+    .t-HT1{ border-color:#00d4ff77; box-shadow: 0 0 0 2px #00d4ff22, inset 0 0 0 1px #ffffff0e; }
+    .t-LT1{ border-color:#23ffb277; box-shadow: 0 0 0 2px #23ffb222, inset 0 0 0 1px #ffffff0e; }
+    .t-HT2{ border-color:#00b7ff77; box-shadow: 0 0 0 2px #00b7ff22, inset 0 0 0 1px #ffffff0e; }
+    .t-LT2{ border-color:#a8ff3370; box-shadow: 0 0 0 2px #a8ff331a, inset 0 0 0 1px #ffffff0e; }
+    .t-HT3{ border-color:#ff3dbb77; box-shadow: 0 0 0 2px #ff3dbb22, inset 0 0 0 1px #ffffff0e; }
+    .t-LT3{ border-color:#ff9b3377; box-shadow: 0 0 0 2px #ff9b3322, inset 0 0 0 1px #ffffff0e; }
+    .t-HT4{ border-color:#7a5cff77; box-shadow: 0 0 0 2px #7a5cff22, inset 0 0 0 1px #ffffff0e; }
+    .t-LT4{ border-color:#ffd36a77; box-shadow: 0 0 0 2px #ffd36a22, inset 0 0 0 1px #ffffff0e; }
+    .t-HT5{ border-color:#b8c2d655; box-shadow: 0 0 0 2px #b8c2d61a, inset 0 0 0 1px #ffffff0e; }
+    .t-LT5{ border-color:#ffffff2a; box-shadow: inset 0 0 0 1px #ffffff10; opacity:.95; }
 
     /* responsive */
     @media (max-width: 980px){
-      .columns{ display:none; }
+      .thead{ display:none; }
       .row{
-        grid-template-columns: 54px 96px 1fr;
+        grid-template-columns: 60px 110px 1fr;
         grid-template-areas:
           "rank skin name"
-          "rank skin tiers"
-          "rank skin points";
+          "rank tiers tiers"
+          "rank points points";
       }
-      .rank{ grid-area: rank; font-size: 22px; }
-      .skin{ grid-area: skin; width: 86px; height: 86px; }
-      .skin img{ width: 86px; height: 86px; }
-      .nameblock{ grid-area: name; }
-      .tiers{ grid-area: tiers; }
-      .points{ grid-area: points; text-align:left; padding-right:0; }
-      .points .num{ font-size: 20px; }
-      .search{ width: min(380px, 44vw); }
-      .brand{ min-width: 140px; }
+      .rank{ grid-area:rank; }
+      .skin{ grid-area:skin; width:80px; height:80px; }
+      .skin img{ width:74px; height:74px; }
+      .name{ grid-area:name; }
+      .tiers{ grid-area:tiers; }
+      .points{ grid-area:points; text-align:left; padding:0 0 2px 0; }
+      .searchwrap{ width: min(420px, 52vw); }
     }
   </style>
 </head>
 
 <body>
-  <header class="topbar">
+  <div class="topbar">
     <div class="topbar-inner">
       <div class="brand">
         <div class="brand-badge"></div>
-        <h1>NoobTiers</h1>
+        NoobTiers
       </div>
 
-      <nav class="navlinks">
-        <a class="navbtn primary" href="#" id="nav-home"><i class="fa-solid fa-house"></i> Főoldal</a>
-        <a class="navbtn" href="https://discord.gg/6qUfhNZeMm" target="_blank" rel="noreferrer"><i class="fa-brands fa-discord"></i> Discord</a>
-        <a class="navbtn" href="#" id="nav-mod"><i class="fa-solid fa-cube"></i> Mod</a>
-      </nav>
+      <div class="navlinks">
+        <a class="navbtn" href="#"><i class="fa-solid fa-house"></i> Főoldal</a>
+        <a class="navbtn" href="https://discord.gg/6qUfhNZeMm" target="_blank" rel="noreferrer">
+          <i class="fa-brands fa-discord"></i> Discord
+        </a>
+        <a class="navbtn" href="#" target="_blank" rel="noreferrer">
+          <i class="fa-solid fa-cube"></i> Mod
+        </a>
+      </div>
+
+      <div class="spacer"></div>
 
       <div class="searchwrap">
         <div class="search">
           <i class="fa-solid fa-magnifying-glass"></i>
           <input id="q" type="text" placeholder="Játékos keresése (szűrés)" />
         </div>
-        <button class="clearbtn" id="clear"><i class="fa-solid fa-eraser"></i> Törlés</button>
+        <button class="clearbtn" id="clear"><i class="fa-solid fa-broom"></i> Törlés</button>
       </div>
     </div>
-  </header>
+  </div>
 
-  <main class="wrap">
-    <section class="panel">
-
-      <!-- Gamemode ikonok (régi, jobb kinézet) -->
-      <div class="modes-box">
-        <div class="modes-grid" id="modesGrid"></div>
-
-        <!-- Szűrő gombok -->
-        <div class="filters" id="filters"></div>
+  <div class="wrap">
+    <div class="panel">
+      <div class="modes">
+        <div class="modegrid" id="modegrid"></div>
       </div>
 
-      <div class="lb-head">
-        <div class="lb-title">
-          <h2>Ranglista</h2>
-          <span class="countchip" id="countChip">0 játékos</span>
-        </div>
-        <div class="lb-note">Dinamikus pontszámítás a legutolsó (játékmódonkénti) tier alapján</div>
+      <div class="sectionhead">
+        <h2>Ranglista</h2>
+        <div class="countpill" id="countpill">0 játékos</div>
       </div>
 
-      <div class="columns">
+      <div class="thead">
         <div>#</div>
-        <div>Skin</div>
-        <div>Név</div>
-        <div>Tierek</div>
-        <div style="text-align:right;">Pont</div>
+        <div>SKIN</div>
+        <div>NÉV</div>
+        <div>TIEREK</div>
+        <div style="text-align:right;padding-right:6px;">PONT</div>
       </div>
 
       <div class="rows" id="rows"></div>
+    </div>
+  </div>
 
-      <div class="foot">NoobTiers • static HTML (adatok a fájlban) • 1 játékos = 1 tier / játékmód (felülíródik)</div>
-    </section>
-  </main>
+<script>
+/**
+ * Tier pontok a te táblád szerint:
+ * LT5 - 1
+ * HT5 - 2
+ * LT4 - 3
+ * HT4 - 4
+ * LT3 - 5
+ * HT3 - 6
+ * LT2 - 7
+ * HT2 - 8
+ * LT1 - 9
+ * HT1 - 10
+ */
+const TIER_POINTS = {
+  "LT5": 1, "HT5": 2,
+  "LT4": 3, "HT4": 4,
+  "LT3": 5, "HT3": 6,
+  "LT2": 7, "HT2": 8,
+  "LT1": 9, "HT1": 10,
+};
 
-  <script>
-    // ===== Gamemode config (ikonok: assets/modes/*.png) =====
-    const MODES = [
-      { key: "vanilla",    name: "Vanilla",        icon: "assets/modes/vanilla.png" },
-      { key: "uhc",        name: "UHC",            icon: "assets/modes/uhc.png" },
-      { key: "pot",        name: "Pot",            icon: "assets/modes/pot.png" },
-      { key: "nethpot",    name: "NethPot",        icon: "assets/modes/nethpot.png" },
-      { key: "smp",        name: "SMP",            icon: "assets/modes/smp.png" },
-      { key: "sword",      name: "Sword",          icon: "assets/modes/sword.png" },
-      { key: "axe",        name: "Axe",            icon: "assets/modes/axe.png" },
-      { key: "mace",       name: "Mace",           icon: "assets/modes/mace.png" },
-      { key: "cart",       name: "Cart",           icon: "assets/modes/cart.png" },
-      { key: "creeper",    name: "Creeper",        icon: "assets/modes/creeper.png" },
-      { key: "diasmp",     name: "DiaSMP",         icon: "assets/modes/diasmp.png" },
-      { key: "ogvanilla",  name: "OG Vanilla",     icon: "assets/modes/ogvanilla.png" },
-      // figyelj: nálad a fájlnév így van a képen: shieldlessuhc.png (NINCS pont a végén) – legyen pontos!
-      { key: "shieldless", name: "Shieldless UHC", icon: "assets/modes/shieldlessuhc.png" },
-    ];
-    const modeByKey = Object.fromEntries(MODES.map(m => [m.key, m]));
-    const modeKeyByPretty = Object.fromEntries(MODES.map(m => [m.name.toLowerCase(), m.key]));
+const MODE_META = [
+  { id:"vanilla",     label:"Vanilla",        icon:"assets/modes/vanilla.png" },
+  { id:"uhc",         label:"UHC",            icon:"assets/modes/uhc.png" },
+  { id:"pot",         label:"Pot",            icon:"assets/modes/pot.png" },
+  { id:"nethpot",     label:"NethPot",        icon:"assets/modes/nethpot.png" },
+  { id:"smp",         label:"SMP",            icon:"assets/modes/smp.png" },
+  { id:"sword",       label:"Sword",          icon:"assets/modes/sword.png" },
+  { id:"axe",         label:"Axe",            icon:"assets/modes/axe.png" },
+  { id:"mace",        label:"Mace",           icon:"assets/modes/mace.png" },
+  { id:"cart",        label:"Cart",           icon:"assets/modes/cart.png" },
+  { id:"creeper",     label:"Creeper",        icon:"assets/modes/creeper.png" },
+  { id:"diasmp",      label:"DiaSMP",         icon:"assets/modes/diasmp.png" },
+  { id:"ogvanilla",   label:"OG Vanilla",     icon:"assets/modes/ogvanilla.png" },
+  { id:"shieldlessuhc",label:"Shieldless UHC",icon:"assets/modes/shieldlessuhc.png" },
+];
 
-    // ===== Tier pontok (ahogy írtad) =====
-    const TIER_POINTS = {
-      "LT5": 1,
-      "HT5": 2,
-      "LT4": 3,
-      "HT4": 4,
-      "LT3": 5,
-      "HT3": 6,
-      "LT2": 7,
-      "HT2": 8,
-      "LT1": 9,
-      "HT1": 10,
-      "NO":  0
-    };
+const modeById = Object.fromEntries(MODE_META.map(m => [m.id, m]));
 
-    // ===== Tier színek =====
-    const TIER_COLORS = {
-      "HT1": { bg:"var(--ht1)", border:"var(--ht1b)" },
-      "LT1": { bg:"var(--lt1)", border:"var(--lt1b)" },
-      "HT2": { bg:"var(--ht2)", border:"var(--ht2b)" },
-      "LT2": { bg:"var(--lt2)", border:"var(--lt2b)" },
-      "HT3": { bg:"var(--ht3)", border:"var(--ht3b)" },
-      "LT3": { bg:"var(--lt3)", border:"var(--lt3b)" },
-      "HT4": { bg:"var(--ht4)", border:"var(--ht4b)" },
-      "LT4": { bg:"var(--lt4)", border:"var(--lt4b)" },
-      "HT5": { bg:"var(--ht5)", border:"var(--ht5b)" },
-      "LT5": { bg:"var(--lt5)", border:"var(--lt5b)" },
-      "NO":  { bg:"var(--no)",  border:"var(--nob)"  }
-    };
+/**
+ * ESEMÉNYEK:
+ * - Itt a te listád (mace/sword/vanilla/creeper) + az összes DiaSMP eredmény.
+ * - Fontos szabály: "minden játékmódból csak 1x kaphatsz tiert"
+ *   => ugyanannál a játékos+mode párosnál a legutolsó esemény felülírja a régit.
+ */
+const EVENTS = [
+  // korábbi lista (példa 3 törölve – te kérted)
+  {player:"Krisionyt",        mode:"mace",    tier:"LT3"},
+  {player:"OwandYTOwnsMe",    mode:"mace",    tier:"LT3"},
+  {player:"kakashajas",       mode:"vanilla", tier:"LT5"},
+  {player:"Botilezsa",        mode:"mace",    tier:"LT3"},
+  {player:"OwandYTOwnsMe",    mode:"creeper", tier:"LT3"},
+  {player:"pvlevi",           mode:"mace",    tier:"HT5"},
+  {player:"LuxzyOne",         mode:"vanilla", tier:"LT3"},
+  {player:"LuxzyOne",         mode:"mace",    tier:"HT5"},
+  {player:"keviin",           mode:"vanilla", tier:"HT4"},
+  {player:"__Foxythatguy__",  mode:"mace",    tier:"HT3"},
+  {player:"NeonGamer322",     mode:"mace",    tier:"LT3"},
+  {player:"Krazy_attached",   mode:"sword",   tier:"HT5"},
+  {player:"NeonGamer322",     mode:"sword",   tier:"HT4"},
+  {player:"Krisionyt",        mode:"sword",   tier:"LT4"},
+  {player:"KevinREAL",        mode:"mace",    tier:"LT4"},
+  {player:"Krisionyt",        mode:"mace",    tier:"HT4"}, // felülírja Krisionyt mace LT3-at
+  {player:"JGJ52",            mode:"sword",   tier:"HT4"},
 
-    // ===== Események (LEGUTOLSÓ felülírja ugyanazon játékos+gamemode tierjét) =====
-    // FORMÁTUM: { player, modeKey, tier }
-    // Az alábbi lista a te üzeneteidből lett összerakva + DiaSMP eredmények.
-    // Ha később új sorokat adsz, tedd a lista VÉGÉRE, hogy felülírja a régit.
-    const EVENTS = [
-      // ---- korábbi (mace/vanilla/sword/creeper) lista ----
-      { player:"Krisionyt",         modeKey:"mace",    tier:"LT3" },
-      { player:"OwandYTOwnsMe",     modeKey:"mace",    tier:"LT3" },
-      { player:"kakashajas",        modeKey:"vanilla", tier:"LT5" },
-      { player:"Botilezsa",         modeKey:"mace",    tier:"LT3" },
-      { player:"OwandYTOwnsMe",     modeKey:"creeper", tier:"LT3" },
-      { player:"pvlevi",            modeKey:"mace",    tier:"HT5" },
-      { player:"LuxzyOne",          modeKey:"vanilla", tier:"LT3" }, // később átírjuk névre is
-      { player:"LuxzyOne",          modeKey:"mace",    tier:"HT5" },
-      { player:"keviin",            modeKey:"vanilla", tier:"HT4" },
-      { player:"__Foxythatguy__",   modeKey:"mace",    tier:"HT3" },
-      { player:"NeonGamer322",      modeKey:"mace",    tier:"LT3" },
-      { player:"Krazy_attached",    modeKey:"sword",   tier:"HT5" },
-      { player:"NeonGamer322",      modeKey:"sword",   tier:"HT4" },
-      { player:"Krisionyt",         modeKey:"sword",   tier:"LT4" },
-      { player:"KevinREAL",         modeKey:"mace",    tier:"LT4" },
-      { player:"Krisionyt",         modeKey:"mace",    tier:"HT4" }, // felülírja LT3-at
-      { player:"JGJ52",             modeKey:"sword",   tier:"HT4" },
+  // DiaSMP "összes eredmény" (te küldted)
+  {player:"DariusREALL",      mode:"diasmp",  tier:"LT2"},
+  {player:"NeonGamer322",     mode:"diasmp",  tier:"HT3"},
+  {player:"KevinREAL",        mode:"diasmp",  tier:"LT3"},
+  {player:"Krisionyt",        mode:"diasmp",  tier:"LT3"},
+  {player:"LuxzyOne",         mode:"diasmp",  tier:"HT4"},
+  {player:"Krazy_Attached",   mode:"diasmp",  tier:"HT4"},
+  {player:"GronyX4",          mode:"diasmp",  tier:"HT4"},
+  {player:"Sanyeszkusz",      mode:"diasmp",  tier:"LT4"},
+  {player:"Nyxen2311",        mode:"diasmp",  tier:"HT5"},
+];
 
-      // ---- DiaSMP eredmények (AZ ÖSSZES DIA SMP EREDMÉNY) ----
-      { player:"DariusREALL",       modeKey:"diasmp",  tier:"LT2" },
-      { player:"NeonGamer322",      modeKey:"diasmp",  tier:"HT3" },
-      { player:"KevinREAL",         modeKey:"diasmp",  tier:"LT3" },
-      { player:"Krisionyt",         modeKey:"diasmp",  tier:"LT3" },
-      { player:"LuxzyOne",          modeKey:"diasmp",  tier:"HT4" },
-      { player:"Krazy_Attached",    modeKey:"diasmp",  tier:"HT4" },
-      { player:"GronyX4",           modeKey:"diasmp",  tier:"HT4" },
-      { player:"Sanyeszkusz",       modeKey:"diasmp",  tier:"LT4" },
-      { player:"Nyxen2311",         modeKey:"diasmp",  tier:"HT5" },
-    ];
+// Kérés: LuxzyOne -> Matheus_Adelee (név átírás)
+const RENAME = {
+  "LuxzyOne": "Matheus_Adelee"
+};
 
-    // LuxzyOne -> Matheus_Adelee (kérésed szerint)
-    const RENAME = new Map([
-      ["LuxzyOne", "Matheus_Adelee"]
-    ]);
+function normPlayer(name){
+  return RENAME[name] ?? name;
+}
 
-    // ===== Állapot =====
-    let activeMode = "all"; // "all" vagy modeKey
-    let query = "";
+function tierPoints(tier){
+  return TIER_POINTS[tier] ?? 0;
+}
 
-    // ===== UI: modes grid (régi kinézet) =====
-    const modesGrid = document.getElementById("modesGrid");
-    function renderModesGrid(){
-      modesGrid.innerHTML = "";
-      MODES.forEach(m => {
-        const div = document.createElement("div");
-        div.className = "mode-tile" + ((activeMode === m.key) ? " active" : "");
-        div.title = m.name;
-        div.innerHTML = `
-          <img src="${m.icon}" alt="${m.name}">
-          <div class="label">${m.name}</div>
-        `;
-        div.addEventListener("click", () => {
-          activeMode = (activeMode === m.key) ? "all" : m.key;
-          syncActiveUI();
-          render();
-        });
-        modesGrid.appendChild(div);
-      });
+function tierClass(tier){
+  return `t-${tier}`;
+}
+
+// NMSR bust (jobb minőség: w=120)
+function skinUrl(player){
+  const p = encodeURIComponent(player);
+  return `https://nmsr.jgj52.hu/bust/${p}?w=120`;
+}
+
+/**
+ * Összerakjuk a játékosokat úgy, hogy player+mode csak 1 legyen (legutolsó nyer).
+ */
+function buildPlayersFromEvents(){
+  const map = new Map(); // player -> { player, tiersByMode: Map(mode->tier) }
+
+  for(const ev of EVENTS){
+    const p = normPlayer(ev.player);
+    const mode = ev.mode;
+    const tier = ev.tier;
+
+    if(!map.has(p)){
+      map.set(p, { player:p, tiersByMode:new Map() });
     }
+    map.get(p).tiersByMode.set(mode, tier); // felülír
+  }
 
-    // ===== UI: filter pills (Összes + főbb módok) =====
-    const filtersEl = document.getElementById("filters");
-    const FILTER_KEYS = ["all","vanilla","mace","sword","diasmp","creeper"];
-    function renderFilters(){
-      filtersEl.innerHTML = "";
-      FILTER_KEYS.forEach(k => {
-        const btn = document.createElement("button");
-        btn.className = "pill" + ((activeMode === k) ? " active" : "");
-        btn.type = "button";
-        btn.textContent = (k === "all") ? "Összes" : (modeByKey[k]?.name ?? k);
-        btn.addEventListener("click", () => {
-          activeMode = k;
-          syncActiveUI();
-          render();
-        });
-        filtersEl.appendChild(btn);
-      });
+  const players = [];
+  for(const entry of map.values()){
+    // pont = összeadjuk az összes meglevő mód tier pontját
+    let total = 0;
+    for(const t of entry.tiersByMode.values()){
+      total += tierPoints(t);
     }
+    players.push({ ...entry, points: total });
+  }
 
-    function syncActiveUI(){
-      // frissítjük a tile aktív állapotot és pill-eket
-      renderModesGrid();
-      renderFilters();
-    }
+  // pont szerint csökkenő, majd név
+  players.sort((a,b) => (b.points - a.points) || a.player.localeCompare(b.player));
+  return players;
+}
 
-    // ===== Adatfeldolgozás: 1 tier / gamemode / player (felülír) =====
-    function buildPlayers(){
-      const players = new Map(); // name -> { name, tiers: Map(modeKey -> tier) }
+let activeMode = "all";
+let query = "";
 
-      for(const ev of EVENTS){
-        const rawName = ev.player.trim();
-        const name = RENAME.get(rawName) ?? rawName;
+function renderModeGrid(){
+  const grid = document.getElementById("modegrid");
+  grid.innerHTML = "";
 
-        if(!players.has(name)){
-          players.set(name, { name, tiers: new Map() });
-        }
-        players.get(name).tiers.set(ev.modeKey, ev.tier); // felülír
-      }
+  // Összes csempe
+  const all = document.createElement("div");
+  all.className = `mode all ${activeMode==="all" ? "active":""}`;
+  all.onclick = () => { activeMode="all"; renderAll(); };
+  all.innerHTML = `
+    <div class="all-dot"></div>
+    <div class="label">Összes</div>
+  `;
+  grid.appendChild(all);
 
-      // pontszám számítás
-      const list = [];
-      for(const p of players.values()){
-        let total = 0;
-        for(const tier of p.tiers.values()){
-          total += (TIER_POINTS[tier] ?? 0);
-        }
-        list.push({ ...p, total });
-      }
+  // csak azok a mode-ok, amik tényleg szerepelnek az adatokban
+  const usedModes = new Set();
+  for(const ev of EVENTS) usedModes.add(ev.mode);
 
-      // sorbarendezés
-      list.sort((a,b) => b.total - a.total || a.name.localeCompare(b.name, "hu"));
-      return list;
-    }
+  for(const m of MODE_META){
+    if(!usedModes.has(m.id)) continue;
 
-    // ===== Skin (nagyobb, élesebb) =====
-    // nmsr bust: nagyobb w -> jobb minőség (pixel art jelleg marad).
-    function skinUrl(name){
-      // 2D avatar alternatíva: https://mc-heads.net/avatar/<name>/128
-      // 3D bust: https://nmsr.jgj52.hu/bust/<name>?w=160
-      return `https://nmsr.jgj52.hu/bust/${encodeURIComponent(name)}?w=160`;
-    }
+    const el = document.createElement("div");
+    el.className = `mode ${activeMode===m.id ? "active":""}`;
+    el.onclick = () => { activeMode=m.id; renderAll(); };
+    el.innerHTML = `
+      <img src="${m.icon}" alt="${m.label}">
+      <div class="label">${m.label}</div>
+    `;
+    grid.appendChild(el);
+  }
+}
 
-    // ===== Tier chip stílus =====
-    function tierChipStyle(tier){
-      const c = TIER_COLORS[tier] ?? TIER_COLORS.NO;
-      return `
-        background: rgba(12,18,32,.35);
-        border-color: rgba(255,255,255,.10);
-        box-shadow: inset 0 0 0 1px rgba(255,255,255,.03);
-      `;
-    }
-    function tierBadgeStyle(tier){
-      const c = TIER_COLORS[tier] ?? TIER_COLORS.NO;
-      // színes “pill” belső betéttel
-      return `
-        border-color: color-mix(in srgb, ${c.border} 65%, rgba(255,255,255,.15) 35%);
-        background: color-mix(in srgb, ${c.bg} 18%, rgba(12,18,32,.55) 82%);
-      `;
-    }
+function passesFilter(playerObj){
+  if(query){
+    const q = query.toLowerCase().trim();
+    if(!playerObj.player.toLowerCase().includes(q)) return false;
+  }
 
-    // ===== Render leaderboard =====
-    const rowsEl = document.getElementById("rows");
-    const countChip = document.getElementById("countChip");
+  if(activeMode === "all") return true;
+  return playerObj.tiersByMode.has(activeMode);
+}
 
-    function render(){
-      const players = buildPlayers();
+function buildTierChips(playerObj){
+  // ha szűrve van mode: csak azt mutatjuk
+  const items = [];
+  for(const [mode,tier] of playerObj.tiersByMode.entries()){
+    if(activeMode !== "all" && mode !== activeMode) continue;
+    items.push({ mode, tier, pts:tierPoints(tier) });
+  }
 
-      // keresés + gamemode filter
-      let filtered = players.filter(p => {
-        const matchesQuery = !query || p.name.toLowerCase().includes(query);
-        if(!matchesQuery) return false;
+  // rendezzük pont szerint (jobb tier előre)
+  items.sort((a,b) => b.pts - a.pts);
 
-        if(activeMode === "all") return true;
-        return p.tiers.has(activeMode);
-      });
+  if(items.length === 0){
+    return `<div class="tiers"></div>`;
+  }
 
-      countChip.textContent = `${filtered.length} játékos`;
+  const chips = items.map(it => {
+    const meta = modeById[it.mode] ?? { label: it.mode, icon:"" };
+    const icon = meta.icon ? `<img src="${meta.icon}" alt="">` : "";
+    return `
+      <div class="chip ${tierClass(it.tier)}" title="${meta.label} ${it.tier}">
+        ${icon}
+        <span>${meta.label}</span>
+        <span style="opacity:.85;">${it.tier}</span>
+      </div>
+    `;
+  }).join("");
 
-      rowsEl.innerHTML = "";
-      filtered.forEach((p, idx) => {
-        const rank = idx + 1;
+  return `<div class="tiers">${chips}</div>`;
+}
 
-        let medalClass = "";
-        if(rank === 1) medalClass = "gold";
-        else if(rank === 2) medalClass = "silver";
-        else if(rank === 3) medalClass = "bronze";
+function renderRows(players){
+  const rows = document.getElementById("rows");
+  rows.innerHTML = "";
 
-        // Gamemode chipek: rendezve MODES sorrendben
-        const tierChips = [];
-        for(const m of MODES){
-          if(activeMode !== "all" && m.key !== activeMode) continue;
-          if(!p.tiers.has(m.key)) continue;
+  let rank = 0;
+  for(const p of players){
+    if(!passesFilter(p)) continue;
+    rank++;
 
-          const tier = p.tiers.get(m.key);
-          tierChips.push(`
-            <span class="chip" style="${tierChipStyle(tier)} ${tierBadgeStyle(tier)}">
-              <img src="${m.icon}" alt="${m.name}">
-              <span>${m.name}</span>
-              <strong>${tier}</strong>
-            </span>
-          `);
-        }
+    const row = document.createElement("div");
+    row.className = "row";
+    if(rank === 1) row.classList.add("top1");
+    if(rank === 2) row.classList.add("top2");
+    if(rank === 3) row.classList.add("top3");
 
-        const row = document.createElement("div");
-        row.className = `row ${medalClass}`;
-        row.innerHTML = `
-          <div class="rank">${rank}.</div>
+    row.innerHTML = `
+      <div class="rank">${rank}.</div>
+      <div class="skin">
+        <img src="${skinUrl(p.player)}" alt="${p.player}">
+      </div>
+      <div class="name">
+        <div class="nick">${p.player}</div>
+      </div>
+      ${buildTierChips(p)}
+      <div class="points">
+        ${p.points}
+        <span>PONT</span>
+      </div>
+    `;
+    rows.appendChild(row);
+  }
 
-          <div class="skin">
-            <img src="${skinUrl(p.name)}" alt="${p.name}">
-          </div>
+  document.getElementById("countpill").textContent = `${rank} játékos`;
+}
 
-          <div class="nameblock">
-            <div class="pname">${p.name}</div>
-          </div>
+function renderAll(){
+  renderModeGrid();
+  const players = buildPlayersFromEvents();
+  renderRows(players);
+}
 
-          <div class="tiers">
-            ${tierChips.length ? tierChips.join("") : `<span style="color:rgba(155,176,211,.8);font-weight:900;">—</span>`}
-          </div>
+document.getElementById("q").addEventListener("input", (e) => {
+  query = e.target.value;
+  renderAll();
+});
 
-          <div class="points">
-            <div class="num">${p.total}</div>
-            <div class="lbl">PONT</div>
-          </div>
-        `;
-        rowsEl.appendChild(row);
-      });
+document.getElementById("clear").addEventListener("click", () => {
+  query = "";
+  document.getElementById("q").value = "";
+  activeMode = "all";
+  renderAll();
+});
 
-      // aktív highlight a modes gridben/pillekben
-      syncActiveUI();
-    }
-
-    // ===== Inputs =====
-    const qEl = document.getElementById("q");
-    qEl.addEventListener("input", (e) => {
-      query = (e.target.value || "").trim().toLowerCase();
-      render();
-    });
-
-    document.getElementById("clear").addEventListener("click", () => {
-      query = "";
-      qEl.value = "";
-      activeMode = "all";
-      render();
-    });
-
-    // init
-    renderModesGrid();
-    renderFilters();
-    render();
-  </script>
+renderAll();
+</script>
 </body>
 </html>
