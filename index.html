@@ -150,7 +150,6 @@
     }
     .panel > *{ position:relative; z-index:1; }
 
-    /* Mode grid (ALL modes always visible) */
     .modes{
       border-radius: 20px;
       border:1px solid var(--stroke2);
@@ -288,7 +287,6 @@
       text-overflow:ellipsis;
     }
 
-    /* tiers container: FIXED ORDER + EMPTY SLOTS */
     .tiers{
       display:flex;
       flex-wrap:wrap;
@@ -297,7 +295,6 @@
       justify-content:flex-start;
     }
 
-    /* filled chip */
     .chip{
       display:inline-flex;
       align-items:center;
@@ -311,7 +308,7 @@
       font-size:13px;
       color:#eaf2ff;
       white-space:nowrap;
-      min-width: 150px; /* keeps slots aligned-ish */
+      min-width: 150px;
       justify-content:flex-start;
     }
     .chip img{
@@ -320,7 +317,6 @@
       opacity:.95;
     }
 
-    /* empty slot (keeps the place) */
     .slot{
       display:inline-flex;
       align-items:center;
@@ -351,7 +347,7 @@
       text-transform:uppercase;
     }
 
-    /* tier colors (YOUR point map) */
+    /* tier colors */
     .t-HT1{ border-color:#00d4ff77; box-shadow: 0 0 0 2px #00d4ff22, inset 0 0 0 1px #ffffff0e; }
     .t-LT1{ border-color:#23ffb277; box-shadow: 0 0 0 2px #23ffb222, inset 0 0 0 1px #ffffff0e; }
     .t-HT2{ border-color:#00b7ff77; box-shadow: 0 0 0 2px #00b7ff22, inset 0 0 0 1px #ffffff0e; }
@@ -438,15 +434,20 @@
   </div>
 
 <script>
+  // MCTIERS ORDER (best -> worst): HT1 > LT1 > HT2 > LT2 > HT3 > LT3 > HT4 > LT4 > HT5 > LT5
   const TIER_POINTS = {
-    "LT5": 1, "HT5": 2,
-    "LT4": 3, "HT4": 4,
-    "LT3": 5, "HT3": 6,
-    "LT2": 7, "HT2": 8,
-    "LT1": 9, "HT1": 10,
+    "LT5": 1,
+    "HT5": 2,
+    "LT4": 3,
+    "HT4": 4,
+    "LT3": 5,
+    "HT3": 6,
+    "LT2": 7,
+    "HT2": 8,
+    "LT1": 9,
+    "HT1": 10,
   };
 
-  // ALL modes you have icons for
   const MODE_META = [
     { id:"vanilla",      label:"Vanilla",        icon:"assets/modes/vanilla.png" },
     { id:"uhc",          label:"UHC",            icon:"assets/modes/uhc.png" },
@@ -464,8 +465,8 @@
   ];
   const modeById = Object.fromEntries(MODE_META.map(m => [m.id, m]));
 
-  // FIXED display order for tiers (YOUR rule)
-  // 1) sword 2) axe 3) mace then the rest decided here:
+  // FIXED per-player display order (you asked)
+  // 1 sword, 2 axe, 3 mace, then rest fixed:
   const DISPLAY_ORDER = [
     "sword",
     "axe",
@@ -498,7 +499,7 @@
     {player:"NeonGamer322",     mode:"sword",   tier:"HT4"},
     {player:"Krisionyt",        mode:"sword",   tier:"LT4"},
     {player:"KevinREAL",        mode:"mace",    tier:"LT4"},
-    {player:"Krisionyt",        mode:"mace",    tier:"HT4"}, // overwrite
+    {player:"Krisionyt",        mode:"mace",    tier:"HT4"},
     {player:"JGJ52",            mode:"sword",   tier:"HT4"},
 
     {player:"DariusREALL",      mode:"diasmp",  tier:"LT2"},
@@ -518,21 +519,21 @@
   const tierPoints = (tier) => TIER_POINTS[tier] ?? 0;
   const tierClass  = (tier) => `t-${tier}`;
 
-  // Better skin quality
+  // higher quality skin
   function skinUrl(player){
     const p = encodeURIComponent(player);
-    return `https://nmsr.jgj52.hu/bust/${p}?w=140`;
+    return `https://nmsr.jgj52.hu/bust/${p}?w=160`;
   }
 
   function buildPlayersFromEvents(){
-    const map = new Map(); // player -> { player, tiersByMode: Map(mode->tier) }
+    const map = new Map();
 
     for(const ev of EVENTS){
       const p = normPlayer(ev.player);
       if(!map.has(p)){
         map.set(p, { player:p, tiersByMode:new Map() });
       }
-      // One tier per mode => overwrite
+      // only 1 tier per mode: overwrite
       map.get(p).tiersByMode.set(ev.mode, ev.tier);
     }
 
@@ -544,15 +545,12 @@
       }
       players.push({ ...entry, points: total });
     }
-
-    players.sort((a,b) => (b.points - a.points) || a.player.localeCompare(b.player));
     return players;
   }
 
   let activeMode = "all";
   let query = "";
 
-  // IMPORTANT: render ALL buttons always
   function renderModeGrid(){
     const grid = document.getElementById("modegrid");
     grid.innerHTML = "";
@@ -581,14 +579,13 @@
     return playerObj.tiersByMode.has(activeMode);
   }
 
-  // FIXED ORDER + EMPTY SLOTS
   function buildTierChips(playerObj){
     const parts = [];
 
     for(const modeId of DISPLAY_ORDER){
       const meta = modeById[modeId] ?? { label: modeId, icon:"" };
 
-      // if filtering by a single mode, only show that single column (still consistent)
+      // if filtering a single mode, show only that mode (still consistent)
       if(activeMode !== "all" && modeId !== activeMode) continue;
 
       const tier = playerObj.tiersByMode.get(modeId);
@@ -611,28 +608,64 @@
     return `<div class="tiers">${parts.join("")}</div>`;
   }
 
+  // ✅ MAIN FIX: sorting depends on activeMode:
+  // - all: sort by total points
+  // - single mode: sort by that mode's tierPoints (MCTIERS order), then total as tie-breaker
+  function sortPlayers(players){
+    const filtered = players.filter(p => passesFilter(p));
+
+    if(activeMode === "all"){
+      filtered.sort((a,b) => (b.points - a.points) || a.player.localeCompare(b.player));
+      return filtered;
+    }
+
+    filtered.sort((a,b) => {
+      const ta = a.tiersByMode.get(activeMode);
+      const tb = b.tiersByMode.get(activeMode);
+      const pa = tierPoints(ta);
+      const pb = tierPoints(tb);
+
+      // mode tier order first (HT1 best etc.)
+      if(pb !== pa) return pb - pa;
+
+      // tie-breaker: total points, then name
+      if(b.points !== a.points) return b.points - a.points;
+      return a.player.localeCompare(b.player);
+    });
+
+    return filtered;
+  }
+
   function renderRows(players){
     const rows = document.getElementById("rows");
     rows.innerHTML = "";
 
-    let rank = 0;
-    for(const p of players){
-      if(!passesFilter(p)) continue;
-      rank++;
+    let shown = 0;
+    const sorted = sortPlayers(players);
+
+    for(const p of sorted){
+      shown++;
+
+      // points column: show total in ALL view, show mode-specific in filtered view
+      let shownPoints = p.points;
+      if(activeMode !== "all"){
+        const t = p.tiersByMode.get(activeMode);
+        shownPoints = tierPoints(t);
+      }
 
       const row = document.createElement("div");
       row.className = "row";
       row.innerHTML = `
-        <div class="rank">${rank}.</div>
+        <div class="rank">${shown}.</div>
         <div class="skin"><img src="${skinUrl(p.player)}" alt="${p.player}"></div>
         <div class="name"><div class="nick">${p.player}</div></div>
         ${buildTierChips(p)}
-        <div class="points">${p.points}<span>PONT</span></div>
+        <div class="points">${shownPoints}<span>PONT</span></div>
       `;
       rows.appendChild(row);
     }
 
-    document.getElementById("countpill").textContent = `${rank} játékos`;
+    document.getElementById("countpill").textContent = `${shown} játékos`;
   }
 
   function renderAll(){
