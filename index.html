@@ -5,15 +5,12 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>NoobTiers</title>
 
-  <!-- Font Awesome (ha használod az ikonokat felül) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
   <style>
     :root{
       --bg0:#070a12;
       --bg1:#0b1020;
-      --card:#0d1426cc;
-      --card2:#0b1326cc;
       --stroke:#ffffff18;
       --stroke2:#ffffff10;
       --text:#eaf2ff;
@@ -23,18 +20,9 @@
       --purple:#7a5cff;
       --pink:#ff3dbb;
 
-      --gold:#ffcc33;
-      --silver:#b8c2d6;
-      --bronze:#e0a070;
-
       --shadow: 0 18px 45px #0000007a;
       --shadow2: 0 8px 18px #00000055;
 
-      --radius: 22px;
-      --radius2: 18px;
-
-      /* tier chip base */
-      --chip-bg: #0b1320;
       --chip-stroke: #ffffff1f;
     }
 
@@ -52,7 +40,6 @@
       overflow-x:hidden;
     }
 
-    /* top bar */
     .topbar{
       position:sticky;
       top:0;
@@ -83,11 +70,7 @@
       box-shadow: 0 10px 25px #00000055;
     }
 
-    .navlinks{
-      display:flex; gap:10px;
-      align-items:center;
-      margin-left:6px;
-    }
+    .navlinks{ display:flex; gap:10px; align-items:center; margin-left:6px; }
     .navbtn{
       display:flex; align-items:center; gap:8px;
       padding:10px 14px;
@@ -141,7 +124,6 @@
     }
     .clearbtn:hover{ transform: translateY(-1px); border-color:#ffffff2a; }
 
-    /* main container */
     .wrap{
       max-width:1200px;
       margin: 28px auto 70px;
@@ -168,7 +150,7 @@
     }
     .panel > *{ position:relative; z-index:1; }
 
-    /* gamemode icon grid (ONLY this filter UI) */
+    /* Mode grid (ALL modes always visible) */
     .modes{
       border-radius: 20px;
       border:1px solid var(--stroke2);
@@ -181,7 +163,6 @@
       gap:12px;
       align-items:stretch;
     }
-
     .mode{
       width:92px;
       height:92px;
@@ -212,13 +193,11 @@
     .mode .label{
       font-size:11px;
       font-weight:800;
-      letter-spacing:.2px;
       text-align:center;
       line-height:1.05;
       color:#eaf2ff;
       opacity:.95;
     }
-
     .mode.all{
       background: linear-gradient(135deg, #00d4ff22 0%, #7a5cff22 45%, #ff3dbb14 100%);
       border-color:#ffffff22;
@@ -230,18 +209,13 @@
       box-shadow: 0 10px 25px #00000055;
     }
 
-    /* header */
     .sectionhead{
       margin-top:18px;
       display:flex;
       align-items:flex-end;
       gap:12px;
     }
-    .sectionhead h2{
-      margin:0;
-      font-size:24px;
-      letter-spacing:.2px;
-    }
+    .sectionhead h2{ margin:0; font-size:24px; }
     .countpill{
       padding:6px 10px;
       border-radius:999px;
@@ -252,7 +226,6 @@
       font-size:12px;
     }
 
-    /* table header row */
     .thead{
       margin-top:12px;
       padding: 10px 12px;
@@ -269,7 +242,6 @@
       text-transform:uppercase;
     }
 
-    /* rows */
     .rows{ display:flex; flex-direction:column; gap:14px; margin-top:12px; }
     .row{
       border-radius: 20px;
@@ -284,25 +256,6 @@
       padding: 14px 12px;
       position:relative;
     }
-
-    /* top3 glow */
-    .row.top1:before, .row.top2:before, .row.top3:before{
-      content:"";
-      position:absolute; inset:-2px;
-      pointer-events:none;
-      filter: blur(0px);
-      opacity:.55;
-    }
-    .row.top1:before{
-      background: radial-gradient(800px 120px at 40% 50%, #ffcc3333 0%, transparent 65%);
-    }
-    .row.top2:before{
-      background: radial-gradient(800px 120px at 40% 50%, #b8c2d633 0%, transparent 65%);
-    }
-    .row.top3:before{
-      background: radial-gradient(800px 120px at 40% 50%, #e0a07033 0%, transparent 65%);
-    }
-    .row > *{ position:relative; z-index:1; }
 
     .rank{
       font-size:28px;
@@ -326,11 +279,7 @@
       transform: translateY(2px);
     }
 
-    .name{
-      display:flex; flex-direction:column;
-      gap:4px;
-      min-width:0;
-    }
+    .name{ display:flex; flex-direction:column; gap:4px; min-width:0; }
     .name .nick{
       font-weight:1000;
       font-size:20px;
@@ -338,12 +287,8 @@
       overflow:hidden;
       text-overflow:ellipsis;
     }
-    .name .sub{
-      font-size:12px;
-      color:var(--muted);
-      font-weight:800;
-    }
 
+    /* tiers container: FIXED ORDER + EMPTY SLOTS */
     .tiers{
       display:flex;
       flex-wrap:wrap;
@@ -352,6 +297,7 @@
       justify-content:flex-start;
     }
 
+    /* filled chip */
     .chip{
       display:inline-flex;
       align-items:center;
@@ -365,11 +311,27 @@
       font-size:13px;
       color:#eaf2ff;
       white-space:nowrap;
+      min-width: 150px; /* keeps slots aligned-ish */
+      justify-content:flex-start;
     }
     .chip img{
       width:16px; height:16px;
       image-rendering: pixelated;
       opacity:.95;
+    }
+
+    /* empty slot (keeps the place) */
+    .slot{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px dashed #ffffff22;
+      background: linear-gradient(180deg, #0b132020 0%, #08102018 100%);
+      min-width: 150px;
+      height: 38px;
+      opacity:.55;
     }
 
     .points{
@@ -389,7 +351,7 @@
       text-transform:uppercase;
     }
 
-    /* tier colors (based on YOUR point map) */
+    /* tier colors (YOUR point map) */
     .t-HT1{ border-color:#00d4ff77; box-shadow: 0 0 0 2px #00d4ff22, inset 0 0 0 1px #ffffff0e; }
     .t-LT1{ border-color:#23ffb277; box-shadow: 0 0 0 2px #23ffb222, inset 0 0 0 1px #ffffff0e; }
     .t-HT2{ border-color:#00b7ff77; box-shadow: 0 0 0 2px #00b7ff22, inset 0 0 0 1px #ffffff0e; }
@@ -401,7 +363,6 @@
     .t-HT5{ border-color:#b8c2d655; box-shadow: 0 0 0 2px #b8c2d61a, inset 0 0 0 1px #ffffff0e; }
     .t-LT5{ border-color:#ffffff2a; box-shadow: inset 0 0 0 1px #ffffff10; opacity:.95; }
 
-    /* responsive */
     @media (max-width: 980px){
       .thead{ display:none; }
       .row{
@@ -418,6 +379,7 @@
       .tiers{ grid-area:tiers; }
       .points{ grid-area:points; text-align:left; padding:0 0 2px 0; }
       .searchwrap{ width: min(420px, 52vw); }
+      .chip, .slot{ min-width: 140px; }
     }
   </style>
 </head>
@@ -476,267 +438,222 @@
   </div>
 
 <script>
-/**
- * Tier pontok a te táblád szerint:
- * LT5 - 1
- * HT5 - 2
- * LT4 - 3
- * HT4 - 4
- * LT3 - 5
- * HT3 - 6
- * LT2 - 7
- * HT2 - 8
- * LT1 - 9
- * HT1 - 10
- */
-const TIER_POINTS = {
-  "LT5": 1, "HT5": 2,
-  "LT4": 3, "HT4": 4,
-  "LT3": 5, "HT3": 6,
-  "LT2": 7, "HT2": 8,
-  "LT1": 9, "HT1": 10,
-};
+  const TIER_POINTS = {
+    "LT5": 1, "HT5": 2,
+    "LT4": 3, "HT4": 4,
+    "LT3": 5, "HT3": 6,
+    "LT2": 7, "HT2": 8,
+    "LT1": 9, "HT1": 10,
+  };
 
-const MODE_META = [
-  { id:"vanilla",     label:"Vanilla",        icon:"assets/modes/vanilla.png" },
-  { id:"uhc",         label:"UHC",            icon:"assets/modes/uhc.png" },
-  { id:"pot",         label:"Pot",            icon:"assets/modes/pot.png" },
-  { id:"nethpot",     label:"NethPot",        icon:"assets/modes/nethpot.png" },
-  { id:"smp",         label:"SMP",            icon:"assets/modes/smp.png" },
-  { id:"sword",       label:"Sword",          icon:"assets/modes/sword.png" },
-  { id:"axe",         label:"Axe",            icon:"assets/modes/axe.png" },
-  { id:"mace",        label:"Mace",           icon:"assets/modes/mace.png" },
-  { id:"cart",        label:"Cart",           icon:"assets/modes/cart.png" },
-  { id:"creeper",     label:"Creeper",        icon:"assets/modes/creeper.png" },
-  { id:"diasmp",      label:"DiaSMP",         icon:"assets/modes/diasmp.png" },
-  { id:"ogvanilla",   label:"OG Vanilla",     icon:"assets/modes/ogvanilla.png" },
-  { id:"shieldlessuhc",label:"Shieldless UHC",icon:"assets/modes/shieldlessuhc.png" },
-];
+  // ALL modes you have icons for
+  const MODE_META = [
+    { id:"vanilla",      label:"Vanilla",        icon:"assets/modes/vanilla.png" },
+    { id:"uhc",          label:"UHC",            icon:"assets/modes/uhc.png" },
+    { id:"pot",          label:"Pot",            icon:"assets/modes/pot.png" },
+    { id:"nethpot",      label:"NethPot",        icon:"assets/modes/nethpot.png" },
+    { id:"smp",          label:"SMP",            icon:"assets/modes/smp.png" },
+    { id:"sword",        label:"Sword",          icon:"assets/modes/sword.png" },
+    { id:"axe",          label:"Axe",            icon:"assets/modes/axe.png" },
+    { id:"mace",         label:"Mace",           icon:"assets/modes/mace.png" },
+    { id:"cart",         label:"Cart",           icon:"assets/modes/cart.png" },
+    { id:"creeper",      label:"Creeper",        icon:"assets/modes/creeper.png" },
+    { id:"diasmp",       label:"DiaSMP",         icon:"assets/modes/diasmp.png" },
+    { id:"ogvanilla",    label:"OG Vanilla",     icon:"assets/modes/ogvanilla.png" },
+    { id:"shieldlessuhc",label:"Shieldless UHC", icon:"assets/modes/shieldlessuhc.png" },
+  ];
+  const modeById = Object.fromEntries(MODE_META.map(m => [m.id, m]));
 
-const modeById = Object.fromEntries(MODE_META.map(m => [m.id, m]));
+  // FIXED display order for tiers (YOUR rule)
+  // 1) sword 2) axe 3) mace then the rest decided here:
+  const DISPLAY_ORDER = [
+    "sword",
+    "axe",
+    "mace",
+    "vanilla",
+    "uhc",
+    "pot",
+    "nethpot",
+    "smp",
+    "cart",
+    "creeper",
+    "diasmp",
+    "ogvanilla",
+    "shieldlessuhc",
+  ];
 
-/**
- * ESEMÉNYEK:
- * - Itt a te listád (mace/sword/vanilla/creeper) + az összes DiaSMP eredmény.
- * - Fontos szabály: "minden játékmódból csak 1x kaphatsz tiert"
- *   => ugyanannál a játékos+mode párosnál a legutolsó esemény felülírja a régit.
- */
-const EVENTS = [
-  // korábbi lista (példa 3 törölve – te kérted)
-  {player:"Krisionyt",        mode:"mace",    tier:"LT3"},
-  {player:"OwandYTOwnsMe",    mode:"mace",    tier:"LT3"},
-  {player:"kakashajas",       mode:"vanilla", tier:"LT5"},
-  {player:"Botilezsa",        mode:"mace",    tier:"LT3"},
-  {player:"OwandYTOwnsMe",    mode:"creeper", tier:"LT3"},
-  {player:"pvlevi",           mode:"mace",    tier:"HT5"},
-  {player:"LuxzyOne",         mode:"vanilla", tier:"LT3"},
-  {player:"LuxzyOne",         mode:"mace",    tier:"HT5"},
-  {player:"keviin",           mode:"vanilla", tier:"HT4"},
-  {player:"__Foxythatguy__",  mode:"mace",    tier:"HT3"},
-  {player:"NeonGamer322",     mode:"mace",    tier:"LT3"},
-  {player:"Krazy_attached",   mode:"sword",   tier:"HT5"},
-  {player:"NeonGamer322",     mode:"sword",   tier:"HT4"},
-  {player:"Krisionyt",        mode:"sword",   tier:"LT4"},
-  {player:"KevinREAL",        mode:"mace",    tier:"LT4"},
-  {player:"Krisionyt",        mode:"mace",    tier:"HT4"}, // felülírja Krisionyt mace LT3-at
-  {player:"JGJ52",            mode:"sword",   tier:"HT4"},
+  const EVENTS = [
+    {player:"Krisionyt",        mode:"mace",    tier:"LT3"},
+    {player:"OwandYTOwnsMe",    mode:"mace",    tier:"LT3"},
+    {player:"kakashajas",       mode:"vanilla", tier:"LT5"},
+    {player:"Botilezsa",        mode:"mace",    tier:"LT3"},
+    {player:"OwandYTOwnsMe",    mode:"creeper", tier:"LT3"},
+    {player:"pvlevi",           mode:"mace",    tier:"HT5"},
+    {player:"LuxzyOne",         mode:"vanilla", tier:"LT3"},
+    {player:"LuxzyOne",         mode:"mace",    tier:"HT5"},
+    {player:"keviin",           mode:"vanilla", tier:"HT4"},
+    {player:"__Foxythatguy__",  mode:"mace",    tier:"HT3"},
+    {player:"NeonGamer322",     mode:"mace",    tier:"LT3"},
+    {player:"Krazy_attached",   mode:"sword",   tier:"HT5"},
+    {player:"NeonGamer322",     mode:"sword",   tier:"HT4"},
+    {player:"Krisionyt",        mode:"sword",   tier:"LT4"},
+    {player:"KevinREAL",        mode:"mace",    tier:"LT4"},
+    {player:"Krisionyt",        mode:"mace",    tier:"HT4"}, // overwrite
+    {player:"JGJ52",            mode:"sword",   tier:"HT4"},
 
-  // DiaSMP "összes eredmény" (te küldted)
-  {player:"DariusREALL",      mode:"diasmp",  tier:"LT2"},
-  {player:"NeonGamer322",     mode:"diasmp",  tier:"HT3"},
-  {player:"KevinREAL",        mode:"diasmp",  tier:"LT3"},
-  {player:"Krisionyt",        mode:"diasmp",  tier:"LT3"},
-  {player:"LuxzyOne",         mode:"diasmp",  tier:"HT4"},
-  {player:"Krazy_Attached",   mode:"diasmp",  tier:"HT4"},
-  {player:"GronyX4",          mode:"diasmp",  tier:"HT4"},
-  {player:"Sanyeszkusz",      mode:"diasmp",  tier:"LT4"},
-  {player:"Nyxen2311",        mode:"diasmp",  tier:"HT5"},
-];
+    {player:"DariusREALL",      mode:"diasmp",  tier:"LT2"},
+    {player:"NeonGamer322",     mode:"diasmp",  tier:"HT3"},
+    {player:"KevinREAL",        mode:"diasmp",  tier:"LT3"},
+    {player:"Krisionyt",        mode:"diasmp",  tier:"LT3"},
+    {player:"LuxzyOne",         mode:"diasmp",  tier:"HT4"},
+    {player:"Krazy_Attached",   mode:"diasmp",  tier:"HT4"},
+    {player:"GronyX4",          mode:"diasmp",  tier:"HT4"},
+    {player:"Sanyeszkusz",      mode:"diasmp",  tier:"LT4"},
+    {player:"Nyxen2311",        mode:"diasmp",  tier:"HT5"},
+  ];
 
-// Kérés: LuxzyOne -> Matheus_Adelee (név átírás)
-const RENAME = {
-  "LuxzyOne": "Matheus_Adelee"
-};
+  const RENAME = { "LuxzyOne": "Matheus_Adelee" };
+  const normPlayer = (name) => RENAME[name] ?? name;
 
-function normPlayer(name){
-  return RENAME[name] ?? name;
-}
+  const tierPoints = (tier) => TIER_POINTS[tier] ?? 0;
+  const tierClass  = (tier) => `t-${tier}`;
 
-function tierPoints(tier){
-  return TIER_POINTS[tier] ?? 0;
-}
+  // Better skin quality
+  function skinUrl(player){
+    const p = encodeURIComponent(player);
+    return `https://nmsr.jgj52.hu/bust/${p}?w=140`;
+  }
 
-function tierClass(tier){
-  return `t-${tier}`;
-}
+  function buildPlayersFromEvents(){
+    const map = new Map(); // player -> { player, tiersByMode: Map(mode->tier) }
 
-// NMSR bust (jobb minőség: w=120)
-function skinUrl(player){
-  const p = encodeURIComponent(player);
-  return `https://nmsr.jgj52.hu/bust/${p}?w=120`;
-}
-
-/**
- * Összerakjuk a játékosokat úgy, hogy player+mode csak 1 legyen (legutolsó nyer).
- */
-function buildPlayersFromEvents(){
-  const map = new Map(); // player -> { player, tiersByMode: Map(mode->tier) }
-
-  for(const ev of EVENTS){
-    const p = normPlayer(ev.player);
-    const mode = ev.mode;
-    const tier = ev.tier;
-
-    if(!map.has(p)){
-      map.set(p, { player:p, tiersByMode:new Map() });
+    for(const ev of EVENTS){
+      const p = normPlayer(ev.player);
+      if(!map.has(p)){
+        map.set(p, { player:p, tiersByMode:new Map() });
+      }
+      // One tier per mode => overwrite
+      map.get(p).tiersByMode.set(ev.mode, ev.tier);
     }
-    map.get(p).tiersByMode.set(mode, tier); // felülír
-  }
 
-  const players = [];
-  for(const entry of map.values()){
-    // pont = összeadjuk az összes meglevő mód tier pontját
-    let total = 0;
-    for(const t of entry.tiersByMode.values()){
-      total += tierPoints(t);
+    const players = [];
+    for(const entry of map.values()){
+      let total = 0;
+      for(const t of entry.tiersByMode.values()){
+        total += tierPoints(t);
+      }
+      players.push({ ...entry, points: total });
     }
-    players.push({ ...entry, points: total });
+
+    players.sort((a,b) => (b.points - a.points) || a.player.localeCompare(b.player));
+    return players;
   }
 
-  // pont szerint csökkenő, majd név
-  players.sort((a,b) => (b.points - a.points) || a.player.localeCompare(b.player));
-  return players;
-}
+  let activeMode = "all";
+  let query = "";
 
-let activeMode = "all";
-let query = "";
+  // IMPORTANT: render ALL buttons always
+  function renderModeGrid(){
+    const grid = document.getElementById("modegrid");
+    grid.innerHTML = "";
 
-function renderModeGrid(){
-  const grid = document.getElementById("modegrid");
-  grid.innerHTML = "";
+    const all = document.createElement("div");
+    all.className = `mode all ${activeMode==="all" ? "active":""}`;
+    all.onclick = () => { activeMode="all"; renderAll(); };
+    all.innerHTML = `<div class="all-dot"></div><div class="label">Összes</div>`;
+    grid.appendChild(all);
 
-  // Összes csempe
-  const all = document.createElement("div");
-  all.className = `mode all ${activeMode==="all" ? "active":""}`;
-  all.onclick = () => { activeMode="all"; renderAll(); };
-  all.innerHTML = `
-    <div class="all-dot"></div>
-    <div class="label">Összes</div>
-  `;
-  grid.appendChild(all);
-
-  // csak azok a mode-ok, amik tényleg szerepelnek az adatokban
-  const usedModes = new Set();
-  for(const ev of EVENTS) usedModes.add(ev.mode);
-
-  for(const m of MODE_META){
-    if(!usedModes.has(m.id)) continue;
-
-    const el = document.createElement("div");
-    el.className = `mode ${activeMode===m.id ? "active":""}`;
-    el.onclick = () => { activeMode=m.id; renderAll(); };
-    el.innerHTML = `
-      <img src="${m.icon}" alt="${m.label}">
-      <div class="label">${m.label}</div>
-    `;
-    grid.appendChild(el);
-  }
-}
-
-function passesFilter(playerObj){
-  if(query){
-    const q = query.toLowerCase().trim();
-    if(!playerObj.player.toLowerCase().includes(q)) return false;
+    for(const m of MODE_META){
+      const el = document.createElement("div");
+      el.className = `mode ${activeMode===m.id ? "active":""}`;
+      el.onclick = () => { activeMode=m.id; renderAll(); };
+      el.innerHTML = `<img src="${m.icon}" alt="${m.label}"><div class="label">${m.label}</div>`;
+      grid.appendChild(el);
+    }
   }
 
-  if(activeMode === "all") return true;
-  return playerObj.tiersByMode.has(activeMode);
-}
-
-function buildTierChips(playerObj){
-  // ha szűrve van mode: csak azt mutatjuk
-  const items = [];
-  for(const [mode,tier] of playerObj.tiersByMode.entries()){
-    if(activeMode !== "all" && mode !== activeMode) continue;
-    items.push({ mode, tier, pts:tierPoints(tier) });
+  function passesFilter(playerObj){
+    if(query){
+      const q = query.toLowerCase().trim();
+      if(!playerObj.player.toLowerCase().includes(q)) return false;
+    }
+    if(activeMode === "all") return true;
+    return playerObj.tiersByMode.has(activeMode);
   }
 
-  // rendezzük pont szerint (jobb tier előre)
-  items.sort((a,b) => b.pts - a.pts);
+  // FIXED ORDER + EMPTY SLOTS
+  function buildTierChips(playerObj){
+    const parts = [];
 
-  if(items.length === 0){
-    return `<div class="tiers"></div>`;
+    for(const modeId of DISPLAY_ORDER){
+      const meta = modeById[modeId] ?? { label: modeId, icon:"" };
+
+      // if filtering by a single mode, only show that single column (still consistent)
+      if(activeMode !== "all" && modeId !== activeMode) continue;
+
+      const tier = playerObj.tiersByMode.get(modeId);
+
+      if(!tier){
+        parts.push(`<div class="slot" title="${meta.label} — nincs tier"></div>`);
+        continue;
+      }
+
+      const icon = meta.icon ? `<img src="${meta.icon}" alt="">` : "";
+      parts.push(`
+        <div class="chip ${tierClass(tier)}" title="${meta.label} ${tier}">
+          ${icon}
+          <span>${meta.label}</span>
+          <span style="opacity:.85;">${tier}</span>
+        </div>
+      `);
+    }
+
+    return `<div class="tiers">${parts.join("")}</div>`;
   }
 
-  const chips = items.map(it => {
-    const meta = modeById[it.mode] ?? { label: it.mode, icon:"" };
-    const icon = meta.icon ? `<img src="${meta.icon}" alt="">` : "";
-    return `
-      <div class="chip ${tierClass(it.tier)}" title="${meta.label} ${it.tier}">
-        ${icon}
-        <span>${meta.label}</span>
-        <span style="opacity:.85;">${it.tier}</span>
-      </div>
-    `;
-  }).join("");
+  function renderRows(players){
+    const rows = document.getElementById("rows");
+    rows.innerHTML = "";
 
-  return `<div class="tiers">${chips}</div>`;
-}
+    let rank = 0;
+    for(const p of players){
+      if(!passesFilter(p)) continue;
+      rank++;
 
-function renderRows(players){
-  const rows = document.getElementById("rows");
-  rows.innerHTML = "";
+      const row = document.createElement("div");
+      row.className = "row";
+      row.innerHTML = `
+        <div class="rank">${rank}.</div>
+        <div class="skin"><img src="${skinUrl(p.player)}" alt="${p.player}"></div>
+        <div class="name"><div class="nick">${p.player}</div></div>
+        ${buildTierChips(p)}
+        <div class="points">${p.points}<span>PONT</span></div>
+      `;
+      rows.appendChild(row);
+    }
 
-  let rank = 0;
-  for(const p of players){
-    if(!passesFilter(p)) continue;
-    rank++;
-
-    const row = document.createElement("div");
-    row.className = "row";
-    if(rank === 1) row.classList.add("top1");
-    if(rank === 2) row.classList.add("top2");
-    if(rank === 3) row.classList.add("top3");
-
-    row.innerHTML = `
-      <div class="rank">${rank}.</div>
-      <div class="skin">
-        <img src="${skinUrl(p.player)}" alt="${p.player}">
-      </div>
-      <div class="name">
-        <div class="nick">${p.player}</div>
-      </div>
-      ${buildTierChips(p)}
-      <div class="points">
-        ${p.points}
-        <span>PONT</span>
-      </div>
-    `;
-    rows.appendChild(row);
+    document.getElementById("countpill").textContent = `${rank} játékos`;
   }
 
-  document.getElementById("countpill").textContent = `${rank} játékos`;
-}
+  function renderAll(){
+    renderModeGrid();
+    const players = buildPlayersFromEvents();
+    renderRows(players);
+  }
 
-function renderAll(){
-  renderModeGrid();
-  const players = buildPlayersFromEvents();
-  renderRows(players);
-}
+  document.getElementById("q").addEventListener("input", (e) => {
+    query = e.target.value;
+    renderAll();
+  });
 
-document.getElementById("q").addEventListener("input", (e) => {
-  query = e.target.value;
+  document.getElementById("clear").addEventListener("click", () => {
+    query = "";
+    document.getElementById("q").value = "";
+    activeMode = "all";
+    renderAll();
+  });
+
   renderAll();
-});
-
-document.getElementById("clear").addEventListener("click", () => {
-  query = "";
-  document.getElementById("q").value = "";
-  activeMode = "all";
-  renderAll();
-});
-
-renderAll();
 </script>
 </body>
 </html>
